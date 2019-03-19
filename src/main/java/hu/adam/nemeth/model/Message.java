@@ -1,12 +1,12 @@
 package hu.adam.nemeth.model;
 
 import hu.adam.nemeth.model.common.BaseEntity;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 @Setter
 @Getter
@@ -15,6 +15,14 @@ import javax.persistence.*;
 @Entity
 @Table(name = "messages")
 public class Message extends BaseEntity {
+
+    @Builder
+    public Message(Long id, String description, Student student, Teacher teacher){
+        super(id);
+        this.description = description;
+        this.student = student;
+        this.teacher = teacher;
+    }
 
     String description;
     @ManyToOne

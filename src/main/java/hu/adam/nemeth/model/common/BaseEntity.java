@@ -22,7 +22,7 @@ public class BaseEntity implements Serializable {
     //TODO; megnezni hogy a strategy pontosan hogy mukodik
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     public boolean isNew(){

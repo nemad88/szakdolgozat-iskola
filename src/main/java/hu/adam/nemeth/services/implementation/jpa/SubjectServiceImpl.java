@@ -1,4 +1,4 @@
-package hu.adam.nemeth.services.impljpa;
+package hu.adam.nemeth.services.implementation.jpa;
 
 
 import hu.adam.nemeth.model.Subject;
@@ -10,11 +10,11 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Service
-public class SubjectServiceJPA implements SubjectService {
+public class SubjectServiceImpl implements SubjectService {
 
     public final SubjectRepository subjectRepository;
 
-    public SubjectServiceJPA(SubjectRepository subjectRepository) {
+    public SubjectServiceImpl(SubjectRepository subjectRepository) {
         this.subjectRepository = subjectRepository;
     }
 
