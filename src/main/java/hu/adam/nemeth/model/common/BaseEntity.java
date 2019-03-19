@@ -18,9 +18,6 @@ import java.io.Serializable;
 @MappedSuperclass
 public class BaseEntity implements Serializable {
 
-
-    //TODO; megnezni hogy a strategy pontosan hogy mukodik
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
