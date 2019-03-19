@@ -1,10 +1,7 @@
 package hu.adam.nemeth.model;
 
 import hu.adam.nemeth.model.common.Person;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.HashSet;
@@ -17,6 +14,20 @@ import java.util.Set;
 @Entity
 @Table(name = "students")
 public class Student extends Person {
+
+    @Builder
+    public Student(Long id, String firstName, String lastName, Set<Course> courses, Set<Message> messages) {
+        super(id, firstName, lastName);
+
+        if (courses != null) {
+            this.courses = courses;
+        }
+
+        if (messages != null) {
+            this.messages = messages;
+        }
+
+    }
 
     @ManyToMany
     @JoinTable(name = "students_courses",
