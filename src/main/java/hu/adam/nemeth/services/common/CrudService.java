@@ -1,10 +1,10 @@
-package hu.adam.nemeth.services;
+package hu.adam.nemeth.services.common;
 
-import java.util.Set;
+import java.util.List;
 
 public interface CrudService<T, ID> {
 
-    Set<T> findAll();
+    List<T> findAll();
 
     T findById(ID id);
 

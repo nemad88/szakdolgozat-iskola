@@ -16,14 +16,6 @@ import javax.persistence.Table;
 @Table(name = "messages")
 public class Message extends BaseEntity {
 
-    @Builder
-    public Message(Long id, String description, Student student, Teacher teacher){
-        super(id);
-        this.description = description;
-        this.student = student;
-        this.teacher = teacher;
-    }
-
     private String description;
     @ManyToOne
     @JoinColumn(name = "student_id")
@@ -31,4 +23,11 @@ public class Message extends BaseEntity {
     @ManyToOne
     @JoinColumn(name = "teacher_id")
     private Teacher teacher;
+    @Builder
+    public Message(Long id, String description, Student student, Teacher teacher) {
+        super(id);
+        this.description = description;
+        this.student = student;
+        this.teacher = teacher;
+    }
 }

@@ -6,8 +6,7 @@ import hu.adam.nemeth.repositories.SubjectRepository;
 import hu.adam.nemeth.services.SubjectService;
 import org.springframework.stereotype.Service;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.List;
 
 @Service
 public class SubjectServiceImpl implements SubjectService {
@@ -19,10 +18,9 @@ public class SubjectServiceImpl implements SubjectService {
     }
 
     @Override
-    public Set<Subject> findAll() {
-        Set<Subject> subjects = new HashSet<>();
-        subjectRepository.findAll().forEach(subjects::add);
-        return subjects;
+    public List<Subject> findAll() {
+
+        return subjectRepository.findAll();
     }
 
     @Override

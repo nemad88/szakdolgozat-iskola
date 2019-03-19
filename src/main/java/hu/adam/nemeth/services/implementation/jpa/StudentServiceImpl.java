@@ -5,7 +5,7 @@ import hu.adam.nemeth.repositories.StudentRepository;
 import hu.adam.nemeth.services.StudentService;
 import org.springframework.stereotype.Service;
 
-import java.util.Set;
+import java.util.List;
 
 @Service
 public class StudentServiceImpl implements StudentService {
@@ -17,8 +17,8 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public Set<Student> findAll() {
-        return null;
+    public List<Student> findAll() {
+        return studentRepository.findAll();
     }
 
     @Override

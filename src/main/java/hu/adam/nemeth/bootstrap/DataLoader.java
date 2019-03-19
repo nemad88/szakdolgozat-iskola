@@ -11,7 +11,7 @@ import hu.adam.nemeth.services.TeacherService;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
-import java.util.Set;
+import java.util.List;
 
 @Component
 public class DataLoader implements CommandLineRunner {
@@ -108,8 +108,16 @@ public class DataLoader implements CommandLineRunner {
         messageService.save(message06);
 
 
+        //Test student service
+
+        List<Student> students = studentService.findAll();
+        for (Student student :
+                students) {
+            System.out.println("Student name: " + student.getFirstName() + " " + student.getLastName());
+        }
+
         //Test messages service
-        Set<Message> messages = messageService.findAll();
+        List<Message> messages = messageService.findAll();
 
         System.out.println("=========findAll()=========");
         for (Message message : messages) {
@@ -138,7 +146,7 @@ public class DataLoader implements CommandLineRunner {
 
         subjectService.deleteById(5L);
 
-        Set<Subject> subjects = subjectService.findAll();
+        List<Subject> subjects = subjectService.findAll();
 
         System.out.println("A maradek:");
         for (Subject subject : subjects) {

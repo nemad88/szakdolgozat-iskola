@@ -7,8 +7,7 @@ import hu.adam.nemeth.repositories.MessageRepository;
 import hu.adam.nemeth.services.MessageService;
 import org.springframework.stereotype.Service;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.List;
 
 @Service
 public class MessageServiceImpl implements MessageService {
@@ -20,10 +19,10 @@ public class MessageServiceImpl implements MessageService {
     }
 
     @Override
-    public Set<Message> findAll() {
-        Set<Message> messages = new HashSet<>();
-        messageRepository.findAll().forEach(messages::add);
-        return messages;
+    public List<Message> findAll() {
+//        Set<Message> messages = new HashSet<>();
+//        messageRepository.findAll().forEach(messages::add);
+        return messageRepository.findAll();
     }
 
     @Override
@@ -46,12 +45,12 @@ public class MessageServiceImpl implements MessageService {
         messageRepository.deleteById(aLong);
     }
 
-    public Set<Message> findAllByTeacher(Teacher teacher){
+    public List<Message> findAllByTeacher(Teacher teacher) {
         return messageRepository.findAllByTeacher(teacher);
     }
 
     @Override
-    public Set<Message> findAllByStudent(Student student) {
+    public List<Message> findAllByStudent(Student student) {
         return messageRepository.findAllByStudent(student);
     }
 }

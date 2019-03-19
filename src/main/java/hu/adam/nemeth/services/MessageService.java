@@ -2,15 +2,17 @@ package hu.adam.nemeth.services;
 
 import hu.adam.nemeth.model.Message;
 import hu.adam.nemeth.model.Student;
-import hu.adam.nemeth.model.Subject;
 import hu.adam.nemeth.model.Teacher;
+import hu.adam.nemeth.services.common.CrudService;
 
-import java.util.Set;
+import java.util.List;
 
-public interface MessageService extends CrudService<Message, Long>{
 
-    Set<Message> findAllByTeacher(Teacher teacher);
+public interface MessageService extends CrudService<Message, Long> {
 
-    Set<Message> findAllByStudent(Student student);
+    List<Message> findAllByTeacher(Teacher teacher);
+
+    List<Message> findAllByStudent(Student student);
+
 
 }

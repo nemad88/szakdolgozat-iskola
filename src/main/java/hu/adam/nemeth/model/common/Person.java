@@ -1,7 +1,6 @@
 package hu.adam.nemeth.model.common;
 
 
-import hu.adam.nemeth.model.common.BaseEntity;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

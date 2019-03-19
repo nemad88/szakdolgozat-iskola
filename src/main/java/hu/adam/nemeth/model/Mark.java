@@ -3,9 +3,11 @@ package hu.adam.nemeth.model;
 import hu.adam.nemeth.model.common.BaseEntity;
 import lombok.*;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 import java.util.Date;
-import java.util.Set;
 
 @Setter
 @Getter

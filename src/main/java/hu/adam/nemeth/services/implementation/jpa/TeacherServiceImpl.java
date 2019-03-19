@@ -5,7 +5,7 @@ import hu.adam.nemeth.repositories.TeacherRepository;
 import hu.adam.nemeth.services.TeacherService;
 import org.springframework.stereotype.Service;
 
-import java.util.Set;
+import java.util.List;
 
 @Service
 public class TeacherServiceImpl implements TeacherService {
@@ -18,7 +18,7 @@ public class TeacherServiceImpl implements TeacherService {
     }
 
     @Override
-    public Set<Teacher> findAll() {
+    public List<Teacher> findAll() {
         return null;
     }
 

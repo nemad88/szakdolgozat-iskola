@@ -7,12 +7,10 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class SzakdolgozatIskolaApplication {
 
 
-
-	public static void main(String[] args) {
-		SpringApplication.run(SzakdolgozatIskolaApplication.class, args);
-
+    public static void main(String[] args) {
+        SpringApplication.run(SzakdolgozatIskolaApplication.class, args);
 
 
-	}
+    }
 
 }
