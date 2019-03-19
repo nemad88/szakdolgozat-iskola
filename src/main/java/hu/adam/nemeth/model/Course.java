@@ -25,4 +25,15 @@ public class Course extends BaseEntity {
     private Subject subject;
     private String classroom;
 
+
+    @Override
+    public String toString() {
+        return "Course{" +
+                "startTime=" + startTime +
+                ", endTime=" + endTime +
+                ", teacher=" + teacher +
+                ", subject=" + subject +
+                ", classroom='" + classroom + '\'' +
+                '}';
+    }
 }

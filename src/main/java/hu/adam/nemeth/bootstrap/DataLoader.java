@@ -1,9 +1,7 @@
 package hu.adam.nemeth.bootstrap;
 
-import hu.adam.nemeth.model.Message;
-import hu.adam.nemeth.model.Student;
-import hu.adam.nemeth.model.Subject;
-import hu.adam.nemeth.model.Teacher;
+import hu.adam.nemeth.model.*;
+import hu.adam.nemeth.repositories.CourseRepository;
 import hu.adam.nemeth.services.MessageService;
 import hu.adam.nemeth.services.StudentService;
 import hu.adam.nemeth.services.SubjectService;
@@ -11,6 +9,7 @@ import hu.adam.nemeth.services.TeacherService;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
+import java.util.Date;
 import java.util.List;
 
 @Component
@@ -20,12 +19,14 @@ public class DataLoader implements CommandLineRunner {
     private final MessageService messageService;
     private final StudentService studentService;
     private final TeacherService teacherService;
+    private final CourseRepository courseRepository;
 
-    public DataLoader(SubjectService subjectService, MessageService messageService, StudentService studentService, TeacherService teacherService) {
+    public DataLoader(SubjectService subjectService, MessageService messageService, StudentService studentService, TeacherService teacherService, CourseRepository courseRepository) {
         this.subjectService = subjectService;
         this.messageService = messageService;
         this.studentService = studentService;
         this.teacherService = teacherService;
+        this.courseRepository = courseRepository;
     }
 
     @Override
@@ -107,6 +108,23 @@ public class DataLoader implements CommandLineRunner {
         messageService.save(message05);
         messageService.save(message06);
 
+
+        //Create course
+        Course course01 = new Course(new Date(), new Date(), teacher01, subject01, "A terem");
+        Course course02 = new Course(new Date(), new Date(), teacher02, subject02, "V terem");
+        Course course03 = new Course(new Date(), new Date(), teacher03, subject01, "X terem");
+
+
+        courseRepository.save(course01);
+        courseRepository.save(course02);
+        courseRepository.save(course03);
+
+        List<Course> courses = courseRepository.findAll();
+
+        for (Course course :
+                courses) {
+            System.out.println(course);
+        }
 
         //Test student service
 
