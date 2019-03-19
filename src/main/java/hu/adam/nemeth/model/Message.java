@@ -24,7 +24,7 @@ public class Message extends BaseEntity {
         this.teacher = teacher;
     }
 
-    String description;
+    private String description;
     @ManyToOne
     @JoinColumn(name = "student_id")
     private Student student;

@@ -28,4 +28,8 @@ public class Teacher extends Person {
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "teacher")
     private Set<Message> messages = new HashSet<>();
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "teacher")
+    private Set<Message> marks = new HashSet<>();
+
 }
