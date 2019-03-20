@@ -25,6 +25,9 @@ public class Mark extends BaseEntity {
     @ManyToOne
     @JoinColumn(name = "teacher_id")
     private Teacher teacher;
+    @ManyToOne
+    @JoinColumn(name = "subject_id")
+    private Subject subject;
     private Date date;
 
 }
