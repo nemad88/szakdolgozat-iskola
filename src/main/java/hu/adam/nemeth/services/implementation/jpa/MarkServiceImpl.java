@@ -1,28 +1,27 @@
 package hu.adam.nemeth.services.implementation.jpa;
 
 import hu.adam.nemeth.model.Mark;
-import hu.adam.nemeth.model.Message;
 import hu.adam.nemeth.repositories.MarkRepository;
 import hu.adam.nemeth.services.MarkService;
+import lombok.AllArgsConstructor;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@AllArgsConstructor
+@Service
 public class MarkServiceImpl implements MarkService {
 
     MarkRepository markRepository;
 
-    public MarkServiceImpl(MarkRepository markRepository) {
-        this.markRepository = markRepository;
-    }
-
     @Override
     public List<Mark> findAll() {
-        return null;
+        return markRepository.findAll();
     }
 
     @Override
     public Mark findById(Long aLong) {
-        return null;
+        return markRepository.findById(aLong).orElse(null);
     }
 
     @Override
@@ -31,12 +30,12 @@ public class MarkServiceImpl implements MarkService {
     }
 
     @Override
-    public void delete(Mark object) {
-
+    public void delete(Mark mark) {
+        markRepository.delete(mark);
     }
 
     @Override
     public void deleteById(Long aLong) {
-
+        markRepository.deleteById(aLong);
     }
 }
