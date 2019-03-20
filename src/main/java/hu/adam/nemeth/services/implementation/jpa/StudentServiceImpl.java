@@ -3,18 +3,16 @@ package hu.adam.nemeth.services.implementation.jpa;
 import hu.adam.nemeth.model.Student;
 import hu.adam.nemeth.repositories.StudentRepository;
 import hu.adam.nemeth.services.StudentService;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@AllArgsConstructor
 @Service
 public class StudentServiceImpl implements StudentService {
 
     StudentRepository studentRepository;
-
-    public StudentServiceImpl(StudentRepository studentRepository) {
-        this.studentRepository = studentRepository;
-    }
 
     @Override
     public List<Student> findAll() {
@@ -32,12 +30,12 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public void delete(Student object) {
-
+    public void delete(Student student) {
+        studentRepository.delete(student);
     }
 
     @Override
     public void deleteById(Long aLong) {
-
+        studentRepository.deleteById(aLong);
     }
 }
