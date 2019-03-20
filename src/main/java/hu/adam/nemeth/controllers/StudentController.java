@@ -5,12 +5,14 @@ import hu.adam.nemeth.services.CourseService;
 import hu.adam.nemeth.services.MessageService;
 import hu.adam.nemeth.services.StudentService;
 import hu.adam.nemeth.services.SubjectService;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-//@AllArgsConstructor
+@AllArgsConstructor
+@RequestMapping("/student")
 public class StudentController {
 
     SubjectService subjectService;
@@ -18,28 +20,28 @@ public class StudentController {
     CourseService courseService;
     StudentService studentService;
 
-    public StudentController(SubjectService subjectService, MessageService messageService, CourseService courseService, StudentService studentService) {
-        this.subjectService = subjectService;
-        this.messageService = messageService;
-        this.courseService = courseService;
-        this.studentService = studentService;
-    }
-
-    @RequestMapping({"student", "student.html", "student/index"})
+    @RequestMapping({"", "/","/index"})
     public String student(Model model) {
         Student student = studentService.findById(1L);
         model.addAttribute("student", student);
         return "student/index";
     }
 
-    @RequestMapping({"/student/details", "/student/details.html"})
+    @RequestMapping({"/timetable", "/timetable.html"})
+    public String timetable(Model model) {
+        Student student = studentService.findById(1L);
+        model.addAttribute("student", student);
+        return "student/timetable";
+    }
+
+    @RequestMapping({"/details", "/details.html"})
     public String studentDetails(Model model) {
         Student student = studentService.findById(1L);
         model.addAttribute("student", student);
         return "student/details";
     }
 
-    @RequestMapping({"/student/marks", "/student/marks.html"})
+    @RequestMapping({"/marks", "/marks.html"})
     public String studentMarks(Model model) {
         Student student = studentService.findById(1L);
         model.addAttribute("student", student);
@@ -47,7 +49,7 @@ public class StudentController {
         return "student/marks";
     }
 
-    @RequestMapping({"/student/messages", "/student/messages.html"})
+    @RequestMapping({"/messages", "/messages.html"})
     public String studentMessages(Model model) {
         Student student = studentService.findById(1L);
         model.addAttribute("student", student);

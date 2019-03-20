@@ -4,13 +4,14 @@ import hu.adam.nemeth.model.Student;
 import hu.adam.nemeth.repositories.StudentRepository;
 import hu.adam.nemeth.services.StudentService;
 import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @AllArgsConstructor
 @Service
-public class StudentServiceImpl implements StudentService {
+public class StudentServiceImpl implements StudentService{
 
     StudentRepository studentRepository;
 
@@ -38,4 +39,5 @@ public class StudentServiceImpl implements StudentService {
     public void deleteById(Long aLong) {
         studentRepository.deleteById(aLong);
     }
+
 }

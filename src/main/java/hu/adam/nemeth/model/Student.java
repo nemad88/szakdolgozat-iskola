@@ -15,19 +15,6 @@ import java.util.Set;
 @Table(name = "students")
 public class Student extends Person {
 
-    @Builder
-    public Student(Long id, String firstName, String lastName, Set<Course> courses, Set<Message> messages) {
-        super(id, firstName, lastName);
-
-        if (courses != null) {
-            this.courses = courses;
-        }
-
-        if (messages != null) {
-            this.messages = messages;
-        }
-
-    }
 
     @ManyToMany
     @JoinTable(name = "students_courses",
@@ -39,5 +26,7 @@ public class Student extends Person {
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "student")
     private Set<Mark> marks = new HashSet<>();
+    private String role;
+    private String password;
 
 }
