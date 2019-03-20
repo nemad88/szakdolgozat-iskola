@@ -20,13 +20,16 @@ public class IndexController {
         this.courseService = courseService;
     }
 
-    @RequestMapping({"", "/", "index", "index.html"})
-    public String index(Model model) {
+    @RequestMapping({"test"})
+    public String test(Model model) {
         model.addAttribute("subjects", subjectService.findAll());
         model.addAttribute("messages", messageService.findAll());
         model.addAttribute("courses", courseService.findAll());
-        return "index";
+        return "test";
     }
 
-
+    @RequestMapping({"", "/", "index", "index.html"})
+    public String index(Model model) {
+        return "index";
+    }
 }

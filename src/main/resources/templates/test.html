@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <link crossorigin="anonymous" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" rel="stylesheet">
+
+    <link href="css/style.css" rel="stylesheet">
+    <script crossorigin="anonymous"
+            integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+            src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script crossorigin="anonymous"
+            integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+            src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script crossorigin="anonymous"
+            integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+            src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+</head>
+
+<body>
+
+
+<div class="container-fluid bg-secondary">
+    <div class="row align-middle">
+        <div class="col-md-4 bg-success">
+            <h1 class="text-center">Tantárgyak</h1>
+            <table class="table table-dark">
+                <thead>
+                <tr>
+                    <th scope="col">Id</th>
+                    <th scope="col">Description</th>
+
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="subject : ${subjects}">
+                    <td th:text="${subject.id}">1</td>
+                    <td th:text="${subject.description}">Francia</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="col-md-4 bg-danger">
+            <h1 class="text-center">Üzenetek</h1>
+            <table class="table table-dark">
+                <thead>
+                <tr>
+                    <th scope="col">Id</th>
+                    <th scope="col">Description</th>
+                    <th scope="col">Student</th>
+                    <th scope="col">Teacher</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="message : ${messages}">
+                    <td th:text="${message.id}">1</td>
+                    <td th:text="${message.description}">Francia</td>
+                    <td th:text="${message.student.firstName + ' ' + message.student.lastName}">Francia</td>
+                    <td th:text="${message.teacher.firstName  + ' ' + message.teacher.lastName}">Francia</td>
+                </tr>
+                </tbody>
+            </table>
+
+
+        </div>
+        <div class="col-md-4 bg-warning">
+            <table class="table table-dark">
+                <thead>
+                <tr>
+                    <th scope="col">Id</th>
+                    <th scope="col">Classroom</th>
+                    <th scope="col">Start time</th>
+                    <th scope="col">End time</th>
+                    <th scope="col">Subject</th>
+                    <th scope="col">Teacher</th>
+
+
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="course : ${courses}">
+                    <td th:text="${course.id}">1</td>
+                    <td th:text="${course.classroom}">Francia</td>
+                    <td th:text="${course.startTime}">Francia</td>
+                    <td th:text="${course.endTime}">Francia</td>
+                    <td th:text="${course.subject.description}">Francia</td>
+                    <td th:text="${course.teacher.firstName + ' '  + course.teacher.lastName}">
+                        Francia
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+</div>
+</body>
+</html>
