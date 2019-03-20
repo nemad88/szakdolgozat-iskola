@@ -26,23 +26,31 @@
 
 
                     <li class="nav-item">
-                        <a class="nav-link" href="#" th:classappend="${activeItem.equals('details')} ? active : ''" th:href="@{/student/details}">
-                            <span data-feather="file"></span>
-                            Adatok
+                        <a class="nav-link" href="#" th:classappend="${activeItem.equals('timetable')} ? active : ''" th:href="@{/student/timetable}">
+                            <span data-feather="clock"></span>
+                            Órarend
                         </a>
                     </li>
 
+
                     <li class="nav-item">
                         <a class="nav-link" href="#" th:classappend="${activeItem.equals('marks')} ? active : ''" th:href="@{/student/marks}">
-                            <span data-feather="file"></span>
+                            <span data-feather="edit-2"></span>
                             Osztályzatok
                         </a>
                     </li>
 
                     <li class="nav-item">
                         <a class="nav-link" href="#" th:classappend="${activeItem.equals('messages')} ? active : ''" th:href="@{/student/messages}">
-                            <span data-feather="file"></span>
+                            <span data-feather="mail"></span>
                             Bejegyzések
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" th:classappend="${activeItem.equals('details')} ? active : ''" th:href="@{/student/details}">
+                            <span data-feather="info"></span>
+                            Adatok
                         </a>
                     </li>
 
