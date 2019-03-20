@@ -67,8 +67,12 @@
 
             <h1>Osztályzatok</h1>
             <div class="table-responsive">
-
                <p>Osztályzatok</p>
+
+                <ul>
+                    <li th:each="mark : ${marks}" th:text="${mark.subject.description} + ': ' + ${mark.mark}"></li>
+
+                </ul>
 
             </div>
         </main>

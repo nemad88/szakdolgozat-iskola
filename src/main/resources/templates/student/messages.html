@@ -69,6 +69,9 @@
             <div class="table-responsive">
                <p>Bejegyzések</p>
             </div>
+
+            <p th:each="message : ${messages}" th:text="${message.description}"></p>
+
         </main>
 
     </div>

@@ -2,6 +2,7 @@ package hu.adam.nemeth.bootstrap;
 
 import hu.adam.nemeth.model.*;
 import hu.adam.nemeth.repositories.CourseRepository;
+import hu.adam.nemeth.repositories.MarkRepository;
 import hu.adam.nemeth.services.MessageService;
 import hu.adam.nemeth.services.StudentService;
 import hu.adam.nemeth.services.SubjectService;
@@ -9,9 +10,7 @@ import hu.adam.nemeth.services.TeacherService;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 @Component
 public class DataLoader implements CommandLineRunner {
@@ -21,13 +20,16 @@ public class DataLoader implements CommandLineRunner {
     private final StudentService studentService;
     private final TeacherService teacherService;
     private final CourseRepository courseRepository;
+    private final MarkRepository markRepository;
 
-    public DataLoader(SubjectService subjectService, MessageService messageService, StudentService studentService, TeacherService teacherService, CourseRepository courseRepository) {
+
+    public DataLoader(SubjectService subjectService, MessageService messageService, StudentService studentService, TeacherService teacherService, CourseRepository courseRepository, MarkRepository markRepository) {
         this.subjectService = subjectService;
         this.messageService = messageService;
         this.studentService = studentService;
         this.teacherService = teacherService;
         this.courseRepository = courseRepository;
+        this.markRepository = markRepository;
     }
 
     @Override
@@ -57,7 +59,6 @@ public class DataLoader implements CommandLineRunner {
         Subject savedSubject06 = subjectService.save(subject06);
         Subject subject07 = new Subject("Rajz");
         Subject savedSubject07 = subjectService.save(subject07);
-
 
         //Create Teachers
 
@@ -95,12 +96,12 @@ public class DataLoader implements CommandLineRunner {
 
         //Create Messages
 
-        Message message01 = new Message(1L, "Elbocsátás", student02, teacher01);
-        Message message02 = new Message(2L, "Igazgatói dícséret", student01, teacher03);
-        Message message03 = new Message(3L, "Kiváló tanuló", student01, teacher01);
-        Message message04 = new Message(4L, "A WC-ben cigizett", student01, teacher02);
-        Message message05 = new Message(5L, "Órán beszélgetett", student02, teacher01);
-        Message message06 = new Message(6L, "Jó sportoló", student03, teacher01);
+        Message message01 = new Message(1L, "Elbocsátás", student01, teacher02);
+        Message message02 = new Message(2L, "Igazgatói dícséret", student01, teacher01);
+        Message message03 = new Message(3L, "Kiváló tanuló", student01, teacher03);
+        Message message04 = new Message(4L, "A WC-ben cigizett", student01, teacher01);
+        Message message05 = new Message(5L, "Órán beszélgetett", student01, teacher01);
+        Message message06 = new Message(6L, "Jó sportoló", student01, teacher01);
 
         messageService.save(message01);
         messageService.save(message02);
@@ -115,63 +116,66 @@ public class DataLoader implements CommandLineRunner {
         Course course02 = new Course(new Date(), new Date(), teacher02, subject02, "V terem");
         Course course03 = new Course(new Date(), new Date(), teacher03, subject01, "X terem");
 
-
         courseRepository.save(course01);
         courseRepository.save(course02);
         courseRepository.save(course03);
 
-        List<Course> courses = courseRepository.findAll();
+        //Create marks
 
-        for (Course course :
-                courses) {
-            System.out.println(course);
-        }
+        Mark mark01= new Mark();
+        mark01.setMark("jeles");
+        mark01.setSubject(subject01);
+        mark01.setStudent(student01);
 
-        //Test student service
+        Mark mark02= new Mark();
+        mark02.setSubject(subject01);
+        mark02.setStudent(student01);
+        mark02.setMark("közepes");
 
-        List<Student> students = studentService.findAll();
-        for (Student student :
-                students) {
-            System.out.println("Student name: " + student.getFirstName() + " " + student.getLastName());
-        }
+        Mark mark03= new Mark();
+        mark03.setSubject(subject03);
+        mark03.setStudent(student01);
+        mark03.setMark("jó");
 
-        //Test messages service
-        List<Message> messages = messageService.findAll();
+        Mark mark04= new Mark();
+        mark04.setStudent(student01);
+        mark04.setSubject(subject02);
+        mark04.setMark("elégtelen");
 
+        Mark mark05= new Mark();
+        mark05.setStudent(student01);
+        mark05.setSubject(subject04);
+        mark05.setMark("jeles");
 
-        System.out.println("=========findAll()=========");
-        for (Message message : messages) {
-            System.out.println(message.getDescription());
-        }
+        Mark mark06= new Mark();
+        mark06.setStudent(student01);
+        mark06.setSubject(subject03);
+        mark06.setMark("jeles");
 
+        Mark mark07= new Mark();
+        mark07.setStudent(student01);
+        mark07.setSubject(subject02);
+        mark07.setMark("jeles");
 
-        messages = messageService.findAllByTeacher(teacher01);
+        Mark mark08= new Mark();
+        mark08.setStudent(student01);
+        mark08.setSubject(subject04);
+        mark08.setMark("elégséges");
 
-        System.out.println("=========findAllByTeacher()=========");
-        for (Message message : messages) {
-            System.out.println(message.getDescription() + ", " + message.getTeacher().getFirstName() + " " + message.getTeacher().getLastName());
-        }
+        Mark mark09= new Mark();
+        mark09.setStudent(student01);
+        mark09.setSubject(subject06);
+        mark09.setMark("közepes");
 
-        messages = messageService.findAllByStudent(student02);
-
-        System.out.println("=========findAllByStudent()=========");
-        for (Message message : messages) {
-            System.out.println(message.getDescription() + ", " + message.getStudent().getFirstName() + " " + message.getStudent().getLastName());
-        }
-
-
-        //Test subject service
-        Subject findedById = subjectService.findById(2L);
-        System.out.println("Az id altal talat tantargy" + findedById.getDescription());
-
-        subjectService.deleteById(5L);
-
-        List<Subject> subjects = subjectService.findAll();
-
-        System.out.println("A maradek:");
-        for (Subject subject : subjects) {
-            System.out.println(subject.getDescription());
-        }
+        markRepository.save(mark01);
+        markRepository.save(mark02);
+        markRepository.save(mark03);
+        markRepository.save(mark04);
+        markRepository.save(mark05);
+        markRepository.save(mark06);
+        markRepository.save(mark07);
+        markRepository.save(mark08);
+        markRepository.save(mark09);
 
 
     }
