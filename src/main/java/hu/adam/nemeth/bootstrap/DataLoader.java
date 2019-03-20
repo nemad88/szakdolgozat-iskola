@@ -9,6 +9,7 @@ import hu.adam.nemeth.services.TeacherService;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -136,6 +137,7 @@ public class DataLoader implements CommandLineRunner {
 
         //Test messages service
         List<Message> messages = messageService.findAll();
+
 
         System.out.println("=========findAll()=========");
         for (Message message : messages) {
