@@ -15,16 +15,6 @@ import java.util.Set;
 @Table(name = "students")
 public class Student extends Person {
 
-    @ManyToMany
-    @JoinTable(name = "students_courses",
-            joinColumns = @JoinColumn(name = "student_id"),
-            inverseJoinColumns = @JoinColumn(name = "course_id"))
-    private Set<Course> courses = new HashSet<>();
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "student")
-    private Set<Message> messages = new HashSet<>();
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "student")
-    private Set<Message> marks = new HashSet<>();
-
     @Builder
     public Student(Long id, String firstName, String lastName, Set<Course> courses, Set<Message> messages) {
         super(id, firstName, lastName);
@@ -38,5 +28,16 @@ public class Student extends Person {
         }
 
     }
+
+    @ManyToMany
+    @JoinTable(name = "students_courses",
+            joinColumns = @JoinColumn(name = "student_id"),
+            inverseJoinColumns = @JoinColumn(name = "course_id"))
+    private Set<Course> courses = new HashSet<>();
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "student")
+    private Set<Message> messages = new HashSet<>();
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "student")
+    private Set<Mark> marks = new HashSet<>();
 
 }
