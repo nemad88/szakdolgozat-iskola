@@ -68,21 +68,32 @@
 
         </div>
         <div class="col-md-4 bg-warning">
-            <!--<table class="table table-dark">-->
-            <!--<thead>-->
-            <!--<tr>-->
-            <!--<th scope="col">Id</th>-->
-            <!--<th scope="col">Description</th>-->
+            <table class="table table-dark">
+                <thead>
+                <tr>
+                    <th scope="col">Id</th>
+                    <th scope="col">Classroom</th>
+                    <th scope="col">Start time</th>
+                    <th scope="col">End time</th>
+                    <th scope="col">Subject</th>
+                    <th scope="col">Teacher</th>
 
-            <!--</tr>-->
-            <!--</thead>-->
-            <!--<tbody>-->
-            <!--<tr th:each="subject : ${subjects}">-->
-            <!--<td th:text="${subject.id}">1</td>-->
-            <!--<td th:text="${subject.description}">Francia</td>-->
-            <!--</tr>-->
-            <!--</tbody>-->
-            <!--</table>-->
+
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="course : ${courses}">
+                    <td th:text="${course.id}">1</td>
+                    <td th:text="${course.classroom}">Francia</td>
+                    <td th:text="${course.startTime}">Francia</td>
+                    <td th:text="${course.endTime}">Francia</td>
+                    <td th:text="${course.subject.description}">Francia</td>
+                    <td th:text="${course.teacher.firstName + ' '  + course.teacher.lastName}">
+                        Francia
+                    </td>
+                </tr>
+                </tbody>
+            </table>
 
         </div>
     </div>
