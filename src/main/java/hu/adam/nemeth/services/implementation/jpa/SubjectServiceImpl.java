@@ -4,22 +4,19 @@ package hu.adam.nemeth.services.implementation.jpa;
 import hu.adam.nemeth.model.Subject;
 import hu.adam.nemeth.repositories.SubjectRepository;
 import hu.adam.nemeth.services.SubjectService;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@AllArgsConstructor
 @Service
 public class SubjectServiceImpl implements SubjectService {
 
     public final SubjectRepository subjectRepository;
 
-    public SubjectServiceImpl(SubjectRepository subjectRepository) {
-        this.subjectRepository = subjectRepository;
-    }
-
     @Override
     public List<Subject> findAll() {
-
         return subjectRepository.findAll();
     }
 
