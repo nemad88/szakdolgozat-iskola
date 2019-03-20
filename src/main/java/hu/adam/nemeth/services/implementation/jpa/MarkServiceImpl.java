@@ -1,6 +1,7 @@
 package hu.adam.nemeth.services.implementation.jpa;
 
 import hu.adam.nemeth.model.Mark;
+import hu.adam.nemeth.model.Student;
 import hu.adam.nemeth.repositories.MarkRepository;
 import hu.adam.nemeth.services.MarkService;
 import lombok.AllArgsConstructor;
@@ -37,5 +38,10 @@ public class MarkServiceImpl implements MarkService {
     @Override
     public void deleteById(Long aLong) {
         markRepository.deleteById(aLong);
+    }
+
+    @Override
+    public List<Mark> findAllByStudent(Student student) {
+        return markRepository.findAllByStudent(student);
     }
 }

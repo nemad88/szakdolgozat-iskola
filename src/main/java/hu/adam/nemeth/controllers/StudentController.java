@@ -1,14 +1,14 @@
 package hu.adam.nemeth.controllers;
 
+import hu.adam.nemeth.model.Mark;
 import hu.adam.nemeth.model.Student;
-import hu.adam.nemeth.services.CourseService;
-import hu.adam.nemeth.services.MessageService;
-import hu.adam.nemeth.services.StudentService;
-import hu.adam.nemeth.services.SubjectService;
+import hu.adam.nemeth.services.*;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import java.util.List;
 
 @Controller
 @AllArgsConstructor
@@ -19,8 +19,9 @@ public class StudentController {
     MessageService messageService;
     CourseService courseService;
     StudentService studentService;
+    MarkService markService;
 
-    @RequestMapping({"", "/","/index"})
+    @RequestMapping({"", "/", "/index"})
     public String student(Model model) {
         Student student = studentService.findById(1L);
         model.addAttribute("student", student);
@@ -44,8 +45,9 @@ public class StudentController {
     @RequestMapping({"/marks", "/marks.html"})
     public String studentMarks(Model model) {
         Student student = studentService.findById(1L);
+        List<Mark> marks = markService.findAllByStudent(student);
         model.addAttribute("student", student);
-        model.addAttribute("marks",student.getMarks());
+        model.addAttribute("marks", marks);
         return "student/marks";
     }
 

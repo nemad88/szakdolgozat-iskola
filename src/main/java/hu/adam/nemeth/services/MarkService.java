@@ -10,5 +10,5 @@ import java.util.List;
 
 
 public interface MarkService extends CrudService<Mark, Long> {
-
+    List<Mark> findAllByStudent(Student student);
 }
