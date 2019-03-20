@@ -5,23 +5,19 @@ import hu.adam.nemeth.model.Student;
 import hu.adam.nemeth.model.Teacher;
 import hu.adam.nemeth.repositories.MessageRepository;
 import hu.adam.nemeth.services.MessageService;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@AllArgsConstructor
 @Service
 public class MessageServiceImpl implements MessageService {
 
     MessageRepository messageRepository;
 
-    public MessageServiceImpl(MessageRepository messageRepository) {
-        this.messageRepository = messageRepository;
-    }
-
     @Override
     public List<Message> findAll() {
-//        Set<Message> messages = new HashSet<>();
-//        messageRepository.findAll().forEach(messages::add);
         return messageRepository.findAll();
     }
 
