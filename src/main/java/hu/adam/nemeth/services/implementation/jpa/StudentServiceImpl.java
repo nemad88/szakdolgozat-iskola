@@ -23,7 +23,7 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     public Student findById(Long aLong) {
-        return null;
+        return studentRepository.findById(aLong).orElse(null);
     }
 
     @Override
