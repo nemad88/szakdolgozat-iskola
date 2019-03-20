@@ -1,25 +1,18 @@
 package hu.adam.nemeth.services.implementation.jpa;
 
 import hu.adam.nemeth.model.Course;
-import hu.adam.nemeth.model.Message;
-import hu.adam.nemeth.model.Student;
-import hu.adam.nemeth.model.Teacher;
 import hu.adam.nemeth.repositories.CourseRepository;
-import hu.adam.nemeth.repositories.MessageRepository;
 import hu.adam.nemeth.services.CourseService;
-import hu.adam.nemeth.services.MessageService;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@AllArgsConstructor
 @Service
 public class CourseServiceImpl implements CourseService {
 
     CourseRepository courseRepository;
-
-    public CourseServiceImpl(CourseRepository courseRepository) {
-        this.courseRepository = courseRepository;
-    }
 
     @Override
     public List<Course> findAll() {
@@ -28,7 +21,7 @@ public class CourseServiceImpl implements CourseService {
 
     @Override
     public Course findById(Long aLong) {
-        return null;
+        return courseRepository.findById(aLong).orElse(null);
     }
 
     @Override
@@ -37,12 +30,12 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
-    public void delete(Course object) {
-
+    public void delete(Course course) {
+        courseRepository.delete(course);
     }
 
     @Override
     public void deleteById(Long aLong) {
-
+        courseRepository.deleteById(aLong);
     }
 }
