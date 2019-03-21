@@ -7,11 +7,13 @@ import hu.adam.nemeth.services.MessageService;
 import hu.adam.nemeth.services.StudentService;
 import hu.adam.nemeth.services.SubjectService;
 import hu.adam.nemeth.services.TeacherService;
+import lombok.AllArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
 import java.util.Date;
 
+@AllArgsConstructor
 @Component
 public class DataLoader implements CommandLineRunner {
 
@@ -22,31 +24,17 @@ public class DataLoader implements CommandLineRunner {
     private final CourseRepository courseRepository;
     private final MarkRepository markRepository;
 
-
-    public DataLoader(SubjectService subjectService, MessageService messageService, StudentService studentService, TeacherService teacherService, CourseRepository courseRepository, MarkRepository markRepository) {
-        this.subjectService = subjectService;
-        this.messageService = messageService;
-        this.studentService = studentService;
-        this.teacherService = teacherService;
-        this.courseRepository = courseRepository;
-        this.markRepository = markRepository;
-    }
-
     @Override
     public void run(String... args) throws Exception {
         int count = subjectService.findAll().size();
-
         if (count == 0) {
             loadData();
         }
     }
 
     private void loadData() {
-
-        //TODO: extract fo properties file
-
+        //TODO: extract to properties file
         //Create Subjects
-
         Subject subject01 = new Subject("Matematika");
         Subject savedSubject01 = subjectService.save(subject01);
         Subject subject02 = new Subject("Testnevelés");
@@ -63,7 +51,6 @@ public class DataLoader implements CommandLineRunner {
         Subject savedSubject07 = subjectService.save(subject07);
 
         //Create Teachers
-
         Teacher teacher01 = new Teacher();
         teacher01.setFirstName("Ferenc");
         teacher01.setLastName("Dr. Nagy");
@@ -89,33 +76,31 @@ public class DataLoader implements CommandLineRunner {
         teacherService.save(teacher03);
 
         //Create Student
-
         Student student01 = new Student();
         student01.setFirstName("Júlia");
         student01.setLastName("Kiss");
-        student01.setUserName("u1");
-        student01.setPassword("u1");
+        student01.setUserName("s1");
+        student01.setPassword("s1");
         student01.setRole("ROLE_STUDENT");
         studentService.save(student01);
 
         Student student02 = new Student();
         student02.setFirstName("Béla");
         student02.setLastName("Tóth");
-        student02.setUserName("u2");
-        student02.setPassword("u2");
+        student02.setUserName("s2");
+        student02.setPassword("s2");
         student02.setRole("ROLE_STUDENT");
         studentService.save(student02);
 
         Student student03 = new Student();
         student03.setFirstName("Irén");
         student03.setLastName("Dezső");
-        student03.setUserName("u3");
-        student03.setPassword("u3");
+        student03.setUserName("s3");
+        student03.setPassword("s3");
         student03.setRole("ROLE_STUDENT");
         studentService.save(student03);
 
         //Create Messages
-
         Message message01 = new Message(1L, "Elbocsátás", student01, teacher02);
         Message message02 = new Message(2L, "Igazgatói dícséret", student01, teacher01);
         Message message03 = new Message(3L, "Kiváló tanuló", student01, teacher03);
@@ -130,9 +115,7 @@ public class DataLoader implements CommandLineRunner {
         messageService.save(message05);
         messageService.save(message06);
 
-
         //Create course
-
         Course course01 = new Course(new Date(), new Date(), teacher01, subject01, "A terem");
         Course course02 = new Course(new Date(), new Date(), teacher02, subject02, "V terem");
         Course course03 = new Course(new Date(), new Date(), teacher03, subject01, "X terem");
@@ -142,7 +125,6 @@ public class DataLoader implements CommandLineRunner {
         courseRepository.save(course03);
 
         //Create marks
-
         Mark mark01 = new Mark();
         mark01.setMark("jeles");
         mark01.setSubject(subject01);
@@ -198,4 +180,5 @@ public class DataLoader implements CommandLineRunner {
         markRepository.save(mark08);
         markRepository.save(mark09);
     }
+
 }

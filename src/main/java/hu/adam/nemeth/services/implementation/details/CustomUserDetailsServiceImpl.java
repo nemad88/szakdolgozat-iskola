@@ -19,8 +19,6 @@ public class CustomUserDetailsServiceImpl implements CustomUserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
-        System.out.println("User keresés erre: " + userName);
-
         Person user = studentService.findByUserName(userName);
 
         if (user == null) {
