@@ -39,4 +39,5 @@ public class SubjectServiceImpl implements SubjectService {
     public void deleteById(Long aLong) {
         subjectRepository.deleteById(aLong);
     }
+
 }

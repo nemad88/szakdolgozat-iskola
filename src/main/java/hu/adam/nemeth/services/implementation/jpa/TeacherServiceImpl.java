@@ -43,4 +43,5 @@ public class TeacherServiceImpl implements TeacherService {
     public Teacher findByUserName(String userName) {
         return teacherRepository.findByUserName(userName);
     }
+
 }

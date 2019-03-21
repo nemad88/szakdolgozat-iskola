@@ -23,6 +23,7 @@ public class Message extends BaseEntity {
     @ManyToOne
     @JoinColumn(name = "teacher_id")
     private Teacher teacher;
+
     @Builder
     public Message(Long id, String description, Student student, Teacher teacher) {
         super(id);
@@ -30,4 +31,5 @@ public class Message extends BaseEntity {
         this.student = student;
         this.teacher = teacher;
     }
+
 }

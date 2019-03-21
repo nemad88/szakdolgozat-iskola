@@ -10,7 +10,7 @@ import java.util.List;
 
 @AllArgsConstructor
 @Service
-public class StudentServiceImpl implements StudentService{
+public class StudentServiceImpl implements StudentService {
 
     StudentRepository studentRepository;
 
@@ -43,4 +43,5 @@ public class StudentServiceImpl implements StudentService{
     public Student findByUserName(String userName) {
         return studentRepository.findByUserName(userName);
     }
+
 }

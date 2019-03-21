@@ -2,10 +2,10 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
-    <meta name="generator" content="Jekyll v3.8.5">
+    <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
+    <meta content="" name="description">
+    <meta content="Mark Otto, Jacob Thornton, and Bootstrap contributors" name="author">
+    <meta content="Jekyll v3.8.5" name="generator">
     <title>Sidebar student</title>
 </head>
 
@@ -13,12 +13,13 @@
 <body>
 <div class="container-fluid">
     <div class="row">
-        <nav th:fragment="sidebar (activeItem)" class="col-md-2 d-none d-md-block bg-light sidebar">
+        <nav class="col-md-2 d-none d-md-block bg-light sidebar" th:fragment="sidebar (activeItem)">
             <div class="sidebar-sticky">
                 <ul class="nav flex-column">
 
                     <li class="nav-item">
-                        <a class="nav-link" th:classappend="${activeItem.equals('index')} ? active : ''"  href="#" th:href="@{/student/index}">
+                        <a class="nav-link" href="#" th:classappend="${activeItem.equals('index')} ? active : ''"
+                           th:href="@{/student/index}">
                             <span data-feather="home"></span>
                             Kezdőoldal <span class="sr-only"></span>
                         </a>
@@ -26,7 +27,8 @@
 
 
                     <li class="nav-item">
-                        <a class="nav-link" href="#" th:classappend="${activeItem.equals('timetable')} ? active : ''" th:href="@{/student/timetable}">
+                        <a class="nav-link" href="#" th:classappend="${activeItem.equals('timetable')} ? active : ''"
+                           th:href="@{/student/timetable}">
                             <span data-feather="clock"></span>
                             Órarend
                         </a>
@@ -34,21 +36,24 @@
 
 
                     <li class="nav-item">
-                        <a class="nav-link" href="#" th:classappend="${activeItem.equals('marks')} ? active : ''" th:href="@{/student/marks}">
+                        <a class="nav-link" href="#" th:classappend="${activeItem.equals('marks')} ? active : ''"
+                           th:href="@{/student/marks}">
                             <span data-feather="edit-2"></span>
                             Osztályzatok
                         </a>
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link" href="#" th:classappend="${activeItem.equals('messages')} ? active : ''" th:href="@{/student/messages}">
+                        <a class="nav-link" href="#" th:classappend="${activeItem.equals('messages')} ? active : ''"
+                           th:href="@{/student/messages}">
                             <span data-feather="mail"></span>
                             Bejegyzések
                         </a>
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link" href="#" th:classappend="${activeItem.equals('details')} ? active : ''" th:href="@{/student/details}">
+                        <a class="nav-link" href="#" th:classappend="${activeItem.equals('details')} ? active : ''"
+                           th:href="@{/student/details}">
                             <span data-feather="info"></span>
                             Adatok
                         </a>

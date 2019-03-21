@@ -2,22 +2,22 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
+          name="viewport">
+    <meta content="ie=edge" http-equiv="X-UA-Compatible">
     <title>Document</title>
 </head>
 <body>
 
 
-<form action="" th:action="@{/login}" method="post">
+<form action="" method="post" th:action="@{/login}">
     <div th:if="${param.error}">aaaaaaa</div>
-    <div th:if="${param.logout}" class="alert alert-succes">Sikeresen kijelentkeztél</div>
+    <div class="alert alert-succes" th:if="${param.logout}">Sikeresen kijelentkeztél</div>
     <label for="username">Felhasználói név</label>
-    <input type="text" id="username" name="username" class="form-control">
+    <input class="form-control" id="username" name="username" type="text">
 
     <label for="password">Jelszó</label>
-    <input type="password" id="password" name="password" class="form-control">
+    <input class="form-control" id="password" name="password" type="password">
 
     <button type="submit">Bejelentkezés</button>
 </form>

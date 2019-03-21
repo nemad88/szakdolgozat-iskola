@@ -1,7 +1,6 @@
 package hu.adam.nemeth.services.implementation.details;
 
 
-import hu.adam.nemeth.model.Student;
 import hu.adam.nemeth.model.common.Person;
 import hu.adam.nemeth.services.CustomUserDetailsService;
 import hu.adam.nemeth.services.StudentService;
@@ -24,16 +23,14 @@ public class CustomUserDetailsServiceImpl implements CustomUserDetailsService {
 
         Person user = studentService.findByUserName(userName);
 
-        if( user == null ){
+        if (user == null) {
             user = teacherService.findByUserName(userName);
-            if( user == null ){
+            if (user == null) {
                 throw new UsernameNotFoundException(userName);
             }
         }
+
         return new UserDetailsImpl(user);
     }
-
-
-
 
 }

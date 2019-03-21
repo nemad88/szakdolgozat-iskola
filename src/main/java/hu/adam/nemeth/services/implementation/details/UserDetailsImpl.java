@@ -9,7 +9,6 @@ import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.Collection;
-
 import java.util.HashSet;
 
 
@@ -21,7 +20,6 @@ public class UserDetailsImpl implements UserDetails {
 
     public UserDetailsImpl(Person user) {
         this.user = user;
-
     }
 
     @Override

@@ -14,5 +14,4 @@ public interface MessageService extends CrudService<Message, Long> {
 
     List<Message> findAllByStudent(Student student);
 
-
 }

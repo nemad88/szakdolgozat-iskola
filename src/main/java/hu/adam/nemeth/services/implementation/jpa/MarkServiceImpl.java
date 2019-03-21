@@ -44,4 +44,5 @@ public class MarkServiceImpl implements MarkService {
     public List<Mark> findAllByStudent(Student student) {
         return markRepository.findAllByStudent(student);
     }
+
 }

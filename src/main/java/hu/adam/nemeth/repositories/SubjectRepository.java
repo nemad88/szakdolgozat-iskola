@@ -8,4 +8,5 @@ import java.util.List;
 public interface SubjectRepository extends CrudRepository<Subject, Long> {
 
     List<Subject> findAll();
+
 }

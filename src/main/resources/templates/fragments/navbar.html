@@ -2,10 +2,10 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
-    <meta name="generator" content="Jekyll v3.8.5">
+    <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
+    <meta content="" name="description">
+    <meta content="Mark Otto, Jacob Thornton, and Bootstrap contributors" name="author">
+    <meta content="Jekyll v3.8.5" name="generator">
     <title>Navbar title</title>
 
     <link crossorigin="anonymous" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
@@ -41,6 +41,7 @@
 
 
 
+
     </style>
     <!-- Custom styles for this template -->
     <link href="css/dashboard.css" rel="stylesheet">
@@ -49,14 +50,14 @@
 
 <body>
 
-<nav th:fragment="navbar" class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
+<nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow" th:fragment="navbar">
 
     <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#">
         Szia <span th:text="${student.firstName}">Anonymous </span>!</a>
 
     <ul class="navbar-nav px-3">
         <li class="nav-item text-nowrap">
-            <form sec:authorize="isAuthenticated()" action="" id="formlogout" th:action="@{/logout}" method="post">
+            <form action="" id="formlogout" method="post" sec:authorize="isAuthenticated()" th:action="@{/logout}">
 
                 <a class="nav-link" href="javascript:{}"
                    onclick="document.getElementById('formlogout').submit(); return false;">

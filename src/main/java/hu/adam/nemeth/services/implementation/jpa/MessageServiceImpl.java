@@ -49,4 +49,5 @@ public class MessageServiceImpl implements MessageService {
     public List<Message> findAllByStudent(Student student) {
         return messageRepository.findAllByStudent(student);
     }
+
 }

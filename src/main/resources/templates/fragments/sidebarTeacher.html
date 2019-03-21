@@ -2,10 +2,10 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
-    <meta name="generator" content="Jekyll v3.8.5">
+    <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
+    <meta content="" name="description">
+    <meta content="Mark Otto, Jacob Thornton, and Bootstrap contributors" name="author">
+    <meta content="Jekyll v3.8.5" name="generator">
     <title>Dashboard Template · Bootstrap</title>
 
     <link crossorigin="anonymous" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
@@ -38,6 +38,7 @@
       }
 
 
+
     </style>
     <!-- Custom styles for this template -->
     <link href="css/dashboard.css" rel="stylesheet">
@@ -47,7 +48,7 @@
 <body>
 <div class="container-fluid">
     <div class="row">
-        <nav th:fragment="sidebar" class="col-md-2 d-none d-md-block bg-light sidebar">
+        <nav class="col-md-2 d-none d-md-block bg-light sidebar" th:fragment="sidebar">
             <div class="sidebar-sticky">
                 <ul class="nav flex-column">
 
@@ -72,15 +73,16 @@
     </div>
 </div>
 
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+<script crossorigin="anonymous"
         integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-        crossorigin="anonymous"></script>
+        src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
 <script>window.jQuery || document.write('<script src="/docs/4.3/assets/js/vendor/jquery-slim.min.js"><\/script>')
 
+
 </script>
-<script src="/docs/4.3/dist/js/bootstrap.bundle.min.js"
+<script crossorigin="anonymous"
         integrity="sha384-xrRywqdh3PHs8keKZN+8zzc5TX0GRTLCcmivcbNJWm2rs5C8PRhcEn3czEjhAO9o"
-        crossorigin="anonymous"></script>
+        src="/docs/4.3/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.9.0/feather.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.min.js"></script>
 <script src="js/dashboard.js"></script>

@@ -26,15 +26,12 @@ public class Subject extends BaseEntity {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "subject")
     private Set<Mark> marks = new HashSet<>();
 
-
-
-
     public Subject(Long id, String description) {
         super(id);
         this.description = description;
     }
 
-    public Subject(String desc){
+    public Subject(String desc) {
         this.description = desc;
     }
 
