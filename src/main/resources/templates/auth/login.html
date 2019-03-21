@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+
+
+<form action="" th:action="@{/login}" method="post">
+    <div th:if="${param.logout}" class="alert alert-succes">Sikeresen kijelentkeztél</div>
+    <label for="username">Felhasználói név</label>
+    <input type="text" id="username" name="username" class="form-control">
+
+    <label for="password">Jelszó</label>
+    <input type="password" id="password" name="password" class="form-control">
+
+    <button type="submit">Bejelentkezés</button>
+</form>
+
+</body>
+</html>
