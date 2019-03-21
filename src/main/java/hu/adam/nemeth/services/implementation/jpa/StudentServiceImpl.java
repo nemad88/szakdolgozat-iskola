@@ -4,7 +4,6 @@ import hu.adam.nemeth.model.Student;
 import hu.adam.nemeth.repositories.StudentRepository;
 import hu.adam.nemeth.services.StudentService;
 import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -40,4 +39,8 @@ public class StudentServiceImpl implements StudentService{
         studentRepository.deleteById(aLong);
     }
 
+    @Override
+    public Student findByUserName(String userName) {
+        return studentRepository.findByUserName(userName);
+    }
 }

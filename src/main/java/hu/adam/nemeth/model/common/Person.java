@@ -20,6 +20,9 @@ public class Person extends BaseEntity {
     private String firstName;
     @Column(name = "last_name")
     private String lastName;
+    private String userName;
+    private String role;
+    private String password;
 
     public Person(Long id, String firstName, String lastName) {
         super(id);

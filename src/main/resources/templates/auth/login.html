@@ -11,6 +11,7 @@
 
 
 <form action="" th:action="@{/login}" method="post">
+    <div th:if="${param.error}">aaaaaaa</div>
     <div th:if="${param.logout}" class="alert alert-succes">Sikeresen kijelentkeztél</div>
     <label for="username">Felhasználói név</label>
     <input type="text" id="username" name="username" class="form-control">
@@ -20,6 +21,7 @@
 
     <button type="submit">Bejelentkezés</button>
 </form>
+<a href="/registration">Regisztracio</a>
 
 </body>
 </html>

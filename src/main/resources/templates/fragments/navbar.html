@@ -40,6 +40,7 @@
 
 
 
+
     </style>
     <!-- Custom styles for this template -->
     <link href="css/dashboard.css" rel="stylesheet">
@@ -50,8 +51,8 @@
 
 <nav th:fragment="navbar" class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
 
-    <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#">Minta
-        Diak <span sec:authentication="name">Anonymous </span></a>
+    <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#">
+        Szia <span th:text="${student.firstName}">Anonymous </span>!</a>
 
     <ul class="navbar-nav px-3">
         <li class="nav-item text-nowrap">

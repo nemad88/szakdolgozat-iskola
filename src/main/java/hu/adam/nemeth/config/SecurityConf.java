@@ -8,6 +8,7 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
 @AllArgsConstructor
@@ -16,21 +17,19 @@ import org.springframework.security.web.authentication.AuthenticationSuccessHand
 public class SecurityConf extends WebSecurityConfigurerAdapter {
 
     private AuthenticationSuccessHandler authenticationSuccessHandler;
+    private UserDetailsService studentDetailsService;
 
     @Autowired
     public void configureAuth(AuthenticationManagerBuilder auth) throws Exception {
         auth
-                .inMemoryAuthentication()
-                .withUser("teacher").password("{noop}teacher").roles("TEACHER")
-                .and()
-                .withUser("student").password("{noop}student").roles("STUDENT");
+                .userDetailsService(studentDetailsService);
     }
-
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
+                //TODO remove comment to allow all user
 //                .antMatchers("/**").permitAll()
                 .antMatchers(HttpMethod.GET, "/student/**").hasRole("STUDENT")
                 .antMatchers(HttpMethod.GET, "/teacher/**").hasRole("TEACHER")
@@ -38,7 +37,6 @@ public class SecurityConf extends WebSecurityConfigurerAdapter {
                 .and()
                 .formLogin()
                 .loginPage("/login")
-//                .loginProcessingUrl("/form")
                 .successHandler(authenticationSuccessHandler)
                 .permitAll()
                 .and()
@@ -46,5 +44,4 @@ public class SecurityConf extends WebSecurityConfigurerAdapter {
                 .logoutSuccessUrl("/login?logout")
                 .permitAll();
     }
-
 }
