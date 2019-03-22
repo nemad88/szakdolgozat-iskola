@@ -1,10 +1,7 @@
 package hu.adam.nemeth.model;
 
 import hu.adam.nemeth.model.common.Person;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.HashSet;
@@ -14,6 +11,7 @@ import java.util.Set;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
+@ToString
 @Entity
 @Table(name = "students")
 public class Student extends Person {
@@ -23,10 +21,10 @@ public class Student extends Person {
             joinColumns = @JoinColumn(name = "student_id"),
             inverseJoinColumns = @JoinColumn(name = "course_id"))
     private Set<Course> courses = new HashSet<>();
+
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "student")
     private Set<Message> messages = new HashSet<>();
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "student")
     private Set<Mark> marks = new HashSet<>();
-
 }

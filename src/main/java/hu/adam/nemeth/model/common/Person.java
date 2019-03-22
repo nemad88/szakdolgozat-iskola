@@ -8,6 +8,7 @@ import lombok.Setter;
 
 import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;
+import java.util.Date;
 
 @Getter
 @Setter
@@ -23,6 +24,13 @@ public class Person extends BaseEntity {
     private String userName;
     private String role;
     private String password;
+    private Date birthDate;
+    private String telephone;
+    private String address;
+    private String identityCard;
+    private String mothersName;
+    private String educationalId;
+
 
     public Person(Long id, String firstName, String lastName) {
         super(id);
