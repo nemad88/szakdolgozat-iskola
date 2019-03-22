@@ -26,21 +26,21 @@ public class StudentController {
     @RequestMapping({"", "/", "/index"})
     public String student(Model model, @AuthenticationPrincipal UserDetails user) {
         Student student = studentService.findByUserName(user.getUsername());
-        model.addAttribute("student", student);
+        model.addAttribute("user", student);
         return "student/index";
     }
 
     @RequestMapping({"/timetable", "/timetable.html"})
     public String timetable(Model model, @AuthenticationPrincipal UserDetails user) {
         Student student = studentService.findByUserName(user.getUsername());
-        model.addAttribute("student", student);
+        model.addAttribute("user", student);
         return "student/timetable";
     }
 
     @RequestMapping({"/details", "/details.html"})
     public String studentDetails(Model model, @AuthenticationPrincipal UserDetails user) {
         Student student = studentService.findByUserName(user.getUsername());
-        model.addAttribute("student", student);
+        model.addAttribute("user", student);
         return "student/details";
     }
 
@@ -48,7 +48,7 @@ public class StudentController {
     public String studentMarks(Model model, @AuthenticationPrincipal UserDetails user) {
         Student student = studentService.findByUserName(user.getUsername());
         List<Mark> marks = markService.findAllByStudent(student);
-        model.addAttribute("student", student);
+        model.addAttribute("user", student);
         model.addAttribute("marks", marks);
         return "student/marks";
     }
@@ -56,7 +56,7 @@ public class StudentController {
     @RequestMapping({"/messages", "/messages.html"})
     public String studentMessages(Model model, @AuthenticationPrincipal UserDetails user) {
         Student student = studentService.findByUserName(user.getUsername());
-        model.addAttribute("student", student);
+        model.addAttribute("user", student);
         model.addAttribute("messages", messageService.findAllByStudent(student));
         return "student/messages";
     }

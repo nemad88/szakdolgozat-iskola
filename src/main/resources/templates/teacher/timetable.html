@@ -1,6 +1,5 @@
 <!doctype html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org"
->
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <!--HEAD-->
 <!--REPLACED BY THYMELEAF-->
@@ -37,17 +36,17 @@
 
 <div class="container-fluid">
     <div class="row">
+
         <!--SIDEBAR-->
         <!--REPLACED BY THYMELEAF-->
         <nav class="col-md-2 d-none d-md-block bg-light sidebar"
-             th:replace="fragments/sidebarStudent :: sidebar('details')">
+             th:replace="fragments/sidebarTeacher :: sidebar('timetable')">
             <div class="sidebar-sticky">
                 <ul class="nav flex-column">
-
                     <li class="nav-item">
                         <a class="nav-link active" href="#">
                             <span data-feather="home"></span>
-                            Dashboard <span class="sr-only">(current)</span>
+                            Dashboard <span class="sr-only"></span>
                         </a>
                     </li>
 
@@ -66,13 +65,11 @@
         <!--MAIN CONTENT-->
         <main class="col-md-9 ml-sm-auto col-lg-10 px-4" role="main">
 
-            <h1 th:utext="${user.firstName} + ' adatlapja'">adatlapja</h1>
+            <h1>Órarend</h1>
             <div class="table-responsive">
-                <br> <br>
-                <div>Születési idő:</div>
-                <div>Születési hely: Kecskemét</div>
-                <div>Évfolyam: 11</div>
+                <p>Órarend</p>
             </div>
+
         </main>
 
     </div>

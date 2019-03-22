@@ -39,6 +39,7 @@
 
 
 
+
     </style>
     <!-- Custom styles for this template -->
     <link href="css/dashboard.css" rel="stylesheet">
@@ -48,21 +49,42 @@
 <body>
 <div class="container-fluid">
     <div class="row">
-        <nav class="col-md-2 d-none d-md-block bg-light sidebar" th:fragment="sidebar">
+        <nav class="col-md-2 d-none d-md-block bg-light sidebar" th:fragment="sidebar (activeItem)">
             <div class="sidebar-sticky">
                 <ul class="nav flex-column">
 
                     <li class="nav-item">
-                        <a class="nav-link active" href="#">
+                        <a class="nav-link" href="#" th:classappend="${activeItem.equals('index')} ? active : ''"
+                           th:href="@{/teacher/index}">
                             <span data-feather="home"></span>
-                            Kezdőoldal <span class="sr-only">(current)</span>
+                            Kezdőoldal <span class="sr-only"></span>
                         </a>
                     </li>
-
-
                     <li class="nav-item">
-                        <a class="nav-link" href="#">
-                            <span data-feather="file"></span>
+                        <a class="nav-link" href="#" th:classappend="${activeItem.equals('timetable')} ? active : ''"
+                           th:href="@{/teacher/timetable}">
+                            <span data-feather="clock"></span>
+                            Órarend
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" th:classappend="${activeItem.equals('marks')} ? active : ''"
+                           th:href="@{/teacher/marks}">
+                            <span data-feather="edit-2"></span>
+                            Osztályzatok
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" th:classappend="${activeItem.equals('messages')} ? active : ''"
+                           th:href="@{/teacher/messages}">
+                            <span data-feather="mail"></span>
+                            Bejegyzések
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" th:classappend="${activeItem.equals('details')} ? active : ''"
+                           th:href="@{/teacher/details}">
+                            <span data-feather="info"></span>
                             Adatok
                         </a>
                     </li>
@@ -77,6 +99,7 @@
         integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
         src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
 <script>window.jQuery || document.write('<script src="/docs/4.3/assets/js/vendor/jquery-slim.min.js"><\/script>')
+
 
 
 </script>

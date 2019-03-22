@@ -27,35 +27,35 @@ public class TeacherController {
     @RequestMapping({"", "/", "/index"})
     public String teacher(Model model, @AuthenticationPrincipal UserDetails user) {
         Teacher teacher = teacherService.findByUserName(user.getUsername());
-        model.addAttribute("teacher", teacher);
+        model.addAttribute("user", teacher);
         return "teacher/index";
     }
 
     @RequestMapping({"/timetable", "/timetable.html"})
     public String timetable(Model model, @AuthenticationPrincipal UserDetails user) {
         Teacher teacher = teacherService.findByUserName(user.getUsername());
-        model.addAttribute("teacher", teacher);
+        model.addAttribute("user", teacher);
         return "teacher/timetable";
     }
 
     @RequestMapping({"/details", "/details.html"})
     public String details(Model model, @AuthenticationPrincipal UserDetails user) {
         Teacher teacher= teacherService.findByUserName(user.getUsername());
-        model.addAttribute("teacher", teacher);
+        model.addAttribute("user", teacher);
         return "teacher/details";
     }
 
     @RequestMapping({"/marks", "/marks.html"})
     public String marks(Model model, @AuthenticationPrincipal UserDetails user) {
         Teacher teacher= teacherService.findByUserName(user.getUsername());
-
+        model.addAttribute("user", teacher);
         return "teacher/marks";
     }
 
     @RequestMapping({"/messages", "/messages.html"})
     public String studentMessages(Model model, @AuthenticationPrincipal UserDetails user) {
         Teacher teacher= teacherService.findByUserName(user.getUsername());
-
+        model.addAttribute("user", teacher);
         return "teacher/messages";
     }
 

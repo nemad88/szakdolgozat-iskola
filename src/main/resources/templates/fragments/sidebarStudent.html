@@ -16,7 +16,6 @@
         <nav class="col-md-2 d-none d-md-block bg-light sidebar" th:fragment="sidebar (activeItem)">
             <div class="sidebar-sticky">
                 <ul class="nav flex-column">
-
                     <li class="nav-item">
                         <a class="nav-link" href="#" th:classappend="${activeItem.equals('index')} ? active : ''"
                            th:href="@{/student/index}">
@@ -24,8 +23,6 @@
                             Kezdőoldal <span class="sr-only"></span>
                         </a>
                     </li>
-
-
                     <li class="nav-item">
                         <a class="nav-link" href="#" th:classappend="${activeItem.equals('timetable')} ? active : ''"
                            th:href="@{/student/timetable}">
@@ -33,8 +30,6 @@
                             Órarend
                         </a>
                     </li>
-
-
                     <li class="nav-item">
                         <a class="nav-link" href="#" th:classappend="${activeItem.equals('marks')} ? active : ''"
                            th:href="@{/student/marks}">
@@ -42,7 +37,6 @@
                             Osztályzatok
                         </a>
                     </li>
-
                     <li class="nav-item">
                         <a class="nav-link" href="#" th:classappend="${activeItem.equals('messages')} ? active : ''"
                            th:href="@{/student/messages}">
@@ -50,7 +44,6 @@
                             Bejegyzések
                         </a>
                     </li>
-
                     <li class="nav-item">
                         <a class="nav-link" href="#" th:classappend="${activeItem.equals('details')} ? active : ''"
                            th:href="@{/student/details}">
@@ -58,7 +51,6 @@
                             Adatok
                         </a>
                     </li>
-
                 </ul>
             </div>
         </nav>
