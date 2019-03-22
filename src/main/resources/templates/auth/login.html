@@ -11,17 +11,22 @@
 
 
 <form action="" method="post" th:action="@{/login}">
+    <h1>TODO: implement this</h1>
+    <h3>username/pass:</h3>
+    <div>Tanárok: t1/t1, t2/t2, t3/t3</div>
+    <div>Diákok: s1/s1, s2/s2, s3/s3</div>
+    <br>
     <div th:if="${param.error}">Hibás belépési adatok</div>
     <div class="alert alert-succes" th:if="${param.logout}">Sikeresen kijelentkeztél</div>
     <label for="username">Felhasználói név</label>
     <input class="form-control" id="username" name="username" type="text">
 
+
+
     <label for="password">Jelszó</label>
     <input class="form-control" id="password" name="password" type="password">
-
     <button type="submit">Bejelentkezés</button>
 </form>
-<a href="/registration">Regisztracio</a>
 
 </body>
 </html>

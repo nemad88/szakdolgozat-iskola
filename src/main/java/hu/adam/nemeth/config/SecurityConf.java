@@ -1,5 +1,6 @@
 package hu.adam.nemeth.config;
 
+import hu.adam.nemeth.customhandlers.CustomAccessDeniedHandler;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
@@ -17,6 +18,7 @@ import org.springframework.security.web.authentication.AuthenticationSuccessHand
 public class SecurityConf extends WebSecurityConfigurerAdapter {
 
     private AuthenticationSuccessHandler authenticationSuccessHandler;
+    private CustomAccessDeniedHandler customAccessDeniedHandler;
     private UserDetailsService studentDetailsService;
 
     @Autowired
@@ -39,6 +41,8 @@ public class SecurityConf extends WebSecurityConfigurerAdapter {
                 .loginPage("/login")
                 .successHandler(authenticationSuccessHandler)
                 .permitAll()
+                .and()
+                .exceptionHandling().accessDeniedHandler(customAccessDeniedHandler)
                 .and()
                 .logout()
                 .logoutSuccessUrl("/login?logout")
