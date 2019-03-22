@@ -4,13 +4,17 @@ import hu.adam.nemeth.model.*;
 import hu.adam.nemeth.repositories.CourseRepository;
 import hu.adam.nemeth.services.*;
 import lombok.AllArgsConstructor;
+import org.apache.commons.io.IOUtils;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.ResourceLoader;
 import org.springframework.stereotype.Component;
 import org.springframework.util.ResourceUtils;
 
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.Files;
+import java.io.InputStream;
+import java.nio.charset.Charset;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -35,6 +39,7 @@ public class DataLoader implements CommandLineRunner {
     private List<Mark> marks = new ArrayList<>();
     private List<Course> courses = new ArrayList<>();
     private List<Message> messages = new ArrayList<>();
+    private ResourceLoader resourceLoader;
 
     @Override
     public void run(String... args) throws Exception {
@@ -45,8 +50,12 @@ public class DataLoader implements CommandLineRunner {
     }
 
     public String[] readLinesFromFile(String fileName) throws IOException {
-        File file = ResourceUtils.getFile("classpath:" + fileName);
-        String content = new String(Files.readAllBytes(file.toPath()));
+
+        Resource resource = resourceLoader.getResource("classpath:" + fileName);
+        InputStream dbAsStream = resource.getInputStream(); // <-- this is the difference
+
+        String content = IOUtils.toString(dbAsStream,"UTF-8");
+
         return content.split(";");
     }
 

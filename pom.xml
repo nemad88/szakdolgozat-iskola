@@ -10,7 +10,7 @@
     </parent>
     <groupId>hu.adam.nemeth</groupId>
     <artifactId>altalanos-iskola</artifactId>
-    <version>0.0.3-SNAPSHOT</version>
+    <version>0.0.4-SNAPSHOT</version>
     <name>szakdolgozat-iskola</name>
     <description>Szakdolgozat</description>
 
@@ -58,6 +58,13 @@
             <artifactId>thymeleaf-extras-springsecurity5</artifactId>
             <version>3.0.4.RELEASE</version>
         </dependency>
+
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+            <version>2.6</version>
+        </dependency>
+
 
 
     </dependencies>
