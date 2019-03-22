@@ -31,10 +31,9 @@ public class SecurityConf extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                //TODO remove comment to allow all user
-//                .antMatchers("/**").permitAll()
                 .antMatchers(HttpMethod.GET, "/student/**").hasRole("STUDENT")
                 .antMatchers(HttpMethod.GET, "/teacher/**").hasRole("TEACHER")
+                .antMatchers("/db/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
@@ -47,6 +46,9 @@ public class SecurityConf extends WebSecurityConfigurerAdapter {
                 .logout()
                 .logoutSuccessUrl("/login?logout")
                 .permitAll();
-    }
 
+        http.csrf().disable();
+        http.headers().frameOptions().disable();
+
+    }
 }

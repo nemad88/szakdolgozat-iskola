@@ -14,7 +14,6 @@ import java.io.IOException;
 @Configuration
 public class CustomAccessDeniedHandler implements AccessDeniedHandler {
 
-
     @Override
     public void handle(
             HttpServletRequest request,
@@ -26,7 +25,6 @@ public class CustomAccessDeniedHandler implements AccessDeniedHandler {
         if (auth != null) {
             System.out.println("User: " + auth.getName() + " attempted to access the protected URL: " + request.getRequestURI());
         }
-
 
         response.sendRedirect("/index");
     }
