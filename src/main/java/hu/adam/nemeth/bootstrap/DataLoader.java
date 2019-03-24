@@ -147,7 +147,7 @@ public class DataLoader implements CommandLineRunner {
     public void makeAMarksFromMark(String detail) {
 
         Random rnd = new Random();
-        int numbersOfMarks = rnd.nextInt(100) + 50;
+        int numbersOfMarks = rnd.nextInt(200) + 150;
         for (int i = 0; i < numbersOfMarks; i++) {
             Mark mark = new Mark();
             mark.setMark(detail);
