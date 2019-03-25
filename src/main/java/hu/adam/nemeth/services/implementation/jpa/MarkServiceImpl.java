@@ -8,8 +8,10 @@ import hu.adam.nemeth.services.MarkService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
+import java.time.LocalDate;
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @AllArgsConstructor
 @Service
@@ -44,34 +46,48 @@ public class MarkServiceImpl implements MarkService {
 
     @Override
     public List<Mark> findAllByStudent(Student student) {
-        return markRepository.findAllByStudent(student);
+        return markRepository.findAllByStudent(student)
+                .stream()
+                .sorted(Comparator.comparing(Mark::getDate).reversed())
+                .collect(Collectors.toList());
+    }
+
+    public List<Mark> filterByStartDate(List<Mark> marks, LocalDate startDate) {
+        List<Mark> filteredMarks = marks.stream()
+                .filter(mark -> mark.getDate().isAfter(startDate) || mark.getDate().equals(startDate))
+                .collect(Collectors.toList());
+        return filteredMarks;
     }
 
     @Override
-    public List<Mark> findAllBySubject(Subject subject) {
-        return markRepository.findAllBySubject(subject);
+    public List<Mark> filterByEndDate(List<Mark> marks, LocalDate endDate) {
+        List<Mark> filteredMarks = marks.stream()
+                .filter(mark -> mark.getDate().isBefore(endDate) || mark.getDate().equals(endDate))
+                .collect(Collectors.toList());
+        return filteredMarks;
     }
 
-    public List<Mark> findAllBySubjectAndStudent(Subject subject, Student student){
-        return markRepository.findAllBySubjectAndStudent(subject, student);
+    @Override
+    public List<Mark> filterBySubjectId(List<Mark> marks, Long subjectId) {
+        List<Mark> filteredMarks = marks.stream()
+                .filter(mark -> mark.getSubject().getId().equals(subjectId))
+                .collect(Collectors.toList());
+        return filteredMarks;
     }
 
-    public List<Mark> findAllBySubjectAndStudentOrderByDateDesc(Subject subject, Student student){
-        return markRepository.findAllBySubjectAndStudentOrderByDateDesc(subject, student);
+    @Override
+    public List<Mark> filterByTeacherId(List<Mark> marks, Long teacherId) {
+        List<Mark> filteredMarks = marks.stream()
+                .filter(mark -> mark.getTeacher().getId().equals(teacherId))
+                .collect(Collectors.toList());
+        return filteredMarks;
     }
 
-
-    public List<Mark> findAllBySubjectAndStudentAndDateGreaterThan(Subject subject, Student student, Date dateStart){
-        return markRepository.findAllBySubjectAndStudentAndDateGreaterThan(subject, student, dateStart);
+    @Override
+    public List<Mark> filterByMark(List<Mark> marks, String markValue) {
+        List<Mark> filteredMarks = marks.stream()
+                .filter(mark -> mark.getMarkValue().equals(Integer.parseInt(markValue)))
+                .collect(Collectors.toList());
+        return filteredMarks;
     }
-
-    public List<Mark> findAllBySubjectAndStudentAndDateGreaterThanAndDateLessThan(Subject subject, Student student, Date dateStart, Date dateEnd){
-        return markRepository.findAllBySubjectAndStudentAndDateGreaterThanAndDateLessThan(subject, student, dateStart, dateEnd);
-    }
-
-
-    public List<Mark> findAllByStudentAndDateGreaterThan(Student student, Date date){
-        return markRepository.findAllByStudentAndDateGreaterThan(student, date);
-    }
-
 }

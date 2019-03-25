@@ -3,10 +3,10 @@ package hu.adam.nemeth.controllers;
 import hu.adam.nemeth.model.Mark;
 import hu.adam.nemeth.model.Student;
 import hu.adam.nemeth.model.Subject;
+import hu.adam.nemeth.model.Teacher;
 import hu.adam.nemeth.services.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -16,11 +16,11 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import java.text.DateFormat;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.time.LocalDate;
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 @AllArgsConstructor
@@ -32,6 +32,7 @@ public class StudentController {
     CourseService courseService;
     StudentService studentService;
     MarkService markService;
+    TeacherService teacherService;
 
     @RequestMapping({"", "/", "/index"})
     public String student(Model model, @AuthenticationPrincipal UserDetails user) {
@@ -58,54 +59,15 @@ public class StudentController {
     public String studentMarks(Model model, @AuthenticationPrincipal UserDetails user) {
         Student student = studentService.findByUserName(user.getUsername());
         List<Mark> marks = markService.findAllByStudent(student);
-        model.addAttribute("user", student);
-        model.addAttribute("marks", marks);
-        model.addAttribute("subjects", subjectService.findAll());
-        model.addAttribute("filter", new Filter());
-        for (Subject subject : subjectService.findAll()) {
-            System.out.println(subject.getDescription());
-        }
-        return "student/marks";
-    }
 
-    @PostMapping("/marks")
-    public String greetingSubmit(Model model, @ModelAttribute Filter filter, @AuthenticationPrincipal UserDetails user) throws ParseException {
-        System.out.println("UJ USER");
-        System.out.println(filter.getId());
-        Subject subject = subjectService.findById(Long.valueOf(filter.getId()));
-        Student student = studentService.findByUserName(user.getUsername());
-        List<Mark> marks;
-
-
-        try {
-            String[] dateStart = filter.getDateStart().split("-");
-            String[] dateEnd= filter.getDateEnd().split("-");
-
-            DateFormat formatStart = new SimpleDateFormat("yyyy-MM-dd");
-            Date start = formatStart.parse(dateStart[0] + "-" + dateStart[1]  + "-" + dateStart[2]);
-
-            DateFormat formatEnd = new SimpleDateFormat("yyyy-MM-dd");
-            Date end = formatEnd.parse(dateEnd[0] + "-" + dateEnd[1]  + "-" + dateEnd[2]);
-
-            if(Integer.valueOf(filter.getId()) > 0){
-//                marks = markService.findAllBySubjectAndStudentAndDateGreaterThan(subject,student,start);
-
-                marks = markService.findAllBySubjectAndStudentAndDateGreaterThanAndDateLessThan(subject, student, start, end);
-
-            } else {
-                marks = markService.findAllByStudentAndDateGreaterThan(student, start);
-            }
-
-
-        } catch (Exception e){
-            marks = markService.findAllBySubjectAndStudentOrderByDateDesc(subject, student);
-        }
-
+        Filter filter = new Filter();
+        filter.setDateStart(marks.get(marks.size()-1).getDate().toString());
 
         model.addAttribute("user", student);
         model.addAttribute("marks", marks);
+        model.addAttribute("teachers", teacherService.findAll());
         model.addAttribute("subjects", subjectService.findAll());
-        model.addAttribute("filter", new Filter());
+        model.addAttribute("filter", filter);
 
         return "student/marks";
     }
@@ -118,14 +80,59 @@ public class StudentController {
         return "student/messages";
     }
 
+    //POST MAPPING
+
+    @PostMapping("/marks")
+    public String greetingSubmit(Model model, @ModelAttribute Filter filter, @AuthenticationPrincipal UserDetails user) throws ParseException {
+        Student student = studentService.findByUserName(user.getUsername());
+        List<Mark> marks = markService.findAllByStudent(student);
+
+        if (!filter.getDateStart().equals("")) {
+            LocalDate start = LocalDate.parse(filter.getDateStart());
+            marks = markService.filterByStartDate(marks, start);
+        }
+
+        if (!filter.getDateEnd().equals("")) {
+            LocalDate end = LocalDate.parse(filter.getDateEnd());
+            marks = markService.filterByEndDate(marks, end);
+        }
+
+        if (!filter.subjectId.equals("-1")) {
+            marks = markService.filterBySubjectId(marks, Long.valueOf(filter.getSubjectId()));
+        }
+
+        if (!filter.teacherId.equals("-1")) {
+            marks = markService.filterByTeacherId(marks, Long.valueOf(filter.getTeacherId()));
+        }
+
+        if (!filter.mark.equals("-1")) {
+            marks = markService.filterByMark(marks, filter.getMark());
+        }
+
+        model.addAttribute("user", student);
+        model.addAttribute("marks", marks);
+        model.addAttribute("teachers", teacherService.findAll());
+        model.addAttribute("subjects", subjectService.findAll());
+        model.addAttribute("filter", filter);
+
+        return "student/marks";
+    }
+
+
     @Getter
     @Setter
-    @NoArgsConstructor
     class Filter {
-        private String id;
+        private String subjectId;
+        private String teacherId;
         private String dateStart;
         private String dateEnd;
         private String description;
+        private String mark;
+
+        public Filter() {
+            this.dateStart = LocalDate.now().minusDays(7).toString();
+            this.dateEnd = LocalDate.now().toString();
+        }
     }
 
 }

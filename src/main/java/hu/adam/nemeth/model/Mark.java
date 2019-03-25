@@ -7,7 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import java.util.Date;
+import java.time.LocalDate;
 
 @Setter
 @Getter
@@ -16,9 +16,10 @@ import java.util.Date;
 @Builder
 @Entity
 @Table(name = "marks")
-public class Mark extends BaseEntity {
+public class Mark extends BaseEntity implements Comparable<Mark> {
 
-    private String mark;
+    private String markName;
+    private Integer markValue;
     @ManyToOne
     @JoinColumn(name = "student_id")
     private Student student;
@@ -28,6 +29,20 @@ public class Mark extends BaseEntity {
     @ManyToOne
     @JoinColumn(name = "subject_id")
     private Subject subject;
-    private Date date;
+    private LocalDate date;
 
+    @Override
+    public int compareTo(Mark o) {
+        if (this.date.isBefore(o.getDate())) {
+            System.out.println("before");
+            return -1;
+
+        } else if (this.date.isAfter(o.getDate())) {
+            System.out.println("after");
+            return 1;
+        } else {
+            System.out.println("equals");
+            return 0;
+        }
+    }
 }
