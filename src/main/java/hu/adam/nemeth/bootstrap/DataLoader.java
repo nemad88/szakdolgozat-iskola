@@ -9,15 +9,13 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.stereotype.Component;
-import org.springframework.util.ResourceUtils;
 
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
-import java.nio.charset.Charset;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -52,9 +50,8 @@ public class DataLoader implements CommandLineRunner {
     public String[] readLinesFromFile(String fileName) throws IOException {
 
         Resource resource = resourceLoader.getResource("classpath:" + fileName);
-        InputStream dbAsStream = resource.getInputStream(); // <-- this is the difference
-
-        String content = IOUtils.toString(dbAsStream,"UTF-8");
+        InputStream dbAsStream = resource.getInputStream();
+        String content = IOUtils.toString(dbAsStream, "UTF-8");
 
         return content.split(";");
     }
@@ -144,31 +141,20 @@ public class DataLoader implements CommandLineRunner {
         return course;
     }
 
-    public void makeAMarksFromMark(String detail) {
-
+    public void makeMarksFromMark(String markName, Integer markValue) {
         Random rnd = new Random();
-        int numbersOfMarks = rnd.nextInt(100) + 50;
+        int numbersOfMarks = rnd.nextInt(200) + 150;
         for (int i = 0; i < numbersOfMarks; i++) {
             Mark mark = new Mark();
-            mark.setMark(detail);
+
+            mark.setMarkName(markName);
+            mark.setMarkValue(markValue);
             mark.setStudent(students.get(rnd.nextInt(students.size())));
             mark.setTeacher(teachers.get(rnd.nextInt(teachers.size())));
             mark.setSubject(subjects.get(rnd.nextInt(subjects.size())));
 
-            DateFormat format = new SimpleDateFormat("MM-dd-yyyy");
-            try {
-
-                String years = (rnd.nextInt(2019 - 2011) + 2011) + "";
-                String month = (rnd.nextInt(12 - 1) + 1) + "";
-                String day = (rnd.nextInt(28 - 1) + 1) + "";
-                System.out.println(month + "-" + day + "-" + years);
-
-                Date date = format.parse(month + "-" + day + "-" + years);
-                mark.setDate(date);
-
-            } catch (ParseException e) {
-                e.printStackTrace();
-            }
+            LocalDate date = LocalDate.now().minusDays(rnd.nextInt(365*2));
+            mark.setDate(date);
             markService.save(mark);
         }
     }
@@ -208,9 +194,11 @@ public class DataLoader implements CommandLineRunner {
 
             //MAKE MARK
 
-            String[] possibleMarks = new String[]{"Jeles", "Jó", "Közepes", "Elégséges", "Elégtelen"};
-            for (String mark : possibleMarks) {
-                makeAMarksFromMark(mark);
+            String[] markNames = new String[]{"Jeles", "Jó", "Közepes", "Elégséges", "Elégtelen"};
+            Integer[] markValues = new Integer[]{5, 4, 3, 2, 1};
+
+            for (int i = 0; i < markNames.length; i++) {
+                makeMarksFromMark(markNames[i], markValues[i]);
             }
 
 

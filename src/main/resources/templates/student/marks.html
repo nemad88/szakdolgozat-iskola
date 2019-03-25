@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="hu" xmlns:th="http://www.thymeleaf.org">
 
 <!--HEAD-->
 <!--REPLACED BY THYMELEAF-->
@@ -48,7 +48,6 @@
                         </a>
                     </li>
 
-
                     <li class="nav-item">
                         <a class="nav-link" href="#">
                             <span data-feather="file"></span>
@@ -63,12 +62,97 @@
         <!--MAIN CONTENT-->
         <main class="col-md-9 ml-sm-auto col-lg-10 px-4" role="main">
             <h1>Osztályzatok</h1>
-            <div class="table-responsive">
-                <p>Osztályzatok</p>
-                <ul>
-                    <li th:each="mark : ${marks}" th:text="${mark.subject.description} + ': ' + ${mark.mark}"></li>
-                </ul>
-            </div>
+
+            <!--FILTERS-->
+            <form action="" th:action="@{/student/marks}" th:object="${filter}" method="post">
+
+                <div class="form-row">
+                    <div class="form-group col-md-5">
+                        <label for="date-start" class="label label-default">Kezdő dátum:</label>
+                        <input th:value="2018-07-22" id="date-start" type="date" class="form-control datetime-local"
+                               th:field="*{dateStart}">
+                    </div>
+
+                    <div class="form-group col-md-5">
+                        <label for="date-end" class="label label-default">Záró dátum:</label>
+                        <input value="" th:value="${filter.dateEnd}" id="date-end" type="date"
+                               class="form-control datetime-local" th:field="*{dateEnd}">
+                    </div>
+
+                    <div class="form-group col-md-2">
+                        <label for="teachers" class="label label-default">Érdemjegy</label>
+                        <select class="custom-select" id="erdemjegy" th:field="*{mark}">
+                            <option value="-1"></option>
+                            <option value="5">Jeles</option>
+                            <option value="4">Jó</option>
+                            <option value="3">Közepes</option>
+                            <option value="2">Elégséges</option>
+                            <option value="1">Elégtelen</option>
+                        </select>
+                    </div>
+
+
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group col-md-5">
+                        <label for="subjects" class="label label-default">Tantárgy:</label>
+                        <select class="custom-select" id="subjects" th:field="*{subjectId}">
+                            <option value="-1"></option>
+                            <option value="1" th:each="subject : ${subjects}"
+                                    th:text="${subject.description}" th:value="${subject.id}">Tantargy
+                            </option>
+                        </select>
+                    </div>
+
+                    <div class="form-group col-md-5">
+                        <label for="teachers" class="label label-default">Oktató:</label>
+                        <select class="custom-select" id="teachers" th:field="*{teacherId}">
+                            <option value="-1"></option>
+                            <option value="1" th:each="teacher : ${teachers}"
+                                    th:text="${teacher.lastName}+ ' ' + ${teacher.firstName}" th:value="${teacher.id}">
+                                Tantargy
+                            </option>
+                        </select>
+                    </div>
+
+                    <div class="form-group col-md-1">
+                        <div class="button-container">
+                            <button class="btn btn-sm btn-primary mt-auto mb-1" type="submit">Szűrés</button>
+                        </div>
+                    </div>
+                    <div class="form-group col-md-1">
+                        <div class="button-container">
+                            <a th:href="@{/student/marks}" class="btn btn-sm btn-danger mt-auto mb-1">Szűrők törlése</a>
+                        </div>
+                    </div>
+                </div>
+
+
+            </form>
+
+            <!--TABLE-->
+
+
+            <table class="table table-striped mt-3">
+                <thead>
+                <tr>
+                    <th scope="col">Bejegyző tanár</th>
+                    <th scope="col">Bejegyzés időpontja</th>
+                    <th scope="col">Tantárgy</th>
+                    <th scope="col">Érdemjegy</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="mark : ${marks}">
+                    <td th:text="${mark.teacher.lastName} + ' ' + ${mark.teacher.firstName}"></td>
+                    <td th:text="${mark.date}"></td>
+                    <td th:text="${mark.subject.description}"></td>
+                    <td th:text="${mark.markName}"></td>
+                </tr>
+                </tbody>
+            </table>
+
         </main>
 
     </div>
