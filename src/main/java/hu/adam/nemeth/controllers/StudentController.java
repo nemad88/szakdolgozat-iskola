@@ -18,6 +18,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.text.ParseException;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
+import java.time.temporal.TemporalUnit;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -61,7 +64,7 @@ public class StudentController {
         List<Mark> marks = markService.findAllByStudent(student);
 
         Filter filter = new Filter();
-        filter.setDateStart(marks.get(marks.size()-1).getDate().toString());
+        filter.setDateStart(marks.get(marks.size()-1).getDate().truncatedTo(ChronoUnit.MINUTES).toString());
 
         model.addAttribute("user", student);
         model.addAttribute("marks", marks);
@@ -87,13 +90,16 @@ public class StudentController {
         Student student = studentService.findByUserName(user.getUsername());
         List<Mark> marks = markService.findAllByStudent(student);
 
+        System.out.println(filter.getDateStart());
+
+
         if (!filter.getDateStart().equals("")) {
-            LocalDate start = LocalDate.parse(filter.getDateStart());
+            LocalDateTime start = LocalDateTime.parse(filter.getDateStart());
             marks = markService.filterByStartDate(marks, start);
         }
 
         if (!filter.getDateEnd().equals("")) {
-            LocalDate end = LocalDate.parse(filter.getDateEnd());
+            LocalDateTime end = LocalDateTime.parse(filter.getDateEnd());
             marks = markService.filterByEndDate(marks, end);
         }
 
@@ -130,8 +136,13 @@ public class StudentController {
         private String mark;
 
         public Filter() {
-            this.dateStart = LocalDate.now().minusDays(7).toString();
-            this.dateEnd = LocalDate.now().toString();
+
+            this.dateStart = LocalDateTime.now().minusDays(7).truncatedTo(ChronoUnit.MINUTES).toString();
+            this.dateEnd = LocalDateTime.now().truncatedTo(ChronoUnit.MINUTES).toString();
+
+            System.out.println(this.dateStart);
+            System.out.println(this.dateEnd);
+
         }
     }
 

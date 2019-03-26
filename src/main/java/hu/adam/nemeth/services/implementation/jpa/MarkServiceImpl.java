@@ -2,13 +2,12 @@ package hu.adam.nemeth.services.implementation.jpa;
 
 import hu.adam.nemeth.model.Mark;
 import hu.adam.nemeth.model.Student;
-import hu.adam.nemeth.model.Subject;
 import hu.adam.nemeth.repositories.MarkRepository;
 import hu.adam.nemeth.services.MarkService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -52,7 +51,7 @@ public class MarkServiceImpl implements MarkService {
                 .collect(Collectors.toList());
     }
 
-    public List<Mark> filterByStartDate(List<Mark> marks, LocalDate startDate) {
+    public List<Mark> filterByStartDate(List<Mark> marks, LocalDateTime startDate) {
         List<Mark> filteredMarks = marks.stream()
                 .filter(mark -> mark.getDate().isAfter(startDate) || mark.getDate().equals(startDate))
                 .collect(Collectors.toList());
@@ -60,7 +59,7 @@ public class MarkServiceImpl implements MarkService {
     }
 
     @Override
-    public List<Mark> filterByEndDate(List<Mark> marks, LocalDate endDate) {
+    public List<Mark> filterByEndDate(List<Mark> marks, LocalDateTime endDate) {
         List<Mark> filteredMarks = marks.stream()
                 .filter(mark -> mark.getDate().isBefore(endDate) || mark.getDate().equals(endDate))
                 .collect(Collectors.toList());

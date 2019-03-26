@@ -5,6 +5,7 @@ import hu.adam.nemeth.model.common.BaseEntity;
 import lombok.*;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Setter
@@ -16,8 +17,8 @@ import java.util.Date;
 @Table(name = "courses")
 public class Course extends BaseEntity {
 
-    private Date startTime;
-    private Date endTime;
+    private LocalDateTime startTime;
+    private LocalDateTime endTime;
     @ManyToOne
     @JoinColumn(name = "teacher_id")
     private Teacher teacher;

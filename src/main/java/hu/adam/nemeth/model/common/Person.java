@@ -8,6 +8,8 @@ import lombok.Setter;
 
 import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Getter
@@ -24,7 +26,7 @@ public class Person extends BaseEntity {
     private String userName;
     private String role;
     private String password;
-    private Date birthDate;
+    private LocalDate birthDate;
     private String telephone;
     private String address;
     private String identityCard;

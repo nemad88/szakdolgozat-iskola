@@ -69,13 +69,13 @@
                 <div class="form-row">
                     <div class="form-group col-md-5">
                         <label for="date-start" class="label label-default">Kezdő dátum:</label>
-                        <input th:value="2018-07-22" id="date-start" type="date" class="form-control datetime-local"
+                        <input th:value="2018-07-22" id="date-start" type="datetime-local" class="form-control datetime-local"
                                th:field="*{dateStart}">
                     </div>
 
                     <div class="form-group col-md-5">
                         <label for="date-end" class="label label-default">Záró dátum:</label>
-                        <input value="" th:value="${filter.dateEnd}" id="date-end" type="date"
+                        <input value="" th:value="${filter.dateEnd}" id="date-end" type="datetime-local"
                                class="form-control datetime-local" th:field="*{dateEnd}">
                     </div>
 
@@ -146,7 +146,7 @@
                 <tbody>
                 <tr th:each="mark : ${marks}">
                     <td th:text="${mark.teacher.lastName} + ' ' + ${mark.teacher.firstName}"></td>
-                    <td th:text="${mark.date}"></td>
+                    <td th:text="${#temporals.format(mark.date, 'yyyy. MMMM dd. HH:mm')}"></td>
                     <td th:text="${mark.subject.description}"></td>
                     <td th:text="${mark.markName}"></td>
                 </tr>

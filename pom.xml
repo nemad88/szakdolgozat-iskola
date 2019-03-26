@@ -10,7 +10,7 @@
     </parent>
     <groupId>hu.adam.nemeth</groupId>
     <artifactId>altalanos-iskola</artifactId>
-    <version>0.0.4-SNAPSHOT</version>
+    <version>0.0.5-SNAPSHOT</version>
     <name>szakdolgozat-iskola</name>
     <description>Szakdolgozat</description>
 

@@ -8,6 +8,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Setter
 @Getter
@@ -29,7 +30,7 @@ public class Mark extends BaseEntity implements Comparable<Mark> {
     @ManyToOne
     @JoinColumn(name = "subject_id")
     private Subject subject;
-    private LocalDate date;
+    private LocalDateTime date;
 
     @Override
     public int compareTo(Mark o) {
