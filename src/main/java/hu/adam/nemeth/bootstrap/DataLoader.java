@@ -133,7 +133,8 @@ public class DataLoader implements CommandLineRunner {
 
         message.setStudent(students.get(rnd.nextInt(students.size())));
         message.setTeacher(teachers.get(rnd.nextInt(teachers.size())));
-
+        LocalDateTime date = LocalDateTime.now().minusMinutes(rnd.nextInt(365 * 2 * 24 * 60));
+        message.setDate(date);
         messageService.save(message);
         return message;
     }
@@ -172,8 +173,6 @@ public class DataLoader implements CommandLineRunner {
             Student student = makeAStudent(line.split(":"));
             students.add(student);
         }
-
-
 
         //MAKE SUBJECTS
         fileName = "sampledata/subject.txt";

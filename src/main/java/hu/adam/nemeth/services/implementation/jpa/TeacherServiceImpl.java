@@ -1,12 +1,15 @@
 package hu.adam.nemeth.services.implementation.jpa;
 
+import hu.adam.nemeth.model.Message;
 import hu.adam.nemeth.model.Teacher;
 import hu.adam.nemeth.repositories.TeacherRepository;
 import hu.adam.nemeth.services.TeacherService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @AllArgsConstructor
 @Service
@@ -16,7 +19,9 @@ public class TeacherServiceImpl implements TeacherService {
 
     @Override
     public List<Teacher> findAll() {
-        return teacherRepository.findAll();
+        return teacherRepository.findAll().stream()
+                .sorted(Comparator.comparing(Teacher::getLastName).thenComparing(Teacher::getFirstName))
+                .collect(Collectors.toList());
     }
 
     @Override

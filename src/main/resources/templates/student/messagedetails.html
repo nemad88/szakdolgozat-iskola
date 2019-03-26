@@ -38,7 +38,7 @@
         <!--SIDEBAR-->
         <!--REPLACED BY THYMELEAF-->
         <nav class="col-md-2 d-none d-md-block bg-light sidebar"
-             th:replace="fragments/sidebarStudent :: sidebar('index')">
+             th:replace="fragments/sidebarStudent :: sidebar('messages')">
             <div class="sidebar-sticky">
                 <ul class="nav flex-column">
 
@@ -64,14 +64,13 @@
         <!--MAIN CONTENT-->
         <main class="col-md-9 ml-sm-auto col-lg-10 px-4" role="main">
 
-            <h1>Üdvözlet az oldalon!</h1>
+            <h1>Tisztelt Szülő!</h1>
             <div class="table-responsive">
-                <br> <br>
-
-                <h3>Utolsó érdemjegy: 2019. január 21 - Matematika: 2</h3>
-                <h3>Utolsó beírás: 2019. január 10 - Kovács Ernő által</h3>
-
+                <p th:text="${#temporals.format(message.date, 'yyyy. MMMM dd. HH:mm')}"></p>
+                <p th:text="${message.description}"></p>
+                <p th:text="${message.teacher.lastName} + ' ' + ${message.teacher.firstName}"></p>
             </div>
+
         </main>
 
     </div>

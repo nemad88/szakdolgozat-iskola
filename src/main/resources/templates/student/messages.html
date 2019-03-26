@@ -7,8 +7,6 @@
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
     <meta content="" name="description">
-    <meta content="Mark Otto, Jacob Thornton, and Bootstrap contributors" name="author">
-    <meta content="Jekyll v3.8.5" name="generator">
     <title>Head Title</title>
 
     <!--Bootstrap style-->
@@ -67,11 +65,71 @@
         <main class="col-md-9 ml-sm-auto col-lg-10 px-4" role="main">
 
             <h1>Bejegyzések</h1>
-            <div class="table-responsive">
-                <p>Bejegyzések</p>
-            </div>
 
-            <p th:each="message : ${messages}" th:text="${message.description}"></p>
+            <!--FILTERS-->
+            <form action="" th:action="@{/student/messages}" th:object="${filter}" method="post">
+
+                <div class="form-row">
+                    <div class="form-group col-md-5">
+                        <label for="date-start" class="label label-default">Kezdő dátum:</label>
+                        <input th:value="2018-07-22" id="date-start" type="datetime-local"
+                               class="form-control datetime-local"
+                               th:field="*{dateStart}">
+                    </div>
+
+                    <div class="form-group col-md-5">
+                        <label for="date-end" class="label label-default">Záró dátum:</label>
+                        <input value="" th:value="${filter.dateEnd}" id="date-end" type="datetime-local"
+                               class="form-control datetime-local" th:field="*{dateEnd}">
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group col-md-5">
+                        <label for="teachers" class="label label-default">Oktató:</label>
+                        <select class="custom-select" id="teachers" th:field="*{teacherId}">
+                            <option value="-1"></option>
+                            <option value="1" th:each="teacher : ${teachers}"
+                                    th:text="${teacher.lastName}+ ' ' + ${teacher.firstName}" th:value="${teacher.id}">
+                                Tantargy
+                            </option>
+                        </select>
+                    </div>
+
+                    <div class="form-group col-md-1">
+                        <div class="button-container">
+                            <button class="btn btn-sm btn-primary mt-auto mb-1" type="submit">Szűrés</button>
+                        </div>
+                    </div>
+                    <div class="form-group col-md-1">
+                        <div class="button-container">
+                            <a th:href="@{/student/messages}" class="btn btn-sm btn-danger mt-auto mb-1">Szűrők törlése</a>
+                        </div>
+                    </div>
+                </div>
+            </form>
+
+            <!--TABLE-->
+
+            <table class="table table-striped mt-3">
+                <thead>
+                <tr>
+                    <th scope="col">Bejegyző tanár</th>
+                    <th scope="col">Bejegyzés időpontja</th>
+                    <th scope="col">Üzenet</th>
+                    <th scope="col">#</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="message : ${messages}">
+                    <td th:text="${message.teacher.lastName} + ' ' + ${message.teacher.firstName}"></td>
+                    <td th:text="${#temporals.format(message.date, 'yyyy. MMMM dd. HH:mm')}"></td>
+                    <td th:text="${message.description}"></td>
+                    <td><a th:href="@{${'/student/message'}(id=${message.id})}">Olvas</a></td>
+                </tr>
+                </tbody>
+            </table>
+
 
         </main>
 

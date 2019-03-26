@@ -17,7 +17,7 @@ import java.time.LocalDateTime;
 @Builder
 @Entity
 @Table(name = "marks")
-public class Mark extends BaseEntity implements Comparable<Mark> {
+public class Mark extends BaseEntity {
 
     private String markName;
     private Integer markValue;
@@ -31,19 +31,4 @@ public class Mark extends BaseEntity implements Comparable<Mark> {
     @JoinColumn(name = "subject_id")
     private Subject subject;
     private LocalDateTime date;
-
-    @Override
-    public int compareTo(Mark o) {
-        if (this.date.isBefore(o.getDate())) {
-            System.out.println("before");
-            return -1;
-
-        } else if (this.date.isAfter(o.getDate())) {
-            System.out.println("after");
-            return 1;
-        } else {
-            System.out.println("equals");
-            return 0;
-        }
-    }
 }
