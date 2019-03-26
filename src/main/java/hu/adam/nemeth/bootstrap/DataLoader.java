@@ -1,7 +1,6 @@
 package hu.adam.nemeth.bootstrap;
 
 import hu.adam.nemeth.model.*;
-import hu.adam.nemeth.repositories.CourseRepository;
 import hu.adam.nemeth.services.*;
 import lombok.AllArgsConstructor;
 import org.apache.commons.io.IOUtils;
@@ -27,7 +26,7 @@ public class DataLoader implements CommandLineRunner {
     private final StudentService studentService;
     private final TeacherService teacherService;
     private final MarkService markService;
-    private final CourseRepository courseRepository;
+    private final CourseService courseService;
     private List<Student> students = new ArrayList<>();
     private List<Teacher> teachers = new ArrayList<>();
     private List<Subject> subjects = new ArrayList<>();
@@ -44,13 +43,13 @@ public class DataLoader implements CommandLineRunner {
         }
     }
 
-    public int randomNumbeInRange(int min, int max) {
+    public int getRandomNumberInRange(int min, int max) {
         Random random = new Random();
         return random.nextInt((max - min) + 1) + min;
     }
 
     public String randomName(String[] listOfNames) {
-        return listOfNames[randomNumbeInRange(0, listOfNames.length - 1)];
+        return listOfNames[getRandomNumberInRange(0, listOfNames.length - 1)];
     }
 
     public String[] readLinesFromFile(String fileName) {
@@ -66,155 +65,133 @@ public class DataLoader implements CommandLineRunner {
         }
     }
 
-    public Student makeAStudent(String[] studentDetails) {
-        Student student = new Student();
-
-        String firstName = randomName(readLinesFromFile("sampledata/malefirstnames.txt"));
-        if (randomNumbeInRange(0, 1) == 0){
+    public void generateStudents(int numberOfStudents) {
+        for (int i = 0; i < numberOfStudents; i++) {
+            Student student = new Student();
+            String firstName = randomName(readLinesFromFile("sampledata/malefirstnames.txt"));
+            if (getRandomNumberInRange(0, 1) == 0) {
+                firstName = randomName(readLinesFromFile("sampledata/femalefirstnames.txt"));
+            }
+            String lastName = randomName(readLinesFromFile("sampledata/lastnames.txt"));
+            student.setBirthDate(LocalDate.now().minusDays(getRandomNumberInRange(6 * 365, 14 * 365)));
+            student.setBirthPlace("Budapest");
+            student.setFirstName(firstName);
+            student.setLastName(lastName);
+            student.setRole("ROLE_STUDENT");
+            student.setTelephone("+36-" + getRandomNumberInRange(20000000, 30999999));
+            student.setIdentityCard(getRandomNumberInRange(1111111, 9999999) + (char) getRandomNumberInRange(32, 45) + "");
+            student.setEducationalId(getRandomNumberInRange(1111111, 9999999) + (char) getRandomNumberInRange(32, 45) + "");
+            student.setAddress("1081 Budapest, József Attila utca 14. 3/2");
+            student.setUserName("s" + i);
+            student.setPassword("s" + i);
+            for (int j = 0; j < 20; j++) {
+                student.getCourses().add(courses.get(getRandomNumberInRange(0, courses.size() - 1)));
+            }
             firstName = randomName(readLinesFromFile("sampledata/femalefirstnames.txt"));
+            lastName = randomName(readLinesFromFile("sampledata/lastnames.txt"));
+            student.setMothersName(lastName + " " + firstName);
+            students.add(student);
+            studentService.save(student);
         }
-        String lastName = randomName(readLinesFromFile("sampledata/lastnames.txt"));
-
-        student.setBirthDate(LocalDate.now().minusDays(randomNumbeInRange(6 * 365, 14 * 365)));
-        student.setFirstName(firstName);
-        student.setLastName(lastName);
-
-        student.setUserName(studentDetails[2]);
-        student.setRole(studentDetails[3]);
-        student.setPassword(studentDetails[4]);
-        student.setTelephone(studentDetails[6]);
-        student.setAddress(studentDetails[7]);
-        student.setIdentityCard(studentDetails[8]);
-        student.setMothersName(studentDetails[9]);
-        student.setEducationalId(studentDetails[10]);
-        studentService.save(student);
-        return student;
     }
 
-    public Teacher makeATeacher(String[] teacherDetails) {
-        Teacher teacher = new Teacher();
+    public void generateTeachers(int numberOfTeaches) {
 
-        String firstName = randomName(readLinesFromFile("sampledata/malefirstnames.txt"));
-        if (randomNumbeInRange(0, 1) == 0){
+        for (int i = 0; i < numberOfTeaches; i++) {
+            Teacher teacher = new Teacher();
+            String firstName = randomName(readLinesFromFile("sampledata/malefirstnames.txt"));
+            if (getRandomNumberInRange(0, 1) == 0) {
+                firstName = randomName(readLinesFromFile("sampledata/femalefirstnames.txt"));
+            }
+            String lastName = randomName(readLinesFromFile("sampledata/lastnames.txt"));
+            teacher.setBirthDate(LocalDate.now().minusDays(getRandomNumberInRange(22 * 365, 65 * 365)));
+            teacher.setBirthPlace("Budapest");
+            teacher.setFirstName(firstName);
+            teacher.setLastName(lastName);
+            teacher.setRole("ROLE_TEACHER");
+            teacher.setTelephone("+36-" + getRandomNumberInRange(20000000, 30999999));
+            teacher.setIdentityCard(getRandomNumberInRange(1111111, 9999999) + (char) getRandomNumberInRange(32, 45) + "");
+            teacher.setEducationalId(getRandomNumberInRange(1111111, 9999999) + (char) getRandomNumberInRange(32, 45) + "");
+            teacher.setAddress("1081 Budapest, József Attila utca 14. 3/2");
+            teacher.setUserName("t" + i);
+            teacher.setPassword("t" + i);
             firstName = randomName(readLinesFromFile("sampledata/femalefirstnames.txt"));
+            lastName = randomName(readLinesFromFile("sampledata/lastnames.txt"));
+            teacher.setMothersName(lastName + " " + firstName);
+            for (int j = 0; j < 7; j++) {
+                teacher.getSubjects().add(subjects.get(getRandomNumberInRange(0, subjects.size() - 1)));
+            }
+            teachers.add(teacher);
+            teacherService.save(teacher);
         }
-        String lastName = randomName(readLinesFromFile("sampledata/lastnames.txt"));
+    }
 
-        teacher.setFirstName(firstName);
-        teacher.setLastName(lastName);
-
-        teacher.setUserName(teacherDetails[2]);
-        teacher.setRole(teacherDetails[3]);
-        teacher.setPassword(teacherDetails[4]);
-        teacher.setBirthDate(LocalDate.now().minusDays(randomNumbeInRange(22 * 365, 65 * 365)));
-        teacher.setTelephone(teacherDetails[6]);
-        teacher.setAddress(teacherDetails[7]);
-        teacher.setIdentityCard(teacherDetails[8]);
-        teacher.setMothersName(teacherDetails[9]);
-        teacher.setEducationalId(teacherDetails[10]);
-        for (int i = 0; i < 5; i++) {
-            teacher.getSubjects().add(subjects.get(randomNumbeInRange(0, subjects.size() - 1)));
+    public void generateSubjects() {
+        String[] subjectDetails = readLinesFromFile("sampledata/subjects.txt");
+        for (int i = 0; i < subjectDetails.length; i++) {
+            Subject subject = new Subject();
+            subject.setDescription(subjectDetails[i]);
+            subjects.add(subject);
+            subjectService.save(subject);
         }
-        teacherService.save(teacher);
-        return teacher;
     }
 
-    public Subject makeASubject(String[] subjectDetails) {
-        Subject subject = new Subject();
-        subject.setDescription(subjectDetails[0]);
-        subjectService.save(subject);
-        return subject;
+    public void generateMessages(int numberOfMessage) {
+        String[] messageDetails = readLinesFromFile("sampledata/messages.txt");
+
+        for (int i = 0; i < numberOfMessage; i++) {
+            Message message = new Message();
+            message.setDescription(messageDetails[getRandomNumberInRange(0, messageDetails.length - 1)]);
+            message.setStudent(students.get(getRandomNumberInRange(0, students.size() - 1)));
+            message.setTeacher(teachers.get(getRandomNumberInRange(0, teachers.size() - 1)));
+            LocalDateTime date = LocalDateTime.now().minusMinutes(getRandomNumberInRange(0, 365 * 2 * 24 * 60));
+            message.setDate(date);
+            messages.add(message);
+            messageService.save(message);
+        }
     }
 
-    public Message makeAMessage(String[] messageDetails) {
-        Message message = new Message();
-        message.setDescription(messageDetails[0]);
-        Random rnd = new Random();
-
-        message.setStudent(students.get(rnd.nextInt(students.size())));
-        message.setTeacher(teachers.get(rnd.nextInt(teachers.size())));
-        LocalDateTime date = LocalDateTime.now().minusMinutes(rnd.nextInt(365 * 2 * 24 * 60));
-        message.setDate(date);
-        messageService.save(message);
-        return message;
+    public void generateCourses(int numberOfCourses) {
+        for (int i = 0; i < numberOfCourses; i++) {
+            Course course = new Course();
+            course.setTeacher(teachers.get(getRandomNumberInRange(0, teachers.size() - 1)));
+            course.setClassroom("A" + getRandomNumberInRange(1, 10));
+            course.setSubject(subjects.get(getRandomNumberInRange(0, subjects.size() - 1)));
+            LocalDateTime date = LocalDateTime.now().minusMinutes(getRandomNumberInRange(0, 365 / 2 * 1 * 24 * 60));
+            course.setStartTime(date);
+            course.setEndTime(date.plusMinutes(45));
+            courses.add(course);
+            courseService.save(course);
+        }
     }
 
-    public Course makeACourse(String[] courseDetails) {
-        Course course = new Course();
+    public void generateMarks(int numberOfMarks) {
 
-
-        return course;
-    }
-
-    public void makeMarksFromMark(String markName, Integer markValue) {
-        Random rnd = new Random();
-        int numbersOfMarks = rnd.nextInt(200) + 150;
-        for (int i = 0; i < numbersOfMarks; i++) {
+        for (int i = 0; i < numberOfMarks; i++) {
             Mark mark = new Mark();
 
-            mark.setMarkName(markName);
-            mark.setMarkValue(markValue);
-            mark.setStudent(students.get(rnd.nextInt(students.size())));
-            mark.setTeacher(teachers.get(rnd.nextInt(teachers.size())));
-            mark.setSubject(subjects.get(rnd.nextInt(subjects.size())));
+            String[] markNames = new String[]{"Jeles", "Jó", "Közepes", "Elégséges", "Elégtelen"};
+            Integer[] markValues = new Integer[]{5, 4, 3, 2, 1};
+            int randomMarkAndValue = getRandomNumberInRange(0, markNames.length - 1);
 
-            LocalDateTime date = LocalDateTime.now().minusMinutes(rnd.nextInt(365 * 2 * 24 * 60));
+            mark.setMarkValue(markValues[randomMarkAndValue]);
+            mark.setMarkName(markNames[randomMarkAndValue]);
+            mark.setStudent(students.get(getRandomNumberInRange(0, students.size() - 1)));
+            mark.setTeacher(teachers.get(getRandomNumberInRange(0, teachers.size() - 1)));
+            mark.setSubject(subjects.get(getRandomNumberInRange(0, subjects.size() - 1)));
+            LocalDateTime date = LocalDateTime.now().minusMinutes(getRandomNumberInRange(0, 365 * 2 * 24 * 60));
             mark.setDate(date);
+            marks.add(mark);
             markService.save(mark);
         }
     }
 
     private void loadData() {
-
-        //MAKE STUDENTS
-        String fileName = "sampledata/student.txt";
-        String[] lines = readLinesFromFile(fileName);
-        for (String line : lines) {
-            Student student = makeAStudent(line.split(":"));
-            students.add(student);
-        }
-
-        //MAKE SUBJECTS
-        fileName = "sampledata/subject.txt";
-        lines = readLinesFromFile(fileName);
-        for (String line : lines) {
-            Subject subject = makeASubject(line.split(":"));
-            subjects.add(subject);
-        }
-        //MAKE TEACHERS
-        fileName = "sampledata/teacher.txt";
-        lines = readLinesFromFile(fileName);
-        for (String line : lines) {
-            Teacher teacher = makeATeacher(line.split(":"));
-            teachers.add(teacher);
-        }
-
-        //MAKE MESSAGES
-        fileName = "sampledata/message.txt";
-        lines = readLinesFromFile(fileName);
-        for (String line : lines) {
-            Message message = makeAMessage(line.split(":"));
-            messages.add(message);
-        }
-
-        //MAKE MARK
-
-        String[] markNames = new String[]{"Jeles", "Jó", "Közepes", "Elégséges", "Elégtelen"};
-        Integer[] markValues = new Integer[]{5, 4, 3, 2, 1};
-
-        for (int i = 0; i < markNames.length; i++) {
-            makeMarksFromMark(markNames[i], markValues[i]);
-        }
-
-
-        //MAKE COURSE
-        fileName = "sampledata/course.txt";
-        lines = readLinesFromFile(fileName);
-        for (String line : lines) {
-            Course course = makeACourse(line.split(":"));
-            courses.add(course);
-        }
-
-
+        generateSubjects();
+        generateTeachers(50);
+        generateCourses(60);
+        generateStudents(200);
+        generateMessages(students.size() * 7);
+        generateMarks(students.size() * 120);
     }
 }

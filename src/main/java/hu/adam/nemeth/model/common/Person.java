@@ -27,6 +27,7 @@ public class Person extends BaseEntity {
     private String role;
     private String password;
     private LocalDate birthDate;
+    private String birthPlace;
     private String telephone;
     private String address;
     private String identityCard;

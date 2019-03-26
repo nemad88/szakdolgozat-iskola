@@ -26,12 +26,4 @@ public class Message extends BaseEntity {
     @JoinColumn(name = "teacher_id")
     private Teacher teacher;
     private LocalDateTime date;
-
-    @Builder
-    public Message(Long id, String description, Student student, Teacher teacher) {
-        super(id);
-        this.description = description;
-        this.student = student;
-        this.teacher = teacher;
-    }
 }

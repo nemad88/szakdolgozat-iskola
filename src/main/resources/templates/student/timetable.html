@@ -64,9 +64,28 @@
         <main class="col-md-9 ml-sm-auto col-lg-10 px-4" role="main">
 
             <h1>Órarend</h1>
-            <div class="table-responsive">
-                <p>Órarend</p>
-            </div>
+
+            <table class="table table-striped mt-3">
+                <thead>
+                <tr>
+                    <th scope="col">Tantárgy</th>
+                    <th scope="col">Terem</th>
+                    <th scope="col">Óraadó tanár</th>
+                    <th scope="col">Óra kezdete</th>
+                    <th scope="col">Óra vége</th>
+                </tr>
+                </thead>
+
+                <tbody>
+                <tr th:each="course : ${user.courses}">
+                    <td th:text="${course.subject.description}"></td>
+                    <td th:text="${course.classroom}"></td>
+                    <td th:text="${course.teacher.firstName}"></td>
+                    <td th:text="${#temporals.format(course.startTime, 'yyyy. MMMM dd. HH:mm')}"></td>
+                    <td th:text="${#temporals.format(course.endTime, 'yyyy. MMMM dd. HH:mm')}"></td>
+                </tr>
+                </tbody>
+            </table>
 
         </main>
 
