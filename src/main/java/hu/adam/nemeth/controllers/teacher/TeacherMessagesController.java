@@ -1,6 +1,6 @@
-package hu.adam.nemeth.controllers;
+package hu.adam.nemeth.controllers.teacher;
 
-import hu.adam.nemeth.model.Student;
+import hu.adam.nemeth.model.Teacher;
 import hu.adam.nemeth.services.*;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -11,22 +11,20 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @AllArgsConstructor
-@RequestMapping("/student")
-public class StudentDetailsController {
+@RequestMapping("/teacher")
+public class TeacherMessagesController {
 
     SubjectService subjectService;
     MessageService messageService;
     CourseService courseService;
-    StudentService studentService;
-    MarkService markService;
     TeacherService teacherService;
+    MarkService markService;
 
-    @RequestMapping({"/details", "/details.html"})
-    public String studentDetails(Model model, @AuthenticationPrincipal UserDetails user) {
-        Student student = studentService.findByUserName(user.getUsername());
-        model.addAttribute("user", student);
-        return "student/details";
+    @RequestMapping({"/messages", "/messages.html"})
+    public String studentMessages(Model model, @AuthenticationPrincipal UserDetails user) {
+        Teacher teacher= teacherService.findByUserName(user.getUsername());
+        model.addAttribute("user", teacher);
+        return "teacher/messages";
     }
+
 }
-
-

@@ -1,6 +1,6 @@
-package hu.adam.nemeth.controllers;
+package hu.adam.nemeth.controllers.student;
 
-import hu.adam.nemeth.model.Message;
+import hu.adam.nemeth.model.Mark;
 import hu.adam.nemeth.model.Student;
 import hu.adam.nemeth.services.*;
 import lombok.AllArgsConstructor;
@@ -13,7 +13,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import java.text.ParseException;
 import java.time.LocalDateTime;
@@ -23,7 +22,7 @@ import java.util.List;
 @Controller
 @AllArgsConstructor
 @RequestMapping("/student")
-public class StudentMessagesController {
+public class StudentMarksController {
 
     SubjectService subjectService;
     MessageService messageService;
@@ -32,73 +31,72 @@ public class StudentMessagesController {
     MarkService markService;
     TeacherService teacherService;
 
-    @RequestMapping({"/messages", "/messages.html"})
-    public String studentMessages(Model model, @AuthenticationPrincipal UserDetails user) {
+    @RequestMapping({"/marks", "/marks.html"})
+    public String studentMarks(Model model, @AuthenticationPrincipal UserDetails user) {
         Student student = studentService.findByUserName(user.getUsername());
-        List<Message> messages = messageService.findAllByStudent(student);
+        List<Mark> marks = markService.findAllByStudent(student);
 
         Filter filter = new Filter();
-
-        if (messages.size() > 0) {
-            filter.setDateStart(messages.get(messages.size() - 1).getDate().truncatedTo(ChronoUnit.MINUTES).toString());
-        }
+        filter.setDateStart(marks.get(marks.size() - 1).getDate().truncatedTo(ChronoUnit.MINUTES).toString());
 
         model.addAttribute("user", student);
+        model.addAttribute("marks", marks);
         model.addAttribute("teachers", teacherService.findAll());
-        model.addAttribute("messages", messages);
+        model.addAttribute("subjects", subjectService.findAll());
         model.addAttribute("filter", filter);
-        return "student/messages";
+
+        return "student/marks";
     }
 
-    @RequestMapping(value = "/message", params = "id")
-    public String studentMessage(Model model, @AuthenticationPrincipal UserDetails user, @RequestParam("id") String id) {
-        Message message = messageService.findById(Long.valueOf(id));
+    @PostMapping("/marks")
+    public String greetingSubmit(Model model, @ModelAttribute Filter filter, @AuthenticationPrincipal UserDetails user) throws ParseException {
         Student student = studentService.findByUserName(user.getUsername());
+        List<Mark> marks = markService.findAllByStudent(student);
 
-        if (message.getStudent().getId().equals(student.getId())) {
-            System.out.println(message.getDescription());
-        } else {
-            return "redirect:/student/messages";
-        }
+        System.out.println(filter.getDateStart());
 
-        model.addAttribute("user", student);
-        model.addAttribute("message", message);
-        return "student/messagedetails";
-    }
-
-    @PostMapping("/messages")
-    public String filterMessage(Model model, @ModelAttribute Filter filter, @AuthenticationPrincipal UserDetails user) throws ParseException {
-        Student student = studentService.findByUserName(user.getUsername());
-        List<Message> messages = messageService.findAllByStudent(student);
 
         if (!filter.getDateStart().equals("")) {
             LocalDateTime start = LocalDateTime.parse(filter.getDateStart());
-            messages = messageService.filterByStartDate(messages, start);
+            marks = markService.filterByStartDate(marks, start);
         }
 
         if (!filter.getDateEnd().equals("")) {
             LocalDateTime end = LocalDateTime.parse(filter.getDateEnd());
-            messages = messageService.filterByEndDate(messages, end);
+            marks = markService.filterByEndDate(marks, end);
+        }
+
+        if (!filter.subjectId.equals("-1")) {
+            marks = markService.filterBySubjectId(marks, Long.valueOf(filter.getSubjectId()));
         }
 
         if (!filter.teacherId.equals("-1")) {
-            messages = messageService.filterByTeacherId(messages, Long.valueOf(filter.getTeacherId()));
+            marks = markService.filterByTeacherId(marks, Long.valueOf(filter.getTeacherId()));
+        }
+
+        if (!filter.mark.equals("-1")) {
+            marks = markService.filterByMark(marks, filter.getMark());
         }
 
         model.addAttribute("user", student);
-        model.addAttribute("messages", messages);
+        model.addAttribute("marks", marks);
         model.addAttribute("teachers", teacherService.findAll());
+        model.addAttribute("subjects", subjectService.findAll());
         model.addAttribute("filter", filter);
 
-        return "student/messages";
+        return "student/marks";
     }
+
 
     @Getter
     @Setter
     class Filter {
+        private String subjectId;
         private String teacherId;
         private String dateStart;
         private String dateEnd;
+        private String description;
+        private String mark;
 
         public Filter() {
             this.dateStart = LocalDateTime.now().minusDays(7).truncatedTo(ChronoUnit.MINUTES).toString();

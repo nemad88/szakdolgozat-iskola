@@ -1,4 +1,4 @@
-package hu.adam.nemeth.controllers;
+package hu.adam.nemeth.controllers.teacher;
 
 import hu.adam.nemeth.model.Mark;
 import hu.adam.nemeth.model.Student;
@@ -16,7 +16,7 @@ import java.util.List;
 @Controller
 @AllArgsConstructor
 @RequestMapping("/teacher")
-public class TeacherController {
+public class TeacherIndexController {
 
     SubjectService subjectService;
     MessageService messageService;

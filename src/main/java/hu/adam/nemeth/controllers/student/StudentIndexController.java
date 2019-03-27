@@ -1,4 +1,4 @@
-package hu.adam.nemeth.controllers;
+package hu.adam.nemeth.controllers.student;
 
 import hu.adam.nemeth.model.Course;
 import hu.adam.nemeth.model.Mark;
