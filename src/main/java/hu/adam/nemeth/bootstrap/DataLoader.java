@@ -1,5 +1,7 @@
 package hu.adam.nemeth.bootstrap;
 
+import com.thedeanda.lorem.Lorem;
+import com.thedeanda.lorem.LoremIpsum;
 import hu.adam.nemeth.model.*;
 import hu.adam.nemeth.services.*;
 import lombok.AllArgsConstructor;
@@ -84,7 +86,7 @@ public class DataLoader implements CommandLineRunner {
             student.setAddress("1081 Budapest, József Attila utca 14. 3/2");
             student.setUserName("s" + i);
             student.setPassword("s" + i);
-            for (int j = 0; j < 20; j++) {
+            for (int j = 0; j < 500; j++) {
                 student.getCourses().add(courses.get(getRandomNumberInRange(0, courses.size() - 1)));
             }
             firstName = randomName(readLinesFromFile("sampledata/femalefirstnames.txt"));
@@ -141,7 +143,9 @@ public class DataLoader implements CommandLineRunner {
 
         for (int i = 0; i < numberOfMessage; i++) {
             Message message = new Message();
-            message.setDescription(messageDetails[getRandomNumberInRange(0, messageDetails.length - 1)]);
+            message.setMessageTitle(messageDetails[getRandomNumberInRange(0, messageDetails.length - 1)]);
+            Lorem lorem = LoremIpsum.getInstance();
+            message.setDescription(lorem.getWords(50, 150));
             message.setStudent(students.get(getRandomNumberInRange(0, students.size() - 1)));
             message.setTeacher(teachers.get(getRandomNumberInRange(0, teachers.size() - 1)));
             LocalDateTime date = LocalDateTime.now().minusMinutes(getRandomNumberInRange(0, 365 * 2 * 24 * 60));
@@ -157,7 +161,12 @@ public class DataLoader implements CommandLineRunner {
             course.setTeacher(teachers.get(getRandomNumberInRange(0, teachers.size() - 1)));
             course.setClassroom("A" + getRandomNumberInRange(1, 10));
             course.setSubject(subjects.get(getRandomNumberInRange(0, subjects.size() - 1)));
-            LocalDateTime date = LocalDateTime.now().minusMinutes(getRandomNumberInRange(0, 365 / 2 * 1 * 24 * 60));
+            LocalDateTime date = LocalDateTime.now().plusMinutes(getRandomNumberInRange(0, 90 * 24 * 60));
+            if (getRandomNumberInRange(0, 1) == 0) {
+                date = LocalDateTime.now().minusMinutes(getRandomNumberInRange(0, 90 * 24 * 60));
+            } else if (getRandomNumberInRange(0, 20) == 0) {
+                date = LocalDateTime.now().plusMinutes(getRandomNumberInRange(0, 24 * 60));
+            }
             course.setStartTime(date);
             course.setEndTime(date.plusMinutes(45));
             courses.add(course);
@@ -189,8 +198,8 @@ public class DataLoader implements CommandLineRunner {
     private void loadData() {
         generateSubjects();
         generateTeachers(50);
-        generateCourses(60);
-        generateStudents(200);
+        generateCourses(500);
+        generateStudents(50);
         generateMessages(students.size() * 7);
         generateMarks(students.size() * 120);
     }

@@ -3,10 +3,7 @@ package hu.adam.nemeth.model;
 import hu.adam.nemeth.model.common.BaseEntity;
 import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
@@ -18,6 +15,9 @@ import java.time.LocalDateTime;
 @Table(name = "messages")
 public class Message extends BaseEntity {
 
+    private String messageTitle;
+
+    @Lob
     private String description;
     @ManyToOne
     @JoinColumn(name = "student_id")

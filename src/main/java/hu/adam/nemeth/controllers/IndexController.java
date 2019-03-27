@@ -1,7 +1,5 @@
 package hu.adam.nemeth.controllers;
 
-import hu.adam.nemeth.model.Mark;
-import hu.adam.nemeth.model.Student;
 import hu.adam.nemeth.model.common.Person;
 import hu.adam.nemeth.services.*;
 import lombok.AllArgsConstructor;
@@ -10,8 +8,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-
-import java.util.List;
 
 @Controller
 @AllArgsConstructor
@@ -25,13 +21,14 @@ public class IndexController {
 
     @RequestMapping({"", "/", "/index"})
     public String student(Model model, @AuthenticationPrincipal UserDetails user) {
-
         Person person = studentService.findByUserName(user.getUsername());
-        if(person != null){
+
+        if (person != null) {
             return "redirect:/student";
         } else {
             return "redirect:/teacher";
         }
-
     }
+
+
 }

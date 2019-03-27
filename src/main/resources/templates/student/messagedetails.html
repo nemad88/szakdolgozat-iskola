@@ -66,9 +66,12 @@
 
             <h1>Tisztelt Szülő!</h1>
             <div class="table-responsive">
-                <p th:text="${#temporals.format(message.date, 'yyyy. MMMM dd. HH:mm')}"></p>
+                <h2 th:text="${message.messageTitle}"></h2>
+                <p>Az üzenet időpontja:
+                    <span th:text="${#temporals.format(message.date, 'yyyy. MMMM dd. HH:mm')}"></span>
+                </p>
                 <p th:text="${message.description}"></p>
-                <p th:text="${message.teacher.lastName} + ' ' + ${message.teacher.firstName}"></p>
+                <h4 th:text="${message.teacher.lastName} + ' ' + ${message.teacher.firstName}"></h4>
             </div>
 
         </main>
