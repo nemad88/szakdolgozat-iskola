@@ -64,6 +64,55 @@
         <main class="col-md-9 ml-sm-auto col-lg-10 px-4" role="main">
 
             <h1>Órarend</h1>
+            <form action="" th:action="@{/student/timetable?show}" th:object="${filter}" method="post">
+                <div class="form-row">
+                    <div class="form-group col-md-2">
+                        <label for="dates" class="label label-default">Dátum:</label>
+                        <select class="custom-select" id="dates" th:field="*{day}">
+                            <option value="-1">Minden kurzus</option>
+                            <option value="1" th:each="date : ${dates}"
+                                    th:text="${#temporals.format(date, 'yyyy. MMMM dd.')}" th:value="${date}">
+                                Tantargy
+                            </option>
+                        </select>
+                    </div>
+
+
+                    <div class="form-group col-md-2">
+                        <label for="teachers" class="label label-default">Tanár:</label>
+                        <select class="custom-select" id="teachers" th:field="*{teacherId}">
+                            <option value="-1">Minden tanár</option>
+                            <option value="1" th:each="teacher : ${teachers}"
+                                    th:text="${teacher.lastName} + ' ' + ${teacher.firstName}" th:value="${teacher.id}">
+                                Tantargy
+                            </option>
+                        </select>
+                    </div>
+
+
+                </div>
+
+
+                <div class="form-row">
+                    <div class="form-group col-md-1">
+                        <div class="button-container">
+                            <button class="btn btn-sm btn-primary mt-auto mb-1" type="submit">Szűrés</button>
+                        </div>
+                    </div>
+                    <div class="form-group col-md-1">
+                        <div class="button-container">
+                            <a th:href="@{${'/student/timetable'}(show=all)}"
+                               class="btn btn-sm btn-danger mt-auto mb-1">Szűrők
+                                törlése</a>
+                        </div>
+                    </div>
+                </div>
+            </form>
+
+
+            <div th:if="${param.show[0] == 'all'}">
+                <a th:href="@{${'/student/timetable'}(show=today)}">Ugras a mai napra</a>
+            </div>
 
             <table class="table table-striped mt-3">
                 <thead>
@@ -77,10 +126,10 @@
                 </thead>
 
                 <tbody>
-                <tr th:each="course : ${user.courses}">
+                <tr th:each="course : ${courses}">
                     <td th:text="${course.subject.description}"></td>
                     <td th:text="${course.classroom}"></td>
-                    <td th:text="${course.teacher.firstName}"></td>
+                    <td th:text="${course.teacher.lastName} + ' ' + ${course.teacher.firstName}"></td>
                     <td th:text="${#temporals.format(course.startTime, 'yyyy. MMMM dd. HH:mm')}"></td>
                     <td th:text="${#temporals.format(course.endTime, 'yyyy. MMMM dd. HH:mm')}"></td>
                 </tr>
