@@ -66,13 +66,53 @@
         <!--MAIN CONTENT-->
         <main class="col-md-9 ml-sm-auto col-lg-10 px-4" role="main">
 
-            <h1 th:utext="${user.firstName} + ' adatlapja'">adatlapja</h1>
-            <div class="table-responsive">
-                <br> <br>
-                <div>Születési idő:</div>
-                <div>Születési hely: Kecskemét</div>
-                <div>Évfolyam: 11</div>
-            </div>
+            <h1>Adatok</h1>
+            <table class="table table-striped mt-3">
+                <tbody>
+                <tr>
+                    <td>Születési név:</td>
+                    <td th:text="${user.lastName} + ' ' + ${user.firstName}"></td>
+                </tr>
+
+                <tr>
+                    <td>Születési idő:</td>
+                    <td th:text="${#temporals.format(user.birthDate, 'yyyy. MMMM dd.')}"></td>
+                </tr>
+
+                <tr>
+                    <td>Születési hely:</td>
+                    <td th:text="${user.birthPlace}"></td>
+                </tr>
+
+                <tr>
+                    <td>Anyja neve:</td>
+                    <td th:text="${user.mothersName}"></td>
+                </tr>
+
+                <tr>
+                    <td>Telefonszám:</td>
+                    <td th:text="${user.telephone}"></td>
+                </tr>
+
+                <tr>
+                    <td>Lakcím:</td>
+                    <td th:text="${user.address}"></td>
+                </tr>
+
+                <tr>
+                    <td>Személyigazolvány szám:</td>
+                    <td th:text="${user.identityCard}"></td>
+                </tr>
+
+                <tr>
+                    <td>Oktatási azonosító:</td>
+                    <td th:text="${user.educationalId}"></td>
+                </tr>
+
+                </tbody>
+            </table>
+
+
         </main>
 
     </div>

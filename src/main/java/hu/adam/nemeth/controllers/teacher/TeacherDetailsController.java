@@ -1,5 +1,6 @@
 package hu.adam.nemeth.controllers.teacher;
 
+import hu.adam.nemeth.model.Student;
 import hu.adam.nemeth.model.Teacher;
 import hu.adam.nemeth.services.*;
 import lombok.AllArgsConstructor;
@@ -26,5 +27,4 @@ public class TeacherDetailsController {
         model.addAttribute("user", teacher);
         return "teacher/details";
     }
-
 }
