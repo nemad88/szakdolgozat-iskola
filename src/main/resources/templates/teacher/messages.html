@@ -64,17 +64,19 @@
         </nav>
 
 
-
         <!--MAIN CONTENT-->
         <main class="col-md-9 ml-sm-auto col-lg-10 px-4" role="main">
 
             <h1>Bejegyzések</h1>
-            <div class="table-responsive">
-                <a th:href="@{${'/teacher/newMessage'}}">Új bejegyzés hozzáadása</a>
-            </div>
 
             <!--FILTERS-->
             <form action="" th:action="@{/teacher/messages}" th:object="${filter}" method="post">
+
+                <div class="form-row">
+                    <div class="form-group col-md-12">
+                        <a class="btn btn-link" th:href="@{${'/teacher/newMessage'}}">Új bejegyzés hozzáadása</a>
+                    </div>
+                </div>
 
                 <div class="form-row">
                     <div class="form-group col-md-5">
@@ -93,7 +95,7 @@
 
                 <div class="form-row">
                     <div class="form-group col-md-5">
-                        <label for="students" class="label label-default">Diákok:</label>
+                        <label for="students" class="label label-default">Diák neve:</label>
                         <select class="custom-select" id="students" th:field="*{studentId}">
                             <option value="-1"></option>
                             <option value="1" th:each="student : ${students}"
@@ -110,39 +112,40 @@
                     </div>
                     <div class="form-group col-md-1">
                         <div class="button-container">
-                            <a th:href="@{/student/messages}" class="btn btn-sm btn-danger mt-auto mb-1">Szűrők törlése</a>
+                            <a th:href="@{/teacher/messages}" class="btn btn-sm btn-danger mt-auto mb-1">Szűrők
+                                törlése</a>
                         </div>
                     </div>
                 </div>
             </form>
             <!--FILTERS END-->
+            <div class="table-responsive">
+                <table class="table table-striped mt-3">
+                    <thead>
+                    <tr>
+                        <th scope="col">Diák neve</th>
+                        <th scope="col">Bejegyzés időpontja</th>
+                        <th scope="col">Üzenet</th>
+                        <th scope="col">#</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="message : ${messages}">
+                        <td th:text="${message.student.lastName} + ' ' + ${message.student.firstName}"></td>
+                        <td th:text="${#temporals.format(message.date, 'yyyy. MMMM dd. HH:mm')}"></td>
+                        <td th:text="${message.messageTitle}"></td>
+                        <td>
+                            <a th:href="@{${'/teacher/readEdit'}(id=${message.id}, op=${'read'})}">Olvas</a>
+                            <span> / </span>
+                            <a th:href="@{${'/teacher/readEdit'}(id=${message.id}, op=${'edit'})}">Módosít</a>
+                            <span> / </span>
+                            <a th:href="@{${'/teacher/deletemessage'}(delete=${message.id})}">Töröl</a>
 
-            <table class="table table-striped mt-3">
-                <thead>
-                <tr>
-                    <th scope="col">Diák neve</th>
-                    <th scope="col">Bejegyzés időpontja</th>
-                    <th scope="col">Üzenet</th>
-                    <th scope="col">#</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr th:each="message : ${messages}">
-                    <td th:text="${message.student.lastName} + ' ' + ${message.student.firstName}"></td>
-                    <td th:text="${#temporals.format(message.date, 'yyyy. MMMM dd. HH:mm')}"></td>
-                    <td th:text="${message.messageTitle}"></td>
-                    <td>
-                        <a th:href="@{${'/teacher/readEdit'}(id=${message.id}, op=${'read'})}">Olvas</a>
-                        <span> / </span>
-                        <a th:href="@{${'/teacher/readEdit'}(id=${message.id}, op=${'edit'})}">Módosít</a>
-                        <span> / </span>
-                        <a th:href="@{${'/teacher/deletemessage'}(delete=${message.id})}">Töröl</a>
-
-                    </td>
-                </tr>
-                </tbody>
-            </table>
-
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
         </main>
 
     </div>

@@ -2,6 +2,7 @@ package hu.adam.nemeth.services.implementation.jpa;
 
 import hu.adam.nemeth.model.Mark;
 import hu.adam.nemeth.model.Student;
+import hu.adam.nemeth.model.Teacher;
 import hu.adam.nemeth.repositories.MarkRepository;
 import hu.adam.nemeth.services.MarkService;
 import lombok.AllArgsConstructor;
@@ -51,6 +52,14 @@ public class MarkServiceImpl implements MarkService {
                 .collect(Collectors.toList());
     }
 
+    @Override
+    public List<Mark> findAllByTeacher(Teacher teacher) {
+        return markRepository.findAllByTeacher(teacher)
+                .stream()
+                .sorted(Comparator.comparing(Mark::getDate).reversed())
+                .collect(Collectors.toList());
+    }
+
     public List<Mark> filterByStartDate(List<Mark> marks, LocalDateTime startDate) {
         List<Mark> filteredMarks = marks.stream()
                 .filter(mark -> mark.getDate().isAfter(startDate) || mark.getDate().equals(startDate))
@@ -78,6 +87,14 @@ public class MarkServiceImpl implements MarkService {
     public List<Mark> filterByTeacherId(List<Mark> marks, Long teacherId) {
         List<Mark> filteredMarks = marks.stream()
                 .filter(mark -> mark.getTeacher().getId().equals(teacherId))
+                .collect(Collectors.toList());
+        return filteredMarks;
+    }
+
+    @Override
+    public List<Mark> filterByStudentId(List<Mark> marks, Long studentId) {
+        List<Mark> filteredMarks = marks.stream()
+                .filter(mark -> mark.getStudent().getId().equals(studentId))
                 .collect(Collectors.toList());
         return filteredMarks;
     }
