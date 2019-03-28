@@ -11,6 +11,8 @@ public interface CourseService extends CrudService<Course, Long> {
 
     List<LocalDate> getAllCourseDayByStudentId(Long id);
 
+    List<LocalDate> getAllCourseDayByTeacherId(Long id);
+
     List<Course> filterCoursesByDay(List<Course> courses, String day);
 
     List<Course> filterCoursesByTeacherId(List<Course> courses, String teacherId);

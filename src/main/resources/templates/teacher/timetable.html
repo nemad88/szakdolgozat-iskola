@@ -7,8 +7,6 @@
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
     <meta content="" name="description">
-    <meta content="Mark Otto, Jacob Thornton, and Bootstrap contributors" name="author">
-    <meta content="Jekyll v3.8.5" name="generator">
     <title>Head Title</title>
 
     <!--Bootstrap style-->
@@ -66,9 +64,70 @@
         <main class="col-md-9 ml-sm-auto col-lg-10 px-4" role="main">
 
             <h1>Órarend</h1>
-            <div class="table-responsive">
-                <p>Órarend</p>
+            <form action="" th:action="@{/teacher/timetable?show}" th:object="${filter}" method="post">
+
+
+                <div class="form-row">
+                    <div class="form-group col-md-2">
+                        <label for="dates" class="label label-default">Dátum:</label>
+                        <select class="custom-select" id="dates" th:field="*{day}">
+                            <option value="-1">Minden kurzus</option>
+                            <option value="1" th:each="date : ${dates}"
+                                    th:text="${#temporals.format(date, 'yyyy. MMMM dd.')}" th:value="${date}">
+                                Tantargy
+                            </option>
+                        </select>
+                    </div>
+
+                </div>
+
+
+                <div class="form-row">
+                    <div class="form-group col-md-1">
+                        <div class="button-container">
+                            <button class="btn btn-sm btn-primary mt-auto mb-1" type="submit">Szűrés</button>
+                        </div>
+                    </div>
+                    <div class="form-group col-md-1">
+                        <div class="button-container">
+                            <a th:href="@{${'/teacher/timetable'}(show=all)}"
+                               class="btn btn-sm btn-danger mt-auto mb-1">Szűrők
+                                törlése</a>
+                        </div>
+                    </div>
+                </div>
+
+                <input type="hidden" id="messageId" name="custId" value="3487" th:field="*{teacherId}">
+
+
+            </form>
+
+
+            <div th:if="${param.show[0] != 'today'}">
+                <a th:href="@{${'/teacher/timetable'}(show=today)}">Ugras a mai napra</a>
             </div>
+
+            <table class="table table-striped mt-3">
+                <thead>
+                <tr>
+                    <th scope="col">Tantárgy</th>
+                    <th scope="col">Terem</th>
+                    <th scope="col">Óraadó tanár</th>
+                    <th scope="col">Óra kezdete</th>
+                    <th scope="col">Óra vége</th>
+                </tr>
+                </thead>
+
+                <tbody>
+                <tr th:each="course : ${courses}">
+                    <td th:text="${course.subject.description}"></td>
+                    <td th:text="${course.classroom}"></td>
+                    <td th:text="${course.teacher.lastName} + ' ' + ${course.teacher.firstName}"></td>
+                    <td th:text="${#temporals.format(course.startTime, 'yyyy. MMMM dd. HH:mm')}"></td>
+                    <td th:text="${#temporals.format(course.endTime, 'yyyy. MMMM dd. HH:mm')}"></td>
+                </tr>
+                </tbody>
+            </table>
 
         </main>
 
