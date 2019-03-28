@@ -7,8 +7,6 @@
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
     <meta content="" name="description">
-    <meta content="Mark Otto, Jacob Thornton, and Bootstrap contributors" name="author">
-    <meta content="Jekyll v3.8.5" name="generator">
     <title>Head Title</title>
 
     <!--Bootstrap style-->
@@ -25,7 +23,7 @@
 <!--NAVBAR-->
 <!--REPLACED BY THYMELEAF-->
 <nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow" th:replace="fragments/navbar :: navbar">
-    <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#">Tanar Placeholder</a>
+    <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#">Diak Placeholder</a>
     <ul class="navbar-nav px-3">
         <li class="nav-item text-nowrap">
             <a class="nav-link" href="#">Sign out</a>
@@ -35,7 +33,6 @@
 
 
 <div class="container-fluid">
-<h1>TANÁR</h1>
     <div class="row">
 
         <!--SIDEBAR-->
@@ -44,12 +41,22 @@
              th:replace="fragments/sidebarTeacher :: sidebar('index')">
             <div class="sidebar-sticky">
                 <ul class="nav flex-column">
+
                     <li class="nav-item">
                         <a class="nav-link active" href="#">
                             <span data-feather="home"></span>
                             Dashboard <span class="sr-only">(current)</span>
                         </a>
                     </li>
+
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">
+                            <span data-feather="file"></span>
+                            Orders
+                        </a>
+                    </li>
+
                 </ul>
             </div>
         </nav>
@@ -57,14 +64,113 @@
         <!--MAIN CONTENT-->
         <main class="col-md-9 ml-sm-auto col-lg-10 px-4" role="main">
 
-            <h1>Üdvözlet az oldalon!</h1>
-            <div class="table-responsive">
-                <br> <br>
+            <h1>Kezdőoldal</h1>
+            <!--<div class="table-responsive">-->
 
-                <h3>Utolsó érdemjegy: 2019. január 21 - Matematika: 2</h3>
-                <h3>Utolsó beírás: 2019. január 10 - Kovács Ernő által</h3>
+            <div class="row">
+                <div class="col-lg-6 table-responsive">
+                    <table class="table table-striped mt-3">
+                        <thead>
+                        <tr>
+                            <th colspan="5">Elmúlt órák</th>
+                        </tr>
+                        <tr>
+                            <th scope="col">Tantárgy</th>
+                            <th scope="col">Terem</th>
+
+                            <th scope="col">Óra kezdete</th>
+                            <th scope="col">Óra vége</th>
+                        </tr>
+                        </thead>
+
+                        <tbody>
+                        <tr th:each="course : ${beforeCourses}">
+                            <td th:text="${course.subject.description}"></td>
+                            <td th:text="${course.classroom}"></td>
+
+                            <td th:text="${#temporals.format(course.startTime, 'yyyy. MMMM dd. HH:mm')}"></td>
+                            <td th:text="${#temporals.format(course.endTime, 'yyyy. MMMM dd. HH:mm')}"></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col-lg-6 table-responsive">
+                    <table class="table table-striped mt-3">
+                        <thead>
+                        <tr>
+                            <th colspan="5">Következő órák</th>
+                        </tr>
+                        <tr>
+                            <th scope="col">Tantárgy</th>
+                            <th scope="col">Terem</th>
+                            <th scope="col">Óra kezdete</th>
+                            <th scope="col">Óra vége</th>
+                        </tr>
+                        </thead>
+
+                        <tbody>
+                        <tr th:each="course : ${afterCourses}">
+                            <td th:text="${course.subject.description}"></td>
+                            <td th:text="${course.classroom}"></td>
+                            <td th:text="${#temporals.format(course.startTime, 'yyyy. MMMM dd. HH:mm')}"></td>
+                            <td th:text="${#temporals.format(course.endTime, 'yyyy. MMMM dd. HH:mm')}"></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
 
             </div>
+
+            <div class="row">
+                <div class="col-lg-6 table-responsive">
+                    <table class="table table-striped mt-3">
+                        <thead>
+                        <tr>
+                            <th colspan="4">Utolsó 5 érdemjegy</th>
+                        </tr>
+                        <tr>
+                            <th scope="col">Diák neve</th>
+                            <th scope="col">Bejegyzés időpontja</th>
+                            <th scope="col">Tantárgy</th>
+                            <th scope="col">Érdemjegy</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="mark : ${marks}">
+                            <td th:text="${mark.student.lastName} + ' ' + ${mark.student.firstName}"></td>
+                            <td th:text="${#temporals.format(mark.date, 'yyyy. MMMM dd. HH:mm')}"></td>
+                            <td th:text="${mark.subject.description}"></td>
+                            <td th:text="${mark.markName}"></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col-lg-6 table-responsive">
+                    <table class="table table-striped mt-3">
+                        <thead>
+                        <tr>
+                            <th colspan="4">Utolsó 5 bejegyzés</th>
+                        </tr>
+                        <tr>
+                            <th scope="col">Diák neve</th>
+                            <th scope="col">Bejegyzés időpontja</th>
+                            <th scope="col">Üzenet</th>
+                            <th scope="col">#</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="message : ${messages}">
+                            <td th:text="${message.student.lastName} + ' ' + ${message.student.firstName}"></td>
+                            <td th:text="${#temporals.format(message.date, 'yyyy. MMMM dd. HH:mm')}"></td>
+                            <td th:text="${message.messageTitle}"></td>
+                            <td><a th:href="@{${'/teacher/readEdit'}(id=${message.id}, op=${'read'})}">Olvas</a></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+
         </main>
 
     </div>

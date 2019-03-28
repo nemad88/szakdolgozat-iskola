@@ -2,6 +2,7 @@ package hu.adam.nemeth.services;
 
 import hu.adam.nemeth.model.Mark;
 import hu.adam.nemeth.model.Student;
+import hu.adam.nemeth.model.Teacher;
 import hu.adam.nemeth.services.common.CrudService;
 
 import java.time.LocalDateTime;
@@ -12,6 +13,8 @@ public interface MarkService extends CrudService<Mark, Long> {
 
     List<Mark> findAllByStudent(Student student);
 
+    List<Mark> findAllByTeacher(Teacher teacher);
+
     List<Mark> filterByStartDate(List<Mark> marks, LocalDateTime startDate);
 
     List<Mark> filterByEndDate(List<Mark> marks, LocalDateTime endDate);
@@ -20,6 +23,10 @@ public interface MarkService extends CrudService<Mark, Long> {
 
     List<Mark> filterByTeacherId(List<Mark> marks, Long teacherId);
 
+    List<Mark> filterByStudentId(List<Mark> marks, Long studentId);
+
     List<Mark> filterByMark(List<Mark> marks, String markValue);
+
+
 
 }
