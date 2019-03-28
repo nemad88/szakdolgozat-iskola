@@ -46,7 +46,9 @@ public class MessageServiceImpl implements MessageService {
     }
 
     public List<Message> findAllByTeacher(Teacher teacher) {
-        return messageRepository.findAllByTeacher(teacher);
+        return messageRepository.findAllByTeacher(teacher).stream()
+                .sorted(Comparator.comparing(Message::getDate).reversed())
+                .collect(Collectors.toList());
     }
 
     @Override
@@ -78,6 +80,14 @@ public class MessageServiceImpl implements MessageService {
     public List<Message> filterByTeacherId(List<Message> messages, Long teacherId) {
         List<Message> filteredMessages = messages.stream()
                 .filter(message -> message.getTeacher().getId().equals(teacherId))
+                .collect(Collectors.toList());
+        return filteredMessages;
+    }
+
+    @Override
+    public List<Message> filterByStudentId(List<Message> messages, Long studentId){
+        List<Message> filteredMessages = messages.stream()
+                .filter(message -> message.getStudent().getId().equals(studentId))
                 .collect(Collectors.toList());
         return filteredMessages;
     }

@@ -2,6 +2,7 @@ package hu.adam.nemeth.services.implementation.jpa;
 
 import hu.adam.nemeth.model.Course;
 import hu.adam.nemeth.model.Student;
+import hu.adam.nemeth.model.Teacher;
 import hu.adam.nemeth.repositories.StudentRepository;
 import hu.adam.nemeth.services.StudentService;
 import lombok.AllArgsConstructor;
@@ -21,7 +22,9 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     public List<Student> findAll() {
-        return studentRepository.findAll();
+        return studentRepository.findAll().stream()
+                .sorted(Comparator.comparing(Student::getLastName).thenComparing(Student::getFirstName))
+                .collect(Collectors.toList());
     }
 
     @Override

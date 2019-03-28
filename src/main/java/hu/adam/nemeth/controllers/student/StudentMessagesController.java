@@ -67,7 +67,7 @@ public class StudentMessagesController {
     }
 
     @PostMapping("/messages")
-    public String filterMessage(Model model, @ModelAttribute Filter filter, @AuthenticationPrincipal UserDetails user) throws ParseException {
+    public String filterMessage(Model model, @ModelAttribute Filter filter, @AuthenticationPrincipal UserDetails user){
         Student student = studentService.findByUserName(user.getUsername());
         List<Message> messages = messageService.findAllByStudent(student);
 

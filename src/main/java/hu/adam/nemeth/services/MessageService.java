@@ -21,4 +21,6 @@ public interface MessageService extends CrudService<Message, Long> {
 
     List<Message> filterByTeacherId(List<Message> messages, Long teacherId);
 
+    List<Message> filterByStudentId(List<Message> messages, Long teacherId);
+
 }
