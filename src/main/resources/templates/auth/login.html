@@ -1,32 +1,90 @@
 <!doctype html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
+
+<head th:replace="fragments/head :: head">
     <meta charset="UTF-8">
     <meta content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
           name="viewport">
     <meta content="ie=edge" http-equiv="X-UA-Compatible">
-    <title>Document</title>
+    <title></title>
 </head>
 <body>
+<style type="text/css">
+	body {
+		color: #fff;
+		background: #3598dc;
+	}
+	.form-control {
+		min-height: 41px;
+		background: #f2f2f2;
+		box-shadow: none !important;
+		border: transparent;
+	}
+	.form-control:focus {
+		background: #e2e2e2;
+	}
+	.form-control, .btn {
+        border-radius: 2px;
+    }
+	.login-form {
+		width: 350px;
+		margin: 30px auto;
+		text-align: center;
+	}
+	.login-form h2 {
+        margin: 10px 0 25px;
+    }
+    .login-form form {
+		color: #7a7a7a;
+		border-radius: 3px;
+    	margin-bottom: 15px;
+        background: #fff;
+        box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+        padding: 30px;
+    }
+    .login-form .btn {
+        font-size: 16px;
+        font-weight: bold;
+		background: #3598dc;
+		border: none;
+        outline: none !important;
+    }
+	.login-form .btn:hover, .login-form .btn:focus {
+		background: #2389cd;
+	}
+	.login-form a {
+		color: #fff;
+		text-decoration: underline;
+	}
+	.login-form a:hover {
+		text-decoration: none;
+	}
+	.login-form form a {
+		color: #7a7a7a;
+		text-decoration: none;
+	}
+	.login-form form a:hover {
+		text-decoration: underline;
+	}
 
 
-<form action="" method="post" th:action="@{/login}">
-    <h1>TODO: implement this</h1>
-    <h3>username/pass:</h3>
-    <div>Tanárok: t1/t1, t2/t2, t3/t3</div>
-    <div>Diákok: s1/s1, s2/s2, s3/s3</div>
-    <br>
-    <div th:if="${param.error}">Hibás belépési adatok</div>
-    <div class="alert alert-succes" th:if="${param.logout}">Sikeresen kijelentkeztél</div>
-    <label for="username">Felhasználói név</label>
-    <input class="form-control" id="username" name="username" type="text">
-
-
-
-    <label for="password">Jelszó</label>
-    <input class="form-control" id="password" name="password" type="password">
-    <button type="submit">Bejelentkezés</button>
-</form>
-
+</style>
+<!--LOGIN FORM-->
+<div class="login-form">
+    <form action="" th:action="@{/login}" method="post">
+        <h2 class="text-center">Bejelentkezés</h2>
+        <div th:if="${param.error}" class="alert alert-danger">Hibás belépési adatok</div>
+        <div class="form-group has-error">
+            <input type="text" class="form-control" name="username" placeholder="Felhasználónév" required="required">
+        </div>
+        <div class="form-group">
+            <input type="password" class="form-control" name="password" placeholder="Jelszó" required="required">
+        </div>
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary btn-lg btn-block">Bejelentkezés</button>
+        </div>
+    </form>
+</div>
+<!--END LOGIN FORM-->
 </body>
 </html>
