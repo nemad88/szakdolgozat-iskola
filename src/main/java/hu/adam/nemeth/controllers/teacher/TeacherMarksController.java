@@ -13,10 +13,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.text.ParseException;
 import java.time.LocalDateTime;
@@ -36,7 +33,7 @@ public class TeacherMarksController {
     TeacherService teacherService;
 
     @RequestMapping({"/marks", "/marks.html"})
-    public String studentMarks(Model model, @AuthenticationPrincipal UserDetails user) {
+    public String listMarks(Model model, @AuthenticationPrincipal UserDetails user) {
         Teacher teacher = teacherService.findByUserName(user.getUsername());
         List<Mark> marks = markService.findAllByTeacher(teacher);
 
@@ -52,7 +49,7 @@ public class TeacherMarksController {
         return "teacher/marks";
     }
 
-    @RequestMapping({"/newMark"})
+    @GetMapping({"/newMark"})
     public String newMark(Model model, @AuthenticationPrincipal UserDetails user) {
         Teacher teacher = teacherService.findByUserName(user.getUsername());
         ActualMark actualMark = new ActualMark();
@@ -63,9 +60,8 @@ public class TeacherMarksController {
         return "teacher/newMark";
     }
 
-
     @PostMapping("/saveMark")
-    public String greetingSubmit(Model model, @ModelAttribute ActualMark actualMark, @AuthenticationPrincipal UserDetails user) throws ParseException {
+    public String savaMark(Model model, @ModelAttribute ActualMark actualMark, @AuthenticationPrincipal UserDetails user) throws ParseException {
         Teacher teacher = teacherService.findByUserName(user.getUsername());
         Student student = studentService.findById(Long.valueOf(actualMark.studentId));
 
@@ -74,7 +70,7 @@ public class TeacherMarksController {
             model.addAttribute("students", studentService.findAll());
             model.addAttribute("subjects", subjectService.findAll());
             model.addAttribute("actualmark", actualMark);
-            return "teacher/newMark";
+            return "redirect:/newMark";
         }
 
         List<Mark> marks = markService.findAllByTeacher(teacher);
@@ -87,11 +83,11 @@ public class TeacherMarksController {
         mark.setTeacher(teacher);
         mark.setSubject(subjectService.findById(Long.valueOf(actualMark.getSubjectId())));
         markService.save(mark);
-        return "redirect:/teacher/marks";
+        return "redirect:/teacher/newMark?success";
     }
 
     @PostMapping("/marks")
-    public String greetingSubmit(Model model, @ModelAttribute Filter filter, @AuthenticationPrincipal UserDetails user) {
+    public String filterMarks(Model model, @ModelAttribute Filter filter, @AuthenticationPrincipal UserDetails user) {
         Teacher teacher = teacherService.findByUserName(user.getUsername());
         List<Mark> marks = markService.findAllByTeacher(teacher);
 
@@ -125,8 +121,8 @@ public class TeacherMarksController {
         return "teacher/marks";
     }
 
-    @RequestMapping(value = "/deletemark", params = "delete")
-    public String deleteMessage(Model model, @AuthenticationPrincipal UserDetails user, @RequestParam("delete") String delete) {
+    @GetMapping(value = "/deletemark", params = "delete")
+    public String deleteMark(Model model, @AuthenticationPrincipal UserDetails user, @RequestParam("delete") String delete) {
         Teacher teacher = teacherService.findByUserName(user.getUsername());
         Mark mark = markService.findById(Long.valueOf(delete));
         if (mark.getTeacher().equals(teacher)) {
