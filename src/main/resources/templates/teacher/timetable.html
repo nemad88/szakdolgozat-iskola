@@ -64,7 +64,7 @@
         <main class="col-md-9 ml-sm-auto col-lg-10 px-4" role="main">
 
             <h1>Órarend</h1>
-            <form action="" th:action="@{/teacher/timetable?show}" th:object="${filter}" method="post">
+            <form action="" th:action="@{/teacher/timetable}" th:object="${filter}" method="post">
 
 
                 <div class="form-row">
@@ -100,7 +100,7 @@
             </form>
 
             <div th:if="${filter.day != #dates.format(#dates.createNow(), 'yyyy-MM-dd')}">
-                <a th:href="@{${'/teacher/timetable'}(show=today)}">Ugras a mai napra</a>
+                <a th:href="@{'/teacher/timetable'}">Ugrás a mai napra</a>
             </div>
 
             <table class="table table-striped mt-3">
