@@ -64,13 +64,13 @@
         <!--MAIN CONTENT-->
         <main class="col-md-9 ml-sm-auto col-lg-10 px-4" role="main">
 
-            <h1>Read/edit message</h1>
+            <h1>Üzenet olvasása</h1>
             <h4><span>Feladó: </span><span th:text="${user.lastName} + ' ' + ${user.firstName}"></span></h4>
 
             <form action="" th:action="@{/teacher/handleMessage}" th:object="${message}" method="post">
 
                 <div class="form-group">
-                    <label for="students" class="label label-default">Diákok:</label>
+                    <label for="students" class="label label-default">Címzett:</label>
                     <select class="custom-select" id="students" th:field="*{studentId}" disabled="true">
                         <option value="-1"></option>
                         <option value="1" th:each="student : ${students}"

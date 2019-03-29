@@ -1,12 +1,8 @@
 <!doctype html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="hu" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8">
-    <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
-    <meta content="" name="description">
-    <meta content="Mark Otto, Jacob Thornton, and Bootstrap contributors" name="author">
-    <meta content="Jekyll v3.8.5" name="generator">
-    <title>Sidebar student</title>
+    <title></title>
 </head>
 
 
@@ -25,7 +21,7 @@
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#" th:classappend="${activeItem.equals('timetable')} ? active : ''"
-                           th:href="@{${'/student/timetable'}(show=today)}">
+                           th:href="@{${'/student/timetable'}}">
                             <span data-feather="clock"></span>
                             Órarend
                         </a>
