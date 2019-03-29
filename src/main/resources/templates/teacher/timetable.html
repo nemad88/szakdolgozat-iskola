@@ -96,14 +96,10 @@
                         </div>
                     </div>
                 </div>
-
                 <input type="hidden" id="messageId" name="custId" value="3487" th:field="*{teacherId}">
-
-
             </form>
 
-
-            <div th:if="${param.show[0] != 'today'}">
+            <div th:if="${filter.day != #dates.format(#dates.createNow(), 'yyyy-MM-dd')}">
                 <a th:href="@{${'/teacher/timetable'}(show=today)}">Ugras a mai napra</a>
             </div>
 
