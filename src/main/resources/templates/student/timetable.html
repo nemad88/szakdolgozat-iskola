@@ -39,7 +39,6 @@
                         </a>
                     </li>
 
-
                     <li class="nav-item">
                         <a class="nav-link" href="#">
                             <span data-feather="file"></span>
@@ -58,7 +57,7 @@
             <h1>Órarend</h1>
             <form action="" th:action="@{/student/timetable}" th:object="${filter}" method="post">
                 <div class="form-row">
-                    <div class="form-group col-md-2">
+                    <div class="form-group col-lg-2">
                         <label for="dates" class="label label-default">Dátum:</label>
                         <select class="custom-select" id="dates" th:field="*{day}">
                             <option value="-1">Minden kurzus</option>
@@ -70,7 +69,7 @@
                     </div>
 
 
-                    <div class="form-group col-md-2">
+                    <div class="form-group col-lg-2">
                         <label for="teachers" class="label label-default">Tanár:</label>
                         <select class="custom-select" id="teachers" th:field="*{teacherId}">
                             <option value="-1">Minden tanár</option>
@@ -80,26 +79,20 @@
                             </option>
                         </select>
                     </div>
-
-
                 </div>
 
 
                 <div class="form-row">
-                    <div class="form-group col-md-1">
-                        <div class="button-container">
-                            <button class="btn btn-sm btn-primary mt-auto mb-1" type="submit">Szűrés</button>
-                        </div>
-                    </div>
-                    <div class="form-group col-md-1">
-                        <div class="button-container">
-                            <a th:href="@{${'/student/timetable'}(show=${'all'})}"
-                               class="btn btn-sm btn-danger mt-auto mb-1">Szűrők
-                                törlése</a>
-                        </div>
+                    <div class="form-group col-lg-12">
+                        <button class="btn btn-md btn-primary mt-auto mb-1" type="submit">Szűrés</button>
+                        <a th:href="@{${'/student/timetable'}(show=${'all'})}"
+                           class="btn btn-md btn-danger mt-auto mb-1">Szűrők
+                            törlése</a>
                     </div>
                 </div>
             </form>
+
+
             <div th:if="${filter.day != #dates.format(#dates.createNow(), 'yyyy-MM-dd')}">
                 <a th:href="@{'/student/timetable'}">Ugrás a mai napra</a>
             </div>
@@ -109,7 +102,7 @@
                 <tr>
                     <th scope="col">Tantárgy</th>
                     <th scope="col">Terem</th>
-                    <th scope="col">Óraadó tanár</th>
+                    <th scope="col">Óraadó</th>
                     <th scope="col">Óra kezdete</th>
                     <th scope="col">Óra vége</th>
                 </tr>
