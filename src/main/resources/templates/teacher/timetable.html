@@ -6,15 +6,12 @@
 <head th:replace="fragments/head :: head">
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
-    <meta content="" name="description">
-    <title>Head Title</title>
-
+    <title>Tanulmányi Rendszer</title>
     <!--Bootstrap style-->
     <link crossorigin="anonymous" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" rel="stylesheet">
     <!-- Custom styles -->
     <link href="css/dashboard.css" rel="stylesheet" th:href="@{/css/dashboard.css}">
-
 </head>
 
 
@@ -65,10 +62,8 @@
 
             <h1>Órarend</h1>
             <form action="" th:action="@{/teacher/timetable}" th:object="${filter}" method="post">
-
-
                 <div class="form-row">
-                    <div class="form-group col-md-2">
+                    <div class="form-group col-lg-2">
                         <label for="dates" class="label label-default">Dátum:</label>
                         <select class="custom-select" id="dates" th:field="*{day}">
                             <option value="-1">Minden kurzus</option>
@@ -78,25 +73,17 @@
                             </option>
                         </select>
                     </div>
-
                 </div>
-
 
                 <div class="form-row">
-                    <div class="form-group col-md-1">
-                        <div class="button-container">
-                            <button class="btn btn-sm btn-primary mt-auto mb-1" type="submit">Szűrés</button>
-                        </div>
-                    </div>
-                    <div class="form-group col-md-1">
-                        <div class="button-container">
-                            <a th:href="@{${'/teacher/timetable'}(show=all)}"
-                               class="btn btn-sm btn-danger mt-auto mb-1">Szűrők
-                                törlése</a>
-                        </div>
+                    <div class="form-group col-lg-12">
+                        <button class="btn btn-md btn-primary" type="submit">Szűrés</button>
+                        <a th:href="@{${'/teacher/timetable'}(show=all)}"
+                           class="btn btn-md btn-danger">Szűrők
+                            törlése</a>
                     </div>
                 </div>
-                <input type="hidden" id="messageId" name="custId" value="3487" th:field="*{teacherId}">
+                <!--<input type="hidden" id="messageId" name="custId" value="3487" th:field="*{teacherId}">-->
             </form>
 
             <div th:if="${filter.day != #dates.format(#dates.createNow(), 'yyyy-MM-dd')}">

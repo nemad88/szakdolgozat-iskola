@@ -11,10 +11,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
@@ -33,7 +30,7 @@ public class TeacherMessagesController {
     StudentService studentService;
 
     @RequestMapping({"/messages", "/messages.html"})
-    public String teacherMessages(Model model, @AuthenticationPrincipal UserDetails user) {
+    public String listAllMessage(Model model, @AuthenticationPrincipal UserDetails user) {
         Teacher teacher = teacherService.findByUserName(user.getUsername());
         List<Message> messages = messageService.findAllByTeacher(teacher);
         Filter filter = new Filter();
@@ -74,8 +71,8 @@ public class TeacherMessagesController {
         return "teacher/messages";
     }
 
-    @RequestMapping(value = "/newMessage")
-    public String teacherNewMessage(Model model, @AuthenticationPrincipal UserDetails user) {
+    @RequestMapping("/newMessage")
+    public String createNewMessage(Model model, @AuthenticationPrincipal UserDetails user) {
         Teacher teacher = teacherService.findByUserName(user.getUsername());
         ActualMessage actualMessage = new ActualMessage();
         actualMessage.studentId = teacher.getId().toString();
@@ -121,29 +118,18 @@ public class TeacherMessagesController {
         return "redirect:/teacher/messages";
     }
 
-    @RequestMapping(value = "/readEdit", params = {"id", "op"})
-    public String readEditMessage(Model model, @AuthenticationPrincipal UserDetails user, @RequestParam("id") String id, @RequestParam("op") String op) {
+    @RequestMapping("/message/{id}")
+    public String messageDetails(Model model, @AuthenticationPrincipal UserDetails user, @PathVariable("id") String id) {
         Teacher teacher = teacherService.findByUserName(user.getUsername());
         Message message = messageService.findById(Long.valueOf(id));
-        ActualMessage actualMessage = new ActualMessage();
-        actualMessage.description = message.getDescription();
-        actualMessage.studentId = message.getStudent().getId().toString();
-        actualMessage.teacherId = teacher.getId().toString();
-        actualMessage.title = message.getMessageTitle();
-        actualMessage.messageId = message.getId().toString();
 
-        model.addAttribute("students", studentService.findAll());
-        model.addAttribute("message", actualMessage);
+        if(!message.getTeacher().getId().equals(teacher.getId())){
+            return "redirect:/teacher/messages";
+        }
+
         model.addAttribute("user", teacher);
-
-        if (op.equals("read")) {
-            return "teacher/readMessage";
-        }
-
-        if (op.equals("edit")) {
-            return "teacher/editMessage";
-        }
-        return "redirect:/teacher/messages";
+        model.addAttribute("message", message);
+        return "teacher/messagedetails";
     }
 
     @Getter

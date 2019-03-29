@@ -59,8 +59,6 @@ public class StudentMessagesController {
             return "redirect:/student/messages";
         }
 
-
-
         model.addAttribute("message", message);
         model.addAttribute("user", student);
         return "student/messagedetails";

@@ -64,47 +64,38 @@
         <!--MAIN CONTENT-->
         <main class="col-md-9 ml-sm-auto col-lg-10 px-4" role="main">
 
-            <h1>Read/edit message</h1>
-            <h4><span>Feladó: </span><span th:text="${user.lastName} + ' ' + ${user.firstName}"></span></h4>
-
-            <form action="" th:action="@{/teacher/saveMessage}" th:object="${message}" method="post">
+            <h1>Üzenet olvasása</h1>
+            <form action="" method="post">
 
                 <div class="form-group">
-                    <label for="students" class="label label-default">Diákok:</label>
-                    <select class="custom-select" id="students" th:field="*{studentId}" required disabled="true">
-                        <option value="-1"></option>
-                        <option value="1" th:each="student : ${students}"
-                                th:text="${student.lastName}+ ' ' + ${student.firstName} + ' - ' + ${student.birthDate}"
-                                th:value="${student.id}">
-                            Tantargy
-                        </option>
-                    </select>
+                    <label for="teacher" class="label label-default">Feladó:</label>
+                    <input id="teacher" class="form-control" type="text"
+                           th:value="${message.teacher.lastName} + ' ' + ${message.teacher.firstName}" disabled="true">
                 </div>
 
                 <div class="form-group">
-                    <label for="message-title">Üzenet címe:</label>
-                    <input id="message-title" class="form-control" type="text" placeholder="Default input"
-                           th:field="*{title}" required/>
+                    <label for="student" class="label label-default">Címzett:</label>
+                    <input id="student" class="form-control" type="text"
+                           th:value="${message.student.lastName} + ' ' + ${message.student.firstName}" disabled="true">
                 </div>
 
                 <div class="form-group">
-                    <label for="exampleFormControlTextarea1">Üzenet</label>
-                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="5"
-                              th:field="*{description}" required></textarea>
+                    <label for="title" class="label label-default">Tárgy:</label>
+                    <input id="title" class="form-control" type="text" th:value="${message.messageTitle}"
+                           disabled="true"/>
                 </div>
 
                 <div class="form-group">
-                    <div class="button-container">
-                        <button class="btn btn-sm btn-primary mt-auto mb-1" type="submit">Küldés</button>
-                    </div>
+                    <label for="message" class="label label-default">Üzenet:</label>
+                    <textarea class="form-control" id="message" rows="10"
+                              th:text="${message.description}" disabled="true"></textarea>
                 </div>
-
-                <input type="hidden" id="messageId" name="custId" value="3487"  th:field="*{messageId}">
-                <input type="hidden" id="studentId" name="custId" value="3487"  th:field="*{studentId}">
-
             </form>
-        </main>
 
+
+
+
+        </main>
     </div>
 </div>
 

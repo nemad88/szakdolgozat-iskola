@@ -135,9 +135,7 @@
                         <td th:text="${#temporals.format(message.date, 'yyyy. MMMM dd. HH:mm')}"></td>
                         <td th:text="${message.messageTitle}"></td>
                         <td>
-                            <a th:href="@{${'/teacher/readEdit'}(id=${message.id}, op=${'read'})}">Olvas</a>
-                            <span> / </span>
-                            <a th:href="@{${'/teacher/readEdit'}(id=${message.id}, op=${'edit'})}">Módosít</a>
+                            <a th:href="@{${'/teacher/message/'} + ${message.id}}">Olvas</a>
                             <span> / </span>
                             <a th:href="@{${'/teacher/deletemessage'}(delete=${message.id})}">Töröl</a>
 
