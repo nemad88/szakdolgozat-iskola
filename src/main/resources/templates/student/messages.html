@@ -70,22 +70,20 @@
             <form action="" th:action="@{/student/messages}" th:object="${filter}" method="post">
 
                 <div class="form-row">
-                    <div class="form-group col-md-5">
+                    <div class="form-group col-lg-4">
                         <label for="date-start" class="label label-default">Kezdő dátum:</label>
                         <input th:value="2018-07-22" id="date-start" type="datetime-local"
                                class="form-control datetime-local"
                                th:field="*{dateStart}">
                     </div>
 
-                    <div class="form-group col-md-5">
+                    <div class="form-group col-lg-4">
                         <label for="date-end" class="label label-default">Záró dátum:</label>
                         <input value="" th:value="${filter.dateEnd}" id="date-end" type="datetime-local"
                                class="form-control datetime-local" th:field="*{dateEnd}">
                     </div>
-                </div>
 
-                <div class="form-row">
-                    <div class="form-group col-md-5">
+                    <div class="form-group col-lg-4">
                         <label for="teachers" class="label label-default">Oktató:</label>
                         <select class="custom-select" id="teachers" th:field="*{teacherId}">
                             <option value="-1"></option>
@@ -95,16 +93,12 @@
                             </option>
                         </select>
                     </div>
+                </div>
 
-                    <div class="form-group col-md-1">
-                        <div class="button-container">
-                            <button class="btn btn-sm btn-primary mt-auto mb-1" type="submit">Szűrés</button>
-                        </div>
-                    </div>
-                    <div class="form-group col-md-1">
-                        <div class="button-container">
-                            <a th:href="@{/student/messages}" class="btn btn-sm btn-danger mt-auto mb-1">Szűrők törlése</a>
-                        </div>
+                <div class="form-row">
+                    <div class="form-group col-lg-5">
+                        <button class="btn btn-md btn-primary m-auto" type="submit">Szűrés</button>
+                        <a th:href="@{/student/messages}" class="btn btn-md btn-danger m-auto">Szűrők törlése</a>
                     </div>
                 </div>
             </form>
@@ -125,7 +119,7 @@
                     <td th:text="${message.teacher.lastName} + ' ' + ${message.teacher.firstName}"></td>
                     <td th:text="${#temporals.format(message.date, 'yyyy. MMMM dd. HH:mm')}"></td>
                     <td th:text="${message.messageTitle}"></td>
-                    <td><a th:href="@{${'/student/message'}(id=${message.id})}">Olvas</a></td>
+                    <td><a th:href="@{${'/student/message/'}+${message.id}}">Olvas</a></td>
                 </tr>
                 </tbody>
             </table>

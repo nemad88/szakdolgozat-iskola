@@ -65,21 +65,22 @@
             <form action="" th:action="@{/student/marks}" th:object="${filter}" method="post">
 
                 <div class="form-row">
-                    <div class="form-group col-md-5">
+                    <div class="form-group col-md-3">
                         <label for="date-start" class="label label-default">Kezdő dátum:</label>
-                        <input th:value="2018-07-22" id="date-start" type="datetime-local" class="form-control datetime-local"
+                        <input th:value="2018-07-22" id="date-start" type="datetime-local"
+                               class="form-control datetime-local"
                                th:field="*{dateStart}">
                     </div>
 
-                    <div class="form-group col-md-5">
+                    <div class="form-group col-md-3">
                         <label for="date-end" class="label label-default">Záró dátum:</label>
                         <input value="" th:value="${filter.dateEnd}" id="date-end" type="datetime-local"
                                class="form-control datetime-local" th:field="*{dateEnd}">
                     </div>
 
-                    <div class="form-group col-md-2">
-                        <label for="teachers" class="label label-default">Érdemjegy</label>
-                        <select class="custom-select" id="erdemjegy" th:field="*{mark}">
+                    <div class="form-group col-md-1">
+                        <label for="marks" class="label label-default">Érdemjegy</label>
+                        <select class="custom-select" id="marks" th:field="*{mark}">
                             <option value="-1"></option>
                             <option value="5">Jeles</option>
                             <option value="4">Jó</option>
@@ -89,11 +90,7 @@
                         </select>
                     </div>
 
-
-                </div>
-
-                <div class="form-row">
-                    <div class="form-group col-md-5">
+                    <div class="form-group col-md-2">
                         <label for="subjects" class="label label-default">Tantárgy:</label>
                         <select class="custom-select" id="subjects" th:field="*{subjectId}">
                             <option value="-1"></option>
@@ -103,7 +100,7 @@
                         </select>
                     </div>
 
-                    <div class="form-group col-md-5">
+                    <div class="form-group col-md-3">
                         <label for="teachers" class="label label-default">Oktató:</label>
                         <select class="custom-select" id="teachers" th:field="*{teacherId}">
                             <option value="-1"></option>
@@ -114,15 +111,12 @@
                         </select>
                     </div>
 
-                    <div class="form-group col-md-1">
-                        <div class="button-container">
-                            <button class="btn btn-sm btn-primary mt-auto mb-1" type="submit">Szűrés</button>
-                        </div>
-                    </div>
-                    <div class="form-group col-md-1">
-                        <div class="button-container">
-                            <a th:href="@{/student/marks}" class="btn btn-sm btn-danger mt-auto mb-1">Szűrők törlése</a>
-                        </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group col-md-12">
+                        <button class="btn btn-md btn-primary mt-auto mb-1" type="submit">Szűrés</button>
+                        <a th:href="@{/student/marks}" class="btn btn-md btn-danger mt-auto mb-1">Szűrők törlése</a>
                     </div>
                 </div>
 

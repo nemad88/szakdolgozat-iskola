@@ -165,7 +165,7 @@
                             <td th:text="${message.teacher.lastName} + ' ' + ${message.teacher.firstName}"></td>
                             <td th:text="${#temporals.format(message.date, 'yyyy. MMMM dd. HH:mm')}"></td>
                             <td th:text="${message.messageTitle}"></td>
-                            <td><a th:href="@{${'/student/message'}(id=${message.id})}">Olvas</a></td>
+                            <td><a th:href="@{${'/student/message/'}+${message.id}}">Olvas</a></td>
                         </tr>
                         </tbody>
                     </table>

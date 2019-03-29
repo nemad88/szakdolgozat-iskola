@@ -5,17 +5,17 @@ import hu.adam.nemeth.model.Student;
 import hu.adam.nemeth.services.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
-import java.text.ParseException;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
@@ -50,24 +50,24 @@ public class StudentMessagesController {
         return "student/messages";
     }
 
-    @RequestMapping(value = "/message", params = "id")
-    public String studentMessage(Model model, @AuthenticationPrincipal UserDetails user, @RequestParam("id") String id) {
+    @RequestMapping("/message/{id}")
+    public String studentMessage(Model model, @AuthenticationPrincipal UserDetails user, @PathVariable("id") String id) {
         Message message = messageService.findById(Long.valueOf(id));
         Student student = studentService.findByUserName(user.getUsername());
 
-        if (message.getStudent().getId().equals(student.getId())) {
-            System.out.println(message.getDescription());
-        } else {
+        if (!message.getStudent().getId().equals(student.getId())) {
             return "redirect:/student/messages";
         }
 
-        model.addAttribute("user", student);
+
+
         model.addAttribute("message", message);
+        model.addAttribute("user", student);
         return "student/messagedetails";
     }
 
     @PostMapping("/messages")
-    public String filterMessage(Model model, @ModelAttribute Filter filter, @AuthenticationPrincipal UserDetails user){
+    public String filterMessage(Model model, @ModelAttribute Filter filter, @AuthenticationPrincipal UserDetails user) {
         Student student = studentService.findByUserName(user.getUsername());
         List<Message> messages = messageService.findAllByStudent(student);
 
@@ -105,6 +105,18 @@ public class StudentMessagesController {
             this.dateEnd = LocalDateTime.now().truncatedTo(ChronoUnit.MINUTES).toString();
         }
     }
+
+    @Getter
+    @Setter
+    @NoArgsConstructor
+    class ActualMessage {
+        String teacherId;
+        String studentName;
+        String title;
+        String description;
+        String messageId;
+    }
+
 
 }
 
