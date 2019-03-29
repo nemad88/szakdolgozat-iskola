@@ -61,7 +61,7 @@ public class TeacherTimetableController {
         model.addAttribute("user", teacher);
         model.addAttribute("courses", courses);
         model.addAttribute("teachers", teacherService.findAll());
-        model.addAttribute("dates", courseService.getAllCourseDayByStudentId(teacher.getId()));
+        model.addAttribute("dates", courseService.getAllCourseDayByTeacherId(teacher.getId()));
         model.addAttribute("filter", filter);
         return "teacher/timetable";
     }

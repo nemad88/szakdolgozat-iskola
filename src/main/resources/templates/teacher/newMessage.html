@@ -65,12 +65,16 @@
         <main class="col-md-9 ml-sm-auto col-lg-10 px-4" role="main">
 
             <h1>Új bejegyzés</h1>
-            <h4><span>Feladó: </span><span th:text="${user.lastName} + ' ' + ${user.firstName}"></span></h4>
 
             <form action="" th:action="@{/teacher/saveMessage}" th:object="${message}" method="post">
+                <div class="form-group">
+                    <label for="teacher" class="label label-default">Feladó:</label>
+                    <input id="teacher" class="form-control" type="text"
+                           th:value="${user.lastName} + ' ' + ${user.firstName}" disabled="true">
+                </div>
 
                 <div class="form-group">
-                    <label for="students" class="label label-default">Diák neve:</label>
+                    <label for="students" class="label label-default">Címzett:</label>
                     <select class="custom-select" id="students" th:field="*{studentId}" required>
                         <!--<option value="-1"></option>-->
                         <option value="1" th:each="student : ${students}"

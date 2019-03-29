@@ -64,27 +64,27 @@
             <!--FILTERS-->
             <form action="" th:action="@{/teacher/marks}" th:object="${filter}" method="post">
 
-                <div class="form/row">
-                    <div class="form-group">
-                        <a class="btn btn-link" th:href="@{${'/teacher/newMark'}}">Új érdemjegy hozzáadása</a>
+                <div class="form-row">
+                    <div class="form-group col-lg-12">
+                        <a class="btn btn-md btn-link" th:href="@{${'/teacher/newMark'}}">Új érdemjegy hozzáadása</a>
                     </div>
                 </div>
 
                 <div class="form-row">
-                    <div class="form-group col-md-5">
+                    <div class="form-group col-lg-3">
                         <label for="date-start" class="label label-default">Kezdő dátum:</label>
                         <input th:value="2018-07-22" id="date-start" type="datetime-local"
                                class="form-control datetime-local"
                                th:field="*{dateStart}">
                     </div>
 
-                    <div class="form-group col-md-5">
+                    <div class="form-group col-lg-3">
                         <label for="date-end" class="label label-default">Záró dátum:</label>
                         <input value="" th:value="${filter.dateEnd}" id="date-end" type="datetime-local"
                                class="form-control datetime-local" th:field="*{dateEnd}">
                     </div>
 
-                    <div class="form-group col-md-2">
+                    <div class="form-group col-lg-1">
                         <label for="teachers" class="label label-default">Érdemjegy</label>
                         <select class="custom-select" id="erdemjegy" th:field="*{mark}">
                             <option value="-1"></option>
@@ -95,12 +95,7 @@
                             <option value="1">Elégtelen</option>
                         </select>
                     </div>
-
-
-                </div>
-
-                <div class="form-row">
-                    <div class="form-group col-md-5">
+                    <div class="form-group col-lg-2">
                         <label for="subjects" class="label label-default">Tantárgy:</label>
                         <select class="custom-select" id="subjects" th:field="*{subjectId}">
                             <option value="-1"></option>
@@ -109,8 +104,7 @@
                             </option>
                         </select>
                     </div>
-
-                    <div class="form-group col-md-5">
+                    <div class="form-group col-lg-3">
                         <label for="teachers" class="label label-default">Diák neve:</label>
                         <select class="custom-select" id="teachers" th:field="*{studentId}">
                             <option value="-1"></option>
@@ -120,25 +114,20 @@
                             </option>
                         </select>
                     </div>
-
-                    <div class="form-group col-md-1">
-                        <div class="button-container">
-                            <button class="btn btn-sm btn-primary mt-auto mb-1" type="submit">Szűrés</button>
-                        </div>
-                    </div>
-                    <div class="form-group col-md-1">
-                        <div class="button-container">
-                            <a th:href="@{/teacher/marks}" class="btn btn-sm btn-danger mt-auto mb-1">Szűrők törlése</a>
-                        </div>
-                    </div>
                 </div>
 
 
+                <div class="form-row">
+                    <div class="form-group col-lg-12">
+                        <button class="btn btn-md btn-primary" type="submit">Szűrés</button>
+                        <a th:href="@{/teacher/marks}" class="btn btn-md btn-danger">Szűrők törlése</a>
+                    </div>
+                </div>
+
             </form>
+            <!--END FILTERS-->
 
             <!--TABLE-->
-
-
             <table class="table table-striped mt-3">
                 <thead>
                 <tr>
@@ -146,7 +135,7 @@
                     <th scope="col">Bejegyzés időpontja</th>
                     <th scope="col">Tantárgy</th>
                     <th scope="col">Érdemjegy</th>
-                    <th scope="col">Töröl</th>
+                    <th scope="col"></th>
                 </tr>
                 </thead>
                 <tbody>
@@ -160,6 +149,7 @@
                 </tr>
                 </tbody>
             </table>
+            <!--END TABLE-->
 
         </main>
 

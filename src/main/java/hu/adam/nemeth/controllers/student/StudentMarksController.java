@@ -53,9 +53,6 @@ public class StudentMarksController {
         Student student = studentService.findByUserName(user.getUsername());
         List<Mark> marks = markService.findAllByStudent(student);
 
-        System.out.println(filter.getDateStart());
-
-
         if (!filter.getDateStart().equals("")) {
             LocalDateTime start = LocalDateTime.parse(filter.getDateStart());
             marks = markService.filterByStartDate(marks, start);

@@ -117,7 +117,6 @@ public class TeacherMarksController {
         model.addAttribute("students", studentService.findAll());
         model.addAttribute("subjects", subjectService.findAll());
         model.addAttribute("filter", filter);
-
         return "teacher/marks";
     }
 

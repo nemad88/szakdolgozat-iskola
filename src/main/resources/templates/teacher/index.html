@@ -16,8 +16,6 @@
     <link href="css/dashboard.css" rel="stylesheet" th:href="@{/css/dashboard.css}">
 
 </head>
-
-
 <body>
 
 <!--NAVBAR-->
@@ -30,7 +28,6 @@
         </li>
     </ul>
 </nav>
-
 
 <div class="container-fluid">
     <div class="row">
@@ -72,7 +69,7 @@
                     <table class="table table-striped mt-3">
                         <thead>
                         <tr>
-                            <th colspan="5">Elmúlt órák</th>
+                            <th colspan="5">Elmúlt órák:</th>
                         </tr>
                         <tr>
                             <th scope="col">Tantárgy</th>
@@ -98,7 +95,7 @@
                     <table class="table table-striped mt-3">
                         <thead>
                         <tr>
-                            <th colspan="5">Következő órák</th>
+                            <th colspan="5">Következő órák:</th>
                         </tr>
                         <tr>
                             <th scope="col">Tantárgy</th>
@@ -126,7 +123,7 @@
                     <table class="table table-striped mt-3">
                         <thead>
                         <tr>
-                            <th colspan="4">Utolsó 5 érdemjegy</th>
+                            <th colspan="4">Utolsó 5 érdemjegy:</th>
                         </tr>
                         <tr>
                             <th scope="col">Diák neve</th>
@@ -149,13 +146,13 @@
                     <table class="table table-striped mt-3">
                         <thead>
                         <tr>
-                            <th colspan="4">Utolsó 5 bejegyzés</th>
+                            <th colspan="4">Utolsó 5 bejegyzés:</th>
                         </tr>
                         <tr>
                             <th scope="col">Diák neve</th>
                             <th scope="col">Bejegyzés időpontja</th>
                             <th scope="col">Üzenet</th>
-                            <th scope="col">#</th>
+                            <th scope="col"></th>
                         </tr>
                         </thead>
                         <tbody>
@@ -163,7 +160,7 @@
                             <td th:text="${message.student.lastName} + ' ' + ${message.student.firstName}"></td>
                             <td th:text="${#temporals.format(message.date, 'yyyy. MMMM dd. HH:mm')}"></td>
                             <td th:text="${message.messageTitle}"></td>
-                            <td><a th:href="@{${'/teacher/readEdit'}(id=${message.id}, op=${'read'})}">Olvas</a></td>
+                            <td><a th:href="@{${'/teacher/message/'}+${message.id}}">Olvas</a></td>
                         </tr>
                         </tbody>
                     </table>
