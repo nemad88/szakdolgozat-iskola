@@ -1,6 +1,5 @@
 package hu.adam.nemeth.services.implementation.jpa;
 
-import hu.adam.nemeth.model.Message;
 import hu.adam.nemeth.model.Teacher;
 import hu.adam.nemeth.repositories.TeacherRepository;
 import hu.adam.nemeth.services.TeacherService;

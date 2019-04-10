@@ -75,6 +75,7 @@ public class StudentTimetableController {
     class Filter {
         private String day;
         private String teacherId;
+
         public Filter() {
             this.day = "-1";
         }

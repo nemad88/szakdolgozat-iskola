@@ -68,31 +68,29 @@
             <form action="" method="post">
 
                 <div class="form-group">
-                    <label for="teacher" class="label label-default">Feladó:</label>
-                    <input id="teacher" class="form-control" type="text"
-                           th:value="${message.teacher.lastName} + ' ' + ${message.teacher.firstName}" disabled="true">
+                    <label class="label label-default" for="teacher">Feladó:</label>
+                    <input class="form-control" disabled="true" id="teacher"
+                           th:value="${message.teacher.lastName} + ' ' + ${message.teacher.firstName}" type="text">
                 </div>
 
                 <div class="form-group">
-                    <label for="student" class="label label-default">Címzett:</label>
-                    <input id="student" class="form-control" type="text"
-                           th:value="${message.student.lastName} + ' ' + ${message.student.firstName}" disabled="true">
+                    <label class="label label-default" for="student">Címzett:</label>
+                    <input class="form-control" disabled="true" id="student"
+                           th:value="${message.student.lastName} + ' ' + ${message.student.firstName}" type="text">
                 </div>
 
                 <div class="form-group">
-                    <label for="title" class="label label-default">Tárgy:</label>
-                    <input id="title" class="form-control" type="text" th:value="${message.messageTitle}"
-                           disabled="true"/>
+                    <label class="label label-default" for="title">Tárgy:</label>
+                    <input class="form-control" disabled="true" id="title" th:value="${message.messageTitle}"
+                           type="text"/>
                 </div>
 
                 <div class="form-group">
-                    <label for="message" class="label label-default">Üzenet:</label>
-                    <textarea class="form-control" id="message" rows="10"
-                              th:text="${message.description}" disabled="true"></textarea>
+                    <label class="label label-default" for="message">Üzenet:</label>
+                    <textarea class="form-control" disabled="true" id="message"
+                              rows="10" th:text="${message.description}"></textarea>
                 </div>
             </form>
-
-
 
 
         </main>

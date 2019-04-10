@@ -123,7 +123,7 @@ public class TeacherMessagesController {
         Teacher teacher = teacherService.findByUserName(user.getUsername());
         Message message = messageService.findById(Long.valueOf(id));
 
-        if(!message.getTeacher().getId().equals(teacher.getId())){
+        if (!message.getTeacher().getId().equals(teacher.getId())) {
             return "redirect:/teacher/messages";
         }
 

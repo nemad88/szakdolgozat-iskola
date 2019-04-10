@@ -70,7 +70,7 @@
             <h1>Bejegyzések</h1>
 
             <!--FILTERS-->
-            <form action="" th:action="@{/teacher/messages}" th:object="${filter}" method="post">
+            <form action="" method="post" th:action="@{/teacher/messages}" th:object="${filter}">
 
                 <div class="form-row">
                     <div class="form-group col-lg-12">
@@ -80,24 +80,24 @@
 
                 <div class="form-row">
                     <div class="form-group col-lg-4">
-                        <label for="date-start" class="label label-default">Kezdő dátum:</label>
-                        <input th:value="2018-07-22" id="date-start" type="datetime-local"
-                               class="form-control datetime-local"
-                               th:field="*{dateStart}">
+                        <label class="label label-default" for="date-start">Kezdő dátum:</label>
+                        <input class="form-control datetime-local" id="date-start" th:field="*{dateStart}"
+                               th:value="2018-07-22"
+                               type="datetime-local">
                     </div>
 
                     <div class="form-group col-lg-4">
-                        <label for="date-end" class="label label-default">Záró dátum:</label>
-                        <input value="" th:value="${filter.dateEnd}" id="date-end" type="datetime-local"
-                               class="form-control datetime-local" th:field="*{dateEnd}">
+                        <label class="label label-default" for="date-end">Záró dátum:</label>
+                        <input class="form-control datetime-local" id="date-end" th:field="*{dateEnd}" th:value="${filter.dateEnd}"
+                               type="datetime-local" value="">
                     </div>
 
                     <div class="form-group col-lg-4">
-                        <label for="students" class="label label-default">Diák neve:</label>
+                        <label class="label label-default" for="students">Diák neve:</label>
                         <select class="custom-select" id="students" th:field="*{studentId}">
                             <option value="-1"></option>
-                            <option value="1" th:each="student : ${students}"
-                                    th:text="${student.lastName}+ ' ' + ${student.firstName}" th:value="${student.id}">
+                            <option th:each="student : ${students}" th:text="${student.lastName}+ ' ' + ${student.firstName}"
+                                    th:value="${student.id}" value="1">
                                 Tantargy
                             </option>
                         </select>
@@ -107,7 +107,7 @@
                 <div class="form-row">
                     <div class="form-group col-lg-12">
                         <button class="btn btn-md btn-primary" type="submit">Szűrés</button>
-                        <a th:href="@{/teacher/messages}" class="btn btn-md btn-danger">Szűrők
+                        <a class="btn btn-md btn-danger" th:href="@{/teacher/messages}">Szűrők
                             törlése</a>
                     </div>
                 </div>

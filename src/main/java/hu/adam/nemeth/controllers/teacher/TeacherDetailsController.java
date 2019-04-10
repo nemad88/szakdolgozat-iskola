@@ -1,6 +1,5 @@
 package hu.adam.nemeth.controllers.teacher;
 
-import hu.adam.nemeth.model.Student;
 import hu.adam.nemeth.model.Teacher;
 import hu.adam.nemeth.services.*;
 import lombok.AllArgsConstructor;
@@ -23,7 +22,7 @@ public class TeacherDetailsController {
 
     @RequestMapping({"/details", "/details.html"})
     public String details(Model model, @AuthenticationPrincipal UserDetails user) {
-        Teacher teacher= teacherService.findByUserName(user.getUsername());
+        Teacher teacher = teacherService.findByUserName(user.getUsername());
         model.addAttribute("user", teacher);
         return "teacher/details";
     }

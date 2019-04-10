@@ -35,17 +35,16 @@ public class StudentIndexController {
 
         List<Course> courses = student.getCourses().stream().sorted(Comparator.comparing(Course::getStartTime).reversed()).collect(Collectors.toList());
         List<Message> messages = messageService.findAllByStudent(student);
-        List<Course>beforeCourses = courseService.filterCourseBeforeNow(courses);
-        List<Course>afterCourses = courseService.filterCourseAfterNow(courses);
+        List<Course> beforeCourses = courseService.filterCourseBeforeNow(courses);
+        List<Course> afterCourses = courseService.filterCourseAfterNow(courses);
 
 
-
-        if(beforeCourses.size() > 5){
-            beforeCourses = beforeCourses.subList(0,5);
+        if (beforeCourses.size() > 5) {
+            beforeCourses = beforeCourses.subList(0, 5);
         }
 
-        if(afterCourses.size() > 5){
-            afterCourses = afterCourses.subList(0,5);
+        if (afterCourses.size() > 5) {
+            afterCourses = afterCourses.subList(0, 5);
         }
 
         if (marks.size() > 5) {
@@ -66,8 +65,6 @@ public class StudentIndexController {
         model.addAttribute("user", student);
         return "student/index";
     }
-
-
 }
 
 

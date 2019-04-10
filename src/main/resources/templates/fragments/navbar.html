@@ -38,6 +38,7 @@
         }
 
 
+
     </style>
     <!-- Custom styles for this template -->
     <link href="css/dashboard.css" rel="stylesheet">
@@ -46,8 +47,8 @@
 
 <body>
 
-<nav class="navbar navbar-dark fixed-top flex-md-nowrap p-0 shadow" th:fragment="navbar"
-     th:classappend="${user.role.equals('ROLE_STUDENT')} ? 'bg-success' : 'bg-danger'">
+<nav class="navbar navbar-dark fixed-top flex-md-nowrap p-0 shadow" th:classappend="${user.role.equals('ROLE_STUDENT')} ? 'bg-success' : 'bg-danger'"
+     th:fragment="navbar">
 
     <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#">
         Szia, <span th:text="${user.firstName}">Anonymous</span>!</a>

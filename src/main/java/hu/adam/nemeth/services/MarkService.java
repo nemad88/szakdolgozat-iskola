@@ -28,5 +28,4 @@ public interface MarkService extends CrudService<Mark, Long> {
     List<Mark> filterByMark(List<Mark> marks, String markValue);
 
 
-
 }

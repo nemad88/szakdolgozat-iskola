@@ -1,6 +1,5 @@
 package hu.adam.nemeth.services.implementation.jpa;
 
-import hu.adam.nemeth.model.Mark;
 import hu.adam.nemeth.model.Message;
 import hu.adam.nemeth.model.Student;
 import hu.adam.nemeth.model.Teacher;
@@ -85,7 +84,7 @@ public class MessageServiceImpl implements MessageService {
     }
 
     @Override
-    public List<Message> filterByStudentId(List<Message> messages, Long studentId){
+    public List<Message> filterByStudentId(List<Message> messages, Long studentId) {
         List<Message> filteredMessages = messages.stream()
                 .filter(message -> message.getStudent().getId().equals(studentId))
                 .collect(Collectors.toList());

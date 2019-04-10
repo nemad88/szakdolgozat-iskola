@@ -101,7 +101,7 @@ public class CourseServiceImpl implements CourseService {
                 .collect(Collectors.toList());
     }
 
-    public List<Course> filterCourseBeforeNow(List<Course> courses){
+    public List<Course> filterCourseBeforeNow(List<Course> courses) {
         return courses.stream()
                 .filter(course -> course.getStartTime().isBefore(LocalDateTime.now()))
                 .collect(Collectors.toList());

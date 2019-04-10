@@ -1,7 +1,6 @@
 package hu.adam.nemeth.controllers.teacher;
 
 import hu.adam.nemeth.model.Mark;
-import hu.adam.nemeth.model.Message;
 import hu.adam.nemeth.model.Student;
 import hu.adam.nemeth.model.Teacher;
 import hu.adam.nemeth.services.*;
@@ -65,7 +64,7 @@ public class TeacherMarksController {
         Teacher teacher = teacherService.findByUserName(user.getUsername());
         Student student = studentService.findById(Long.valueOf(actualMark.studentId));
 
-        if (student == null){
+        if (student == null) {
             model.addAttribute("user", teacher);
             model.addAttribute("students", studentService.findAll());
             model.addAttribute("subjects", subjectService.findAll());

@@ -55,14 +55,14 @@
         <main class="col-md-9 ml-sm-auto col-lg-10 px-4" role="main">
 
             <h1>Órarend</h1>
-            <form action="" th:action="@{/student/timetable}" th:object="${filter}" method="post">
+            <form action="" method="post" th:action="@{/student/timetable}" th:object="${filter}">
                 <div class="form-row">
                     <div class="form-group col-lg-2">
-                        <label for="dates" class="label label-default">Dátum:</label>
+                        <label class="label label-default" for="dates">Dátum:</label>
                         <select class="custom-select" id="dates" th:field="*{day}">
                             <option value="-1">Minden kurzus</option>
-                            <option value="1" th:each="date : ${dates}"
-                                    th:text="${#temporals.format(date, 'yyyy. MMMM dd.')}" th:value="${date}">
+                            <option th:each="date : ${dates}" th:text="${#temporals.format(date, 'yyyy. MMMM dd.')}"
+                                    th:value="${date}" value="1">
                                 Tantargy
                             </option>
                         </select>
@@ -70,11 +70,11 @@
 
 
                     <div class="form-group col-lg-2">
-                        <label for="teachers" class="label label-default">Tanár:</label>
+                        <label class="label label-default" for="teachers">Tanár:</label>
                         <select class="custom-select" id="teachers" th:field="*{teacherId}">
                             <option value="-1">Minden tanár</option>
-                            <option value="1" th:each="teacher : ${teachers}"
-                                    th:text="${teacher.lastName} + ' ' + ${teacher.firstName}" th:value="${teacher.id}">
+                            <option th:each="teacher : ${teachers}" th:text="${teacher.lastName} + ' ' + ${teacher.firstName}"
+                                    th:value="${teacher.id}" value="1">
                                 Tantargy
                             </option>
                         </select>
@@ -85,8 +85,8 @@
                 <div class="form-row">
                     <div class="form-group col-lg-12">
                         <button class="btn btn-md btn-primary mt-auto mb-1" type="submit">Szűrés</button>
-                        <a th:href="@{${'/student/timetable'}(show=${'all'})}"
-                           class="btn btn-md btn-danger mt-auto mb-1">Szűrők
+                        <a class="btn btn-md btn-danger mt-auto mb-1"
+                           th:href="@{${'/student/timetable'}(show=${'all'})}">Szűrők
                             törlése</a>
                     </div>
                 </div>
