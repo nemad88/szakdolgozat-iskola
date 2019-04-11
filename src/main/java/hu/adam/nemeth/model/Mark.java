@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
+
 @Entity
 @Table(name = "marks")
 public class Mark extends BaseEntity {

@@ -12,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -36,6 +37,7 @@ public class TeacherIndexController {
         List<Message> messages = messageService.findAllByTeacher(teacher);
         List<Course> beforeCourses = courseService.filterCourseBeforeNow(courses);
         List<Course> afterCourses = courseService.filterCourseAfterNow(courses);
+        Collections.reverse(afterCourses);
 
 
         if (beforeCourses.size() > 5) {
