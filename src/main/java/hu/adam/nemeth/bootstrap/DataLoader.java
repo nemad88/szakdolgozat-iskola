@@ -188,7 +188,7 @@ public class DataLoader implements CommandLineRunner {
                 message.setDescription(lorem.getWords(50, 150));
                 message.setStudent(students.get(i));
                 message.setTeacher(teachers.get(getRandomNumberInRange(0, teachers.size() - 1)));
-                LocalDateTime date = LocalDateTime.of(STARTS_OF_SCHOOL_YEAR, LocalTime.MIN).plusMinutes(getRandomNumberInRange(0, 10 * 30 * 24 * 60));
+                LocalDateTime date = LocalDateTime.of(getRandomDateInRange(STARTS_OF_SCHOOL_YEAR, LocalDate.now()), LocalTime.of(0, 0).plusMinutes(getRandomNumberInRange(0, 24 * 60)));
                 message.setDate(date);
                 messages.add(message);
                 messageService.save(message);
