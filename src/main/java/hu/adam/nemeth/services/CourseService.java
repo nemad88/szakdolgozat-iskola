@@ -8,7 +8,6 @@ import java.util.List;
 
 public interface CourseService extends CrudService<Course, Long> {
 
-
     List<LocalDate> getAllCourseDayByStudentId(Long id);
 
     List<LocalDate> getAllCourseDayByTeacherId(Long id);

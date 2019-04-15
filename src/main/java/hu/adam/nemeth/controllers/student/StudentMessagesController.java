@@ -114,8 +114,6 @@ public class StudentMessagesController {
         String description;
         String messageId;
     }
-
-
 }
 
 

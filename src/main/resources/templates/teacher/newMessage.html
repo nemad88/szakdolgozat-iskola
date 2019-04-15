@@ -77,7 +77,8 @@
                     <label class="label label-default" for="students">Címzett:</label>
                     <select class="custom-select" id="students" required th:field="*{studentId}">
                         <!--<option value="-1"></option>-->
-                        <option th:each="student : ${students}" th:text="${student.lastName}+ ' ' + ${student.firstName} + ' - ' + ${student.birthDate}"
+                        <option th:each="student : ${students}"
+                                th:text="${student.lastName}+ ' ' + ${student.firstName} + ' - ' + ${student.birthDate}"
                                 th:value="${student.id}"
                                 value="1">
                             Tantargy

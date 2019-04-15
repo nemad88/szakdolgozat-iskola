@@ -49,7 +49,7 @@ public class StudentMarksController {
     }
 
     @PostMapping("/marks")
-    public String greetingSubmit(Model model, @ModelAttribute Filter filter, @AuthenticationPrincipal UserDetails user) throws ParseException {
+    public String filterMarks(Model model, @ModelAttribute Filter filter, @AuthenticationPrincipal UserDetails user) throws ParseException {
         Student student = studentService.findByUserName(user.getUsername());
         List<Mark> marks = markService.findAllByStudent(student);
 

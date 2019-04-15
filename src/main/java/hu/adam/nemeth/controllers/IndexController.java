@@ -20,7 +20,7 @@ public class IndexController {
     MarkService markService;
 
     @RequestMapping({"", "/", "/index"})
-    public String student(Model model, @AuthenticationPrincipal UserDetails user) {
+    public String index(Model model, @AuthenticationPrincipal UserDetails user) {
         Person person = studentService.findByUserName(user.getUsername());
 
         if (person != null) {

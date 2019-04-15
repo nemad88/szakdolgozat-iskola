@@ -76,7 +76,8 @@
 
                     <div class="form-group col-lg-4">
                         <label class="label label-default" for="date-end">Záró dátum:</label>
-                        <input class="form-control datetime-local" id="date-end" th:field="*{dateEnd}" th:value="${filter.dateEnd}"
+                        <input class="form-control datetime-local" id="date-end" th:field="*{dateEnd}"
+                               th:value="${filter.dateEnd}"
                                type="datetime-local" value="">
                     </div>
 
@@ -84,7 +85,8 @@
                         <label class="label label-default" for="teachers">Oktató:</label>
                         <select class="custom-select" id="teachers" th:field="*{teacherId}">
                             <option value="-1">Minden oktató</option>
-                            <option th:each="teacher : ${teachers}" th:text="${teacher.lastName}+ ' ' + ${teacher.firstName}"
+                            <option th:each="teacher : ${teachers}"
+                                    th:text="${teacher.lastName}+ ' ' + ${teacher.firstName}"
                                     th:value="${teacher.id}" value="1">
                                 Tantargy
                             </option>

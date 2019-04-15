@@ -6,9 +6,6 @@
 <head th:replace="fragments/head :: head">
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
-    <meta content="" name="description">
-    <meta content="Mark Otto, Jacob Thornton, and Bootstrap contributors" name="author">
-    <meta content="Jekyll v3.8.5" name="generator">
     <title>Head Title</title>
 
     <!--Bootstrap style-->
@@ -88,7 +85,8 @@
 
                     <div class="form-group col-lg-4">
                         <label class="label label-default" for="date-end">Záró dátum:</label>
-                        <input class="form-control datetime-local" id="date-end" th:field="*{dateEnd}" th:value="${filter.dateEnd}"
+                        <input class="form-control datetime-local" id="date-end" th:field="*{dateEnd}"
+                               th:value="${filter.dateEnd}"
                                type="datetime-local" value="">
                     </div>
 
@@ -96,7 +94,8 @@
                         <label class="label label-default" for="students">Diák neve:</label>
                         <select class="custom-select" id="students" th:field="*{studentId}">
                             <option value="-1"></option>
-                            <option th:each="student : ${students}" th:text="${student.lastName}+ ' ' + ${student.firstName}"
+                            <option th:each="student : ${students}"
+                                    th:text="${student.lastName}+ ' ' + ${student.firstName}"
                                     th:value="${student.id}" value="1">
                                 Tantargy
                             </option>

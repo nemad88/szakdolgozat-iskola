@@ -60,7 +60,7 @@ public class TeacherMarksController {
     }
 
     @PostMapping("/saveMark")
-    public String savaMark(Model model, @ModelAttribute ActualMark actualMark, @AuthenticationPrincipal UserDetails user) throws ParseException {
+    public String saveMark(Model model, @ModelAttribute ActualMark actualMark, @AuthenticationPrincipal UserDetails user) throws ParseException {
         Teacher teacher = teacherService.findByUserName(user.getUsername());
         Student student = studentService.findById(Long.valueOf(actualMark.studentId));
 

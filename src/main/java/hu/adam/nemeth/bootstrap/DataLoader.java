@@ -23,6 +23,12 @@ import java.util.concurrent.ThreadLocalRandom;
 @Component
 public class DataLoader implements CommandLineRunner {
 
+    private static final int NUMBER_OF_TEACHERS = 10;
+    private static final int NUMBER_OF_STUDENTS = 100;
+    private static final int START_TIME_HOUR_OF_DAY = 8;
+    private static final int TIME_ZONES_NUMBER_OF_DAY = 7;
+    private static final int NUMBER_OF_STUDENT_MESSAGE = 30;
+    private static final int NUMBER_OF_STUDENT_MARKS = 150;
     private final SubjectService subjectService;
     private final MessageService messageService;
     private final StudentService studentService;
@@ -36,14 +42,7 @@ public class DataLoader implements CommandLineRunner {
     private List<Course> courses = new ArrayList<>();
     private List<Message> messages = new ArrayList<>();
     private ResourceLoader resourceLoader;
-
-    private static final int NUMBER_OF_TEACHERS = 10;
-    private static final int NUMBER_OF_STUDENTS = 100;
-    private static final int START_TIME_HOUR_OF_DAY = 8;
-    private static final int TIME_ZONES_NUMBER_OF_DAY = 7;
     private LocalDate STARTS_OF_SCHOOL_YEAR = LocalDate.now();
-    private static final int NUMBER_OF_STUDENT_MESSAGE = 30;
-    private static final int NUMBER_OF_STUDENT_MARKS = 150;
 
 
     public DataLoader(SubjectService subjectService, MessageService messageService, StudentService studentService, TeacherService teacherService, MarkService markService, CourseService courseService, List<Student> students, List<Teacher> teachers, List<Subject> subjects, List<Mark> marks, List<Course> courses, List<Message> messages, ResourceLoader resourceLoader) {
@@ -84,7 +83,6 @@ public class DataLoader implements CommandLineRunner {
     public LocalDate getRandomDateInRange(LocalDate start, LocalDate end) {
         long randomDay = ThreadLocalRandom.current().nextLong(start.toEpochDay(), end.toEpochDay());
         return LocalDate.ofEpochDay(randomDay);
-//        LocalDateTime date = LocalDateTime.of(LocalDate.ofEpochDay(randomDay), LocalTime.of(0, 0).plusMinutes(getRandomNumberInRange(0, 24 * 60)));
     }
 
     public String randomName(String[] listOfNames) {

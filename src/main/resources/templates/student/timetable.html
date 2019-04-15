@@ -73,7 +73,8 @@
                         <label class="label label-default" for="teachers">Tanár:</label>
                         <select class="custom-select" id="teachers" th:field="*{teacherId}">
                             <option value="-1">Minden tanár</option>
-                            <option th:each="teacher : ${teachers}" th:text="${teacher.lastName} + ' ' + ${teacher.firstName}"
+                            <option th:each="teacher : ${teachers}"
+                                    th:text="${teacher.lastName} + ' ' + ${teacher.firstName}"
                                     th:value="${teacher.id}" value="1">
                                 Tantargy
                             </option>
